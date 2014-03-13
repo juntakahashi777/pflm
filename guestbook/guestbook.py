@@ -33,16 +33,27 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
 </html>
 """
 
-DEFAULT_GUESTBOOK_NAME = 'passes'
+DEFAULT_UPPERCLASSMAN_NAME = 'upperclass'
+DEFAULT_UNDERCLASSMAN_NAME = 'underclass'
 
 
 # We set a parent key on the 'Greetings' to ensure that they are all in the same
 # entity group. Queries across the single entity group will be consistent.
 # However, the write rate should be limited to ~1/second.
 
-def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
-    """Constructs a Datastore key for a Guestbook entity with guestbook_name."""
-    return ndb.Key('Guestbook', guestbook_name)
+def underclassman_key(class_group=DEFAULT_UNDERCLASSMAN_NAME):
+    """Constructs a Datastore key for the Group entity with key class_group."""
+    return ndb.Key('GROUP', class_group)
+
+def upperclassman_key(class_group=DEFAULT_UPPERCLASSMAN_NAME):
+    """Constructs a Datastore key for the Group entity with key class_group."""
+    return ndb.Key('GROUP', class_group)
+
+
+class Person(ndb.Model):
+    """Models a request submision"""
+    requester = ndb.StringProperty(indexed=False)
+    netid = ndb.StringProperty(indexed=False)
 
 
 class Greeting(ndb.Model):
@@ -55,22 +66,10 @@ class Greeting(ndb.Model):
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-        guestbook_name = self.request.get('guestbook_name',
-                                          DEFAULT_GUESTBOOK_NAME)
-        greetings_query = Greeting.query(
-            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-        greetings = greetings_query.fetch(10)
-
-        if users.get_current_user():
-            url = users.create_logout_url(self.request.uri)
-            url_linktext = 'Logout'
-        else:
-            url = users.create_login_url(self.request.uri)
-            url_linktext = 'Login'
 
         template_values = {
             'greetings': greetings,
-            'guestbook_name': urllib.quote_plus(guestbook_name),
+            'guestbook_name': urllib.quote_plus(class_group),
             'url': url,
             'url_linktext': url_linktext,
         }
@@ -98,6 +97,7 @@ class Guestbook(webapp2.RequestHandler):
 
         query_params = {'guestbook_name': guestbook_name}
         self.redirect('/?' + urllib.urlencode(query_params))
+
 
 
 application = webapp2.WSGIApplication([
