@@ -17,7 +17,6 @@ def
 class User(ndb.Model):
     """Models an individual user with username, netid, etc."""
     userType = ndb.BooleanProperty()
-    username = ndb.StringProperty()
     netid = ndb.StringProperty()
     details = ndb.StringProperty()
     requests = ndb.StructuredProperty(repeated=True)

@@ -61,6 +61,14 @@ class MainPage(webapp2.RequestHandler):
             ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
         greetings = greetings_query.fetch(10)
 
+        for greeting in greetings:
+            if greeting.author:
+                self.response.write(
+                        '<b>%s</b> wrote:' % greeting.author.nickname())
+            else:
+                self.response.write('An anonymous person wrote:')
+            self.response.write('<blockquote>%s</blockquote>' %
+                                cgi.escape(greeting.content))
 
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
@@ -76,7 +84,28 @@ class MainPage(webapp2.RequestHandler):
                              url, url_linktext))
 
 
+class Guestbook(webapp2.RequestHandler):
+
+    def post(self):
+        # We set the same parent key on the 'Greeting' to ensure each Greeting
+        # is in the same entity group. Queries across the single entity group
+        # will be consistent. However, the write rate to a single entity group
+        # should be limited to ~1/second.
+        guestbook_name = self.request.get('guestbook_name',
+                                          DEFAULT_GUESTBOOK_NAME)
+        greeting = Greeting(parent=guestbook_key(guestbook_name))
+
+        if users.get_current_user():
+            greeting.author = users.get_current_user()
+
+        greeting.content = self.request.get('content')
+        greeting.put()
+
+        query_params = {'guestbook_name': guestbook_name}
+        self.redirect('/?' + urllib.urlencode(query_params))
+
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
+    ('/sign', Guestbook),
 ], debug=True)
