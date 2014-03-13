@@ -43,6 +43,11 @@ class Greeting(ndb.Model):
     author = ndb.UserProperty()
     content = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
+## adding these fields
+    userType = ndb.BooleanProperty()
+    username = ndb.StringProperty()
+    netid = ndb.StringProperty()
+    details = ndb.StringProperty()
 
 
 class MainPage(webapp2.RequestHandler):
@@ -69,7 +74,9 @@ class MainPage(webapp2.RequestHandler):
                 self.response.write('An anonymous person wrote:')
             self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(greeting.content))
-
+            ##
+            self.response.write('<b>%s</b> wrote:' % greeting.netid)
+            #self.response.write('FUCK')
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
             url_linktext = 'Logout'
@@ -97,6 +104,14 @@ class Guestbook(webapp2.RequestHandler):
 
         if users.get_current_user():
             greeting.author = users.get_current_user()
+
+        ## adding code here
+
+       # greeting.userType = True
+        #greeting.username = "TEMPTEMPTEMP"
+        greeting.netid = "JTAKAHAS"
+        #greeting.details = "I WANTS PASSES"
+        ## added
 
         greeting.content = self.request.get('content')
         greeting.put()
