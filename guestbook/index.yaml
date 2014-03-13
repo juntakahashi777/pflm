@@ -1,5 +1,5 @@
 indexes:
-- kind: Greeting
+- kind: User
   ancestor: yes
   properties:
   - name: date
