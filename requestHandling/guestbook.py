@@ -1,17 +1,10 @@
-import os
+import cgi
 import urllib
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
-import jinja2
 import webapp2
-
-
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
 
 
 MAIN_PAGE_FOOTER_TEMPLATE = """\
@@ -33,27 +26,16 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
 </html>
 """
 
-DEFAULT_UPPERCLASSMAN_NAME = 'upperclass'
-DEFAULT_UNDERCLASSMAN_NAME = 'underclass'
+DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
 
 
 # We set a parent key on the 'Greetings' to ensure that they are all in the same
 # entity group. Queries across the single entity group will be consistent.
 # However, the write rate should be limited to ~1/second.
 
-def underclassman_key(class_group=DEFAULT_UNDERCLASSMAN_NAME):
-    """Constructs a Datastore key for the Group entity with key class_group."""
-    return ndb.Key('GROUP', class_group)
-
-def upperclassman_key(class_group=DEFAULT_UPPERCLASSMAN_NAME):
-    """Constructs a Datastore key for the Group entity with key class_group."""
-    return ndb.Key('GROUP', class_group)
-
-
-class Person(ndb.Model):
-    """Models a request submision"""
-    requester = ndb.StringProperty(indexed=False)
-    netid = ndb.StringProperty(indexed=False)
+def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
+    """Constructs a Datastore key for a Guestbook entity with guestbook_name."""
+    return ndb.Key('Guestbook', guestbook_name)
 
 
 class Greeting(ndb.Model):
@@ -66,41 +48,35 @@ class Greeting(ndb.Model):
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-
-        template_values = {
-            'greetings': greetings,
-            'guestbook_name': urllib.quote_plus(class_group),
-            'url': url,
-            'url_linktext': url_linktext,
-        }
-
-        template = JINJA_ENVIRONMENT.get_template('index.html')
-        self.response.write(template.render(template_values))
-
-
-class Guestbook(webapp2.RequestHandler):
-
-    def post(self):
-        # We set the same parent key on the 'Greeting' to ensure each Greeting
-        # is in the same entity group. Queries across the single entity group
-        # will be consistent. However, the write rate to a single entity group
-        # should be limited to ~1/second.
+        self.response.write('<html><body>')
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
-        greeting = Greeting(parent=guestbook_key(guestbook_name))
+
+        # Ancestor Queries, as shown here, are strongly consistent with the High
+        # Replication Datastore. Queries that span entity groups are eventually
+        # consistent. If we omitted the ancestor from this query there would be
+        # a slight chance that Greeting that had just been written would not
+        # show up in a query.
+        greetings_query = Greeting.query(
+            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+        greetings = greetings_query.fetch(10)
+
 
         if users.get_current_user():
-            greeting.author = users.get_current_user()
+            url = users.create_logout_url(self.request.uri)
+            url_linktext = 'Logout'
+        else:
+            url = users.create_login_url(self.request.uri)
+            url_linktext = 'Login'
 
-        greeting.content = self.request.get('content')
-        greeting.put()
-
-        query_params = {'guestbook_name': guestbook_name}
-        self.redirect('/?' + urllib.urlencode(query_params))
+        # Write the submission form and the footer of the page
+        sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
+        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE %
+                            (sign_query_params, cgi.escape(guestbook_name),
+                             url, url_linktext))
 
 
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/sign', Guestbook),
 ], debug=True)
