@@ -75,7 +75,8 @@ class MainPage(webapp2.RequestHandler):
             self.response.write('<blockquote>%s</blockquote>' %
                                 cgi.escape(greeting.content))
             ##
-            self.response.write('<b>%s</b> wrote:' % greeting.netid)
+            self.response.write('<b>netid</b>: %s\n' % greeting.netid)
+            self.response.write('<i>usertype</i>: %s\n' %greeting.userType)
             #self.response.write('FUCK')
         if users.get_current_user():
             url = users.create_logout_url(self.request.uri)
@@ -107,7 +108,7 @@ class Guestbook(webapp2.RequestHandler):
 
         ## adding code here
 
-       # greeting.userType = True
+        greeting.userType = True
         #greeting.username = "TEMPTEMPTEMP"
         greeting.netid = "JTAKAHAS"
         #greeting.details = "I WANTS PASSES"
