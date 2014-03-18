@@ -1,42 +1,25 @@
-import cgi
 import urllib
 import CASClient
-
+import os
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
+import jinja2
 import webapp2
 
 
-MAIN_PAGE_FORM_TEMPLATE = """\
-    <form action="/sign" method="post">
-      I want passes from 
-    <select name="club">
-    <option value="cap">Cap</option>
-    <option value="cottage">Cottage</option>
-    <option value="ivy">Ivy</option>
-    <option value="ti">TI</option>
-    <option value="tower">Tower</option>
-    </select></div>
-      details
-      <div><textarea name="details" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Submit Request"></div>
-    </form>
-    <hr>
-    """
 
-MAIN_PAGE_FOOTER_TEMPLATE = """\
-    <hr>
-  </body>
-</html>
-"""
+JINJA_ENVIRONMENT = jinja2.Environment(
+    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+    extensions=['jinja2.ext.autoescape'],
+    autoescape=True)
 
 
 DEFAULT_GUESTBOOK_NAME = 'passes'
 
 
-# We set a parent key on the 'Greetings' to ensure that they are all in the same
+# We set a parent key on the 'requests' to ensure that they are all in the same
 # entity group. Queries across the single entity group will be consistent.
 # However, the write rate should be limited to ~1/second.
 
@@ -66,32 +49,22 @@ class MainPage(webapp2.RequestHandler):
         netid = C.Authenticate(self)
 
 
-        self.response.write('<html><body>')
-
-        # Write the submission form and the footer of the page
-        self.response.write(MAIN_PAGE_FORM_TEMPLATE)
-
         # Ancestor Queries, as shown here, are strongly consistent with the High
         # Replication Datastore. Queries that span entity groups are eventually
         # consistent. If we omitted the ancestor from this query there would be
         # a slight chance that Greeting that had just been written would not
         # show up in a query.
-        greetings_query = Greeting.query(
+        requests_query = Greeting.query(
             ancestor=guestbook_key(DEFAULT_GUESTBOOK_NAME)).order(-Greeting.date)
-        greetings = greetings_query.fetch(3)
+        requests = requests_query.fetch(3)
 
-        for greeting in greetings:
 
-            print greeting
+        template_values = {
+            'requests': requests,
+        }
 
-            self.response.write('<b>club</b>: %s\n </br>' %greeting.club)
-            self.response.write('<i>netid</i>: %s\n </br>' % greeting.netid)
-            self.response.write('<i>details</i>: %s\n </br>' % greeting.details)
-            self.response.write('<i>usertype</i>: %s\n </br>' %greeting.userType)
-            self.response.write('<i>date</i>: %s\n </br>' %greeting.date)
-            self.response.write('</br>')
-
-        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE)
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render(template_values))
 
 
 class Guestbook(webapp2.RequestHandler):

@@ -105,16 +105,10 @@ class Guestbook(webapp2.RequestHandler):
                                           DEFAULT_GUESTBOOK_NAME)
         greeting = Greeting(parent=guestbook_key(DEFAULT_GUESTBOOK_NAME))
 
-        if users.get_current_user():
-            greeting.author = users.get_current_user()
-
-        ## adding code here
 
         greeting.userType = True
         greeting.netid = netid
         greeting.club = self.request.get('club')
-
-        ## added
 
         greeting.details = self.request.get('details')
         greeting.put()

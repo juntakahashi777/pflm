@@ -2,29 +2,35 @@
 {% autoescape true %}
 <html>
   <body>
-    {% for greeting in greetings %}
-      {% if greeting.author %}
-        <b>{{ greeting.author.nickname() }}</b> wrote:
-      {% else %}
-       An anonymous person wrote:
-      {% endif %}
-      <blockquote>{{ greeting.content }}</blockquote>
-    {% endfor %}
 
-    <form action="/sign?guestbook_name={{ guestbook_name }}" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbo342ok"></div>
+    <form action="/sign" method="post">
+      I want passes from 
+    <select name="club">
+    <option value="cap">Cap</option>
+    <option value="cottage">Cottage</option>
+    <option value="ivy">Ivy</option>
+    <option value="ti">TI</option>
+    <option value="tower">Tower</option>
+    
+    </select></div>
+      details
+      <div><textarea name="details" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Submit Request"></div>
     </form>
-
     <hr>
 
-    <form>Guestbook nalkajfkme:
-      <input value="{{ guestbook_name }}" name="guestbook_name">
-      <input type="submit" value="switch">
-    </form>
 
-    <a href="{{ url|safe }}">{{ url_linktext }}</a>
+    {% for request in requests %}
+      <b>club</b>: {{ request.club }} </br>
+      <i>netid</i>: {{ request.netid }} </br>
+      <i>details</i>: {{ request.details }} </br>
+      <i>usertype</i>: {{ request.userType }} </br>
+      <i>date</i>: {{ request.date }} </br>
+      </br>
+    {% endfor %}
 
-  </body> 
+
+    <hr>
+  </body>
 </html>
 {% endautoescape %}
