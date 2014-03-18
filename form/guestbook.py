@@ -81,9 +81,6 @@ class MainPage(webapp2.RequestHandler):
         greetings = greetings_query.fetch(3)
 
         for greeting in greetings:
-
-            print greeting
-
             self.response.write('<b>club</b>: %s\n </br>' %greeting.club)
             self.response.write('<i>netid</i>: %s\n </br>' % greeting.netid)
             self.response.write('<i>details</i>: %s\n </br>' % greeting.details)
