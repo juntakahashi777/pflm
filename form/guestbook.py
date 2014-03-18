@@ -1,5 +1,7 @@
 import cgi
 import urllib
+import CASClient
+
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -9,10 +11,14 @@ import webapp2
 
 MAIN_PAGE_FORM_TEMPLATE = """\
     <form action="/sign?%s" method="post">
-      netid
-      <div><textarea name="netid" rows="3" cols="60"></textarea></div>
-      club
-      <div><textarea name="club" rows="3" cols="60"></textarea></div>
+      I want passes from 
+    <select name="club">
+    <option value="cap">Cap</option>
+    <option value="cottage">Cottage</option>
+    <option value="ivy">Ivy</option>
+    <option value="ti">TI</option>
+    <option value="tower">Tower</option>
+    </select></div>
       details
       <div><textarea name="details" rows="3" cols="60"></textarea></div>
       <div><input type="submit" value="Submit Request"></div>
@@ -27,7 +33,7 @@ MAIN_PAGE_FOOTER_TEMPLATE = """\
 """
 
 
-DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
+DEFAULT_GUESTBOOK_NAME = 'passes'
 
 
 # We set a parent key on the 'Greetings' to ensure that they are all in the same
@@ -52,10 +58,15 @@ class Greeting(ndb.Model):
 
 class MainPage(webapp2.RequestHandler):
 
+
     def get(self):
+
+        C = CASClient.CASClient()
+        global netid 
+        netid = C.Authenticate(self)
+
+
         self.response.write('<html><body>')
-
-
 
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
@@ -106,7 +117,7 @@ class Guestbook(webapp2.RequestHandler):
         ## adding code here
 
         greeting.userType = True
-        greeting.netid = self.request.get('netid')
+        greeting.netid = netid
         greeting.club = self.request.get('club')
 
         ## added
