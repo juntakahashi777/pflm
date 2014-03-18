@@ -7,24 +7,25 @@ from google.appengine.ext import ndb
 import webapp2
 
 
-MAIN_PAGE_FOOTER_TEMPLATE = """\
+MAIN_PAGE_FORM_TEMPLATE = """\
     <form action="/sign?%s" method="post">
-      <div><textarea name="content" rows="3" cols="60"></textarea></div>
-      <div><input type="submit" value="Sign Guestbook"></div>
+      netid
+      <div><textarea name="netid" rows="3" cols="60"></textarea></div>
+      club
+      <div><textarea name="club" rows="3" cols="60"></textarea></div>
+      details
+      <div><textarea name="details" rows="3" cols="60"></textarea></div>
+      <div><input type="submit" value="Submit Request"></div>
     </form>
-
     <hr>
+    """
 
-    <form>Guestbook name:
-      <input value="%s" name="guestbook_name">
-      <input type="submit" value="switch">
-    </form>
-
-    <a href="%s">%s</a>
-
+MAIN_PAGE_FOOTER_TEMPLATE = """\
+    <hr>
   </body>
 </html>
 """
+
 
 DEFAULT_GUESTBOOK_NAME = 'default_guestbook'
 
@@ -39,14 +40,13 @@ def guestbook_key(guestbook_name=DEFAULT_GUESTBOOK_NAME):
 
 
 class Greeting(ndb.Model):
-    """Models an individual Guestbook entry with author, content, and date."""
-    author = ndb.UserProperty()
-    content = ndb.StringProperty(indexed=False)
+    """Models an individual Guestbook entry with author, details, and date."""
+    details = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
 ## adding these fields
     userType = ndb.BooleanProperty()
-    username = ndb.StringProperty()
     netid = ndb.StringProperty()
+    club = ndb.StringProperty()
     details = ndb.StringProperty()
 
 
@@ -54,8 +54,17 @@ class MainPage(webapp2.RequestHandler):
 
     def get(self):
         self.response.write('<html><body>')
+
+
+
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
+
+
+        # Write the submission form and the footer of the page
+        sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
+        self.response.write(MAIN_PAGE_FORM_TEMPLATE %
+                            (sign_query_params))
 
         # Ancestor Queries, as shown here, are strongly consistent with the High
         # Replication Datastore. Queries that span entity groups are eventually
@@ -64,32 +73,20 @@ class MainPage(webapp2.RequestHandler):
         # show up in a query.
         greetings_query = Greeting.query(
             ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
-        greetings = greetings_query.fetch(10)
+        greetings = greetings_query.fetch(3)
 
         for greeting in greetings:
-            if greeting.author:
-                self.response.write(
-                        '<b>%s</b> wrote:' % greeting.author.nickname())
-            else:
-                self.response.write('An anonymous person wrote:')
-            self.response.write('<blockquote>%s</blockquote>' %
-                                cgi.escape(greeting.content))
-            ##
-            self.response.write('<b>netid</b>: %s\n' % greeting.netid)
-            self.response.write('<i>usertype</i>: %s\n' %greeting.userType)
-            #self.response.write('FUCK')
-        if users.get_current_user():
-            url = users.create_logout_url(self.request.uri)
-            url_linktext = 'Logout'
-        else:
-            url = users.create_login_url(self.request.uri)
-            url_linktext = 'Login'
 
-        # Write the submission form and the footer of the page
-        sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
-        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE %
-                            (sign_query_params, cgi.escape(guestbook_name),
-                             url, url_linktext))
+            print greeting
+
+            self.response.write('<b>club</b>: %s\n </br>' %greeting.club)
+            self.response.write('<i>netid</i>: %s\n </br>' % greeting.netid)
+            self.response.write('<i>details</i>: %s\n </br>' % greeting.details)
+            self.response.write('<i>usertype</i>: %s\n </br>' %greeting.userType)
+            self.response.write('<i>date</i>: %s\n </br>' %greeting.date)
+            self.response.write('</br>')
+
+        self.response.write(MAIN_PAGE_FOOTER_TEMPLATE)
 
 
 class Guestbook(webapp2.RequestHandler):
@@ -109,12 +106,12 @@ class Guestbook(webapp2.RequestHandler):
         ## adding code here
 
         greeting.userType = True
-        #greeting.username = "TEMPTEMPTEMP"
-        greeting.netid = "JTAKAHAS"
-        #greeting.details = "I WANTS PASSES"
+        greeting.netid = self.request.get('netid')
+        greeting.club = self.request.get('club')
+
         ## added
 
-        greeting.content = self.request.get('content')
+        greeting.details = self.request.get('details')
         greeting.put()
 
         query_params = {'guestbook_name': guestbook_name}
