@@ -10,7 +10,7 @@ import webapp2
 
 
 MAIN_PAGE_FORM_TEMPLATE = """\
-    <form action="/sign?%s" method="post">
+    <form action="/sign" method="post">
       I want passes from 
     <select name="club">
     <option value="cap">Cap</option>
@@ -68,14 +68,8 @@ class MainPage(webapp2.RequestHandler):
 
         self.response.write('<html><body>')
 
-        guestbook_name = self.request.get('guestbook_name',
-                                          DEFAULT_GUESTBOOK_NAME)
-
-
         # Write the submission form and the footer of the page
-        sign_query_params = urllib.urlencode({'guestbook_name': guestbook_name})
-        self.response.write(MAIN_PAGE_FORM_TEMPLATE %
-                            (sign_query_params))
+        self.response.write(MAIN_PAGE_FORM_TEMPLATE)
 
         # Ancestor Queries, as shown here, are strongly consistent with the High
         # Replication Datastore. Queries that span entity groups are eventually
@@ -83,7 +77,7 @@ class MainPage(webapp2.RequestHandler):
         # a slight chance that Greeting that had just been written would not
         # show up in a query.
         greetings_query = Greeting.query(
-            ancestor=guestbook_key(guestbook_name)).order(-Greeting.date)
+            ancestor=guestbook_key(DEFAULT_GUESTBOOK_NAME)).order(-Greeting.date)
         greetings = greetings_query.fetch(3)
 
         for greeting in greetings:
@@ -109,7 +103,7 @@ class Guestbook(webapp2.RequestHandler):
         # should be limited to ~1/second.
         guestbook_name = self.request.get('guestbook_name',
                                           DEFAULT_GUESTBOOK_NAME)
-        greeting = Greeting(parent=guestbook_key(guestbook_name))
+        greeting = Greeting(parent=guestbook_key(DEFAULT_GUESTBOOK_NAME))
 
         if users.get_current_user():
             greeting.author = users.get_current_user()
@@ -125,7 +119,7 @@ class Guestbook(webapp2.RequestHandler):
         greeting.details = self.request.get('details')
         greeting.put()
 
-        query_params = {'guestbook_name': guestbook_name}
+        query_params = {'guestbook_name': DEFAULT_GUESTBOOK_NAME}
         self.redirect('/?' + urllib.urlencode(query_params))
 
 
