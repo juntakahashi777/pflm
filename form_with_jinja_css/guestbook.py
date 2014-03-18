@@ -9,6 +9,7 @@ import jinja2
 import webapp2
 
 
+netid = ""
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -48,7 +49,6 @@ class MainPage(webapp2.RequestHandler):
         global netid 
         netid = C.Authenticate(self)
 
-
         # Ancestor Queries, as shown here, are strongly consistent with the High
         # Replication Datastore. Queries that span entity groups are eventually
         # consistent. If we omitted the ancestor from this query there would be
@@ -56,7 +56,7 @@ class MainPage(webapp2.RequestHandler):
         # show up in a query.
         requests_query = Greeting.query(
             ancestor=guestbook_key(DEFAULT_GUESTBOOK_NAME)).order(-Greeting.date)
-        requests = requests_query.fetch(3)
+        requests = requests_query.fetch(20)
 
 
         template_values = {
@@ -84,7 +84,7 @@ class Guestbook(webapp2.RequestHandler):
         ## adding code here
 
         greeting.userType = True
-        greeting.netid = netid
+        greeting.netid = "blah"
         greeting.club = self.request.get('club')
 
         ## added

@@ -22,8 +22,13 @@
 
   <body>
 
+
+
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
     <form action="/sign" method="post">
-      I want passes from 
+      <h1 style="color:white">I want passes from </h1>
     <select name="club">
       <option value="" disabled selected>select club</option>
       <option value="cap">Cap</option>
@@ -35,28 +40,76 @@
       <div><textarea name="details" rows="1" placeholder="Optional: add details" cols="60"></textarea></div>
       <div><input type="submit" value="Submit Request"></div>
     </form>
-    <hr>
+        </br>
+
+        </div>
+
+      </div>
+    </div>
 
 
-    {% for request in requests %}
-      <b>club</b>: {{ request.club }} </br>
-      <i>netid</i>: {{ request.netid }} </br>
-      <i>details</i>: {{ request.details }} </br>
-      <i>usertype</i>: {{ request.userType }} </br>
-      <i>date</i>: {{ request.date }} </br>
-      </br>
-    {% endfor %}
+
+ 
 
 
-    <hr>
+
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+        </br>
+
+        </br>
+
+          <div class="table-responsive">
 
 
-        <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Club</th>
+                  <th>Netid</th>
+                  <th>Details</th>
+                  <th>Date</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+
+                {% for request in requests %}
+
+                <tr>
+                  <td>{{ request.club }}</td>
+                  <td>{{ request.netid }}</td>
+                  <td>{{ request.details }}</td>
+                  <td>{{ request.date }}</td>
+                  <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>                
+                </tr>
+
+                {% endfor %}
+
+
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
-
-    
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./bootstrap/assets/js/docs.min.js"></script>
   </body>
 </html>
+
 {% endautoescape %}
