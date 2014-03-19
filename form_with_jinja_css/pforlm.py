@@ -27,7 +27,7 @@ def listing_key(listing_name=DEFAULT_LISTINGS_DIRECTORY):
     return ndb.Key('Listings', listing_name)
 
 
-class Request(ndb.Model):
+class Greeting(ndb.Model):
     """Models an individual Listings entry with author, details, and date."""
     details = ndb.StringProperty(indexed=False)
     date = ndb.DateTimeProperty(auto_now_add=True)
@@ -50,10 +50,10 @@ class MainPage(webapp2.RequestHandler):
         # Ancestor Queries, as shown here, are strongly consistent with the High
         # Replication Datastore. Queries that span entity groups are eventually
         # consistent. If we omitted the ancestor from this query there would be
-        # a slight chance that Request that had just been written would not
+        # a slight chance that Greeting that had just been written would not
         # show up in a query.
-        requests_query = Request.query(
-            ancestor=listing_key(DEFAULT_LISTINGS_DIRECTORY)).order(-Request.date)
+        requests_query = Greeting.query(
+            ancestor=listing_key(DEFAULT_LISTINGS_DIRECTORY)).order(-Greeting.date)
         requests = requests_query.fetch(20)
 
         template_values = {
@@ -67,13 +67,13 @@ class MainPage(webapp2.RequestHandler):
 class Listings(webapp2.RequestHandler):
 
     def post(self):
-        # We set the same parent key on the 'Request' to ensure each Request
+        # We set the same parent key on the 'Greeting' to ensure each Greeting
         # is in the same entity group. Queries across the single entity group
         # will be consistent. However, the write rate to a single entity group
         # should be limited to ~1/second.
         listing_name = self.request.get('listing_name',
                                           DEFAULT_LISTINGS_DIRECTORY)
-        request = Request(parent=listing_key(DEFAULT_LISTINGS_DIRECTORY))
+        request = Greeting(parent=listing_key(DEFAULT_LISTINGS_DIRECTORY))
 
         if users.get_current_user():
             request.author = users.get_current_user()
