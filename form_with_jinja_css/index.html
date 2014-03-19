@@ -81,7 +81,12 @@
                   <td>{{ request.netid }}</td>
                   <td>{{ request.details }}</td>
                   <td>{{ request.date }}</td>
-                  <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>                
+                  <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>     
+                  <td>
+                    <form action="/delete" method="post">
+                    <input type="submit" class="btn btn-danger" name="{{request.key}}" value="Delete">
+                    </form> 
+                  </td>             
                 </tr>
 
                 {% endfor %}
