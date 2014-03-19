@@ -87,13 +87,31 @@ class Listings(webapp2.RequestHandler):
 
         request.details = self.request.get('details')
         ## Need to add code to clean input
-        request.put()
+        request_key = request.put()
 
         query_params = {'listing_name': DEFAULT_LISTINGS_DIRECTORY}
         self.redirect('/?' + urllib.urlencode(query_params))
 
+class DeletePost(webapp2.RequestHandler):
+
+    def post(self):
+        key = ndb.Key(Listings, self.request.get("name"))
+        key.delete()
+
+        requests_query = Greeting.query(
+            ancestor=listing_key(DEFAULT_LISTINGS_DIRECTORY)).order(-Greeting.date)
+        requests = requests_query.fetch(20)
+
+        template_values = {
+            'requests': requests,
+        }
+
+        template = JINJA_ENVIRONMENT.get_template('index.html')
+        self.response.write(template.render(template_values))
+        
 
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/sign', Listings),
+    ('/delete', DeletePost)
 ], debug=True)
