@@ -84,7 +84,7 @@ class Guestbook(webapp2.RequestHandler):
         ## adding code here
 
         greeting.userType = True
-        greeting.netid = "blah"
+        greeting.netid = netid
         greeting.club = self.request.get('club')
 
         ## added

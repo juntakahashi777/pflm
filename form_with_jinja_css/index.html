@@ -29,7 +29,7 @@
         <div class="navbar-header">
     <form action="/sign" method="post">
       <h1 style="color:white">I want passes from </h1>
-    <select name="club">
+    <select name="club" class="form-control">
       <option value="" disabled selected>select club</option>
       <option value="cap">Cap</option>
       <option value="cottage">Cottage</option>
@@ -37,8 +37,8 @@
       <option value="ti">TI</option>
       <option value="tower">Tower</option>
     </select>
-      <div><textarea name="details" rows="1" placeholder="Optional: add details" cols="60"></textarea></div>
-      <div><input type="submit" value="Submit Request"></div>
+      <div><textarea name="details" class="form-control" rows="1" placeholder="Optional: add details"></textarea></div>
+      <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
     </form>
         </br>
 
@@ -63,6 +63,8 @@
         </br>
         </br>
         </br>
+        </br>
+        </br>
 
         </br>
 
@@ -70,15 +72,6 @@
 
 
             <table class="table table-striped">
-              <thead>
-                <tr>
-                  <th>Club</th>
-                  <th>Netid</th>
-                  <th>Details</th>
-                  <th>Date</th>
-                  <th></th>
-                </tr>
-              </thead>
               <tbody>
 
                 {% for request in requests %}
