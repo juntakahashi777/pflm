@@ -2,7 +2,7 @@ import urllib
 import CASClient
 import os
 
-from google.appengine.api import users
+from google.appengine.api import mail
 from google.appengine.ext import ndb
 
 import jinja2
@@ -110,8 +110,25 @@ class DeletePost(webapp2.RequestHandler):
         self.response.write(template.render(template_values))
         
 
+class SendEmail(webapp2.RequestHandler):
+    def post(self):
+        user_address = netid + "@princeton.edu"
+
+        sender_address = "PforLM Email <niharmadhavan@gmail.com>"
+        subject = "Here's an email!"
+        body = """
+Thank you for visiting pforlm! We hope to find you a matching request very soon!!!
+
+In the meantime, here's a dick 8===>
+"""
+
+        mail.send_mail(sender_address, user_address, subject, body)
+
+        self.redirect('/')
+
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/sign', Listings),
-    ('/delete', DeletePost)
+    ('/delete', DeletePost),
+    ('/email', SendEmail)
 ], debug=True)
