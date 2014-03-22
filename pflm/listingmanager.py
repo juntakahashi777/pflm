@@ -20,8 +20,7 @@ class MakeListing(webapp2.RequestHandler):
 			newListing.populate(netid=netid, wantsPasses=wantsPasses,
 				club=club, details=details)
 			newListing.put()
-			self.redirect("/")
-		elif wantsPasses:
+		if wantsPasses:
 			self.redirect("/passes")
 		else:
 			self.redirect("/latemeal")
@@ -34,8 +33,13 @@ class DeleteListing(webapp2.RequestHandler):
 			"%Y-%m-%d %H:%M:%S.%f")
 		oldListing = listing.Listing.query(listing.Listing.netid == netid,
 			listing.Listing.date == date)
+		wantsPasses = True
 		for l in oldListing:
 			print type(l)
 			l.canceled=True
 			l.put()
-		self.redirect("/")
+			wantsPasses = l.wantsPasses
+		if wantsPasses:
+			self.redirect("/passes")
+		else:
+			self.redirect('latemeal')

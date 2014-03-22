@@ -36,5 +36,13 @@ class Passes(webapp2.RequestHandler):
 class Latemeal(webapp2.RequestHandler):
 
 	def get(self):
+
+		listings_query = Listing.query(
+			Listing.wantsPasses==False, Listing.canceled==False).order(-Listing.date)
+		for l in listings_query:
+			print l
+		listings = listings_query.fetch(10)
+		template_values = {'listings': listings}
+
 		template = JINJA_ENVIRONMENT.get_template('Templates/latemeal.html')
-		self.response.write(template.render())
+		self.response.write(template.render(template_values))
