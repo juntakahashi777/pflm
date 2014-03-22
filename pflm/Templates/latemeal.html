@@ -7,10 +7,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>PFLM</title>
-
     <!-- Bootstrap -->
     <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -18,8 +16,6 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
   </head>
-
-
   <body>
     <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
       <div class="container-fluid">
@@ -34,7 +30,7 @@
       <option value="ivy">Ivy</option>
       <option value="ti">TI</option>
       <option value="tower">Tower</option></select> passes </h1>
-      <div><textarea name="details" class="form-control" rows="1" placeholder="Optional: add details"></textarea></div>
+      <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
       <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
     </form>
         </br>
@@ -63,12 +59,12 @@
             <table class="table table-striped">
               <tbody>
 
-                {% for listing in listings %}
+                {% for listing, prettyDate in listings %}
 
                 <tr>
                   <td>{{ listing.club }}</td>
                   <td>{{ listing.details }}</td>
-                  <td>{{ listing.date }}</td>
+                  <td>{{ prettyDate }}</td>
                   <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>   
                   <td>
                     <form action="/deletelisting" method="post">

@@ -5,6 +5,7 @@ from google.appengine.ext import ndb
 
 import jinja2
 import webapp2
+import est, datetime
 
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 
@@ -15,9 +16,23 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 '''Create a Datastore key for a Listing entity'''
 def listing_key(wants="passes"):
-	temp = ndb.Key('Listing', wants)
-	print temp
-	return temp
+	return ndb.Key('Listing', wants)
+
+''' Given a datetime object, returns a pretty date for outputting '''
+def prettyDate(date):
+	estDate = date.replace(tzinfo=est.Eastern_tzinfo())
+	estDate = estDate + estDate.tzinfo.utcoffset(estDate)
+	ampm = "pm"
+	if estDate.hour < 12:
+		ampm = "am"
+	hour = str(estDate.hour % 12)
+	if hour == "0":
+		hour = "12"
+	minute = estDate.minute
+	if minute < 10:
+		minute = "0" + str(minute)
+	prettyDate = str(estDate.month) + '/' + str(estDate.day) + " " + hour+ ":" + str(minute) + " " + ampm
+	return prettyDate
 
 ''' Stores user requests for late meal/passes'''
 class Listing(ndb.Model):
@@ -31,24 +46,35 @@ class Listing(ndb.Model):
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
-		listings_query = Listing.query(Listing.wantsPasses==True, Listing.canceled==False, 
+		listings_query = Listing.query(Listing.wantsPasses==True, 
+			Listing.canceled==False, 
 			ancestor=listing_key("passes")).order(-Listing.date)
+
+		prettyDates = []
 		listings = listings_query.fetch(10)
+		for utcListing in listings:
+			prettyDates.append(prettyDate(utcListing.date))
+		listings = zip(listings, prettyDates)
+
 		template_values = {'listings': listings}
 
-		template = JINJA_ENVIRONMENT.get_template('Templates/passes.html')
+		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
 
-class Latemeal(webapp2.RequestHandler):
+class LateMeal(webapp2.RequestHandler):
 
 	def get(self):
+		listings_query = Listing.query(Listing.wantsPasses==False, 
+		Listing.canceled==False, 
+		ancestor=listing_key("latemeal")).order(-Listing.date)
 
-		listings_query = Listing.query(
-			Listing.wantsPasses==False, Listing.canceled==False, ancestor=listing_key("latemeal")).order(-Listing.date)
-		for l in listings_query:
-			print l
+		prettyDates = []
 		listings = listings_query.fetch(10)
+		for utcListing in listings:
+			prettyDates.append(prettyDate(utcListing.date))
+		listings = zip(listings, prettyDates)
+		
 		template_values = {'listings': listings}
 
-		template = JINJA_ENVIRONMENT.get_template('Templates/latemeal.html')
+		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))

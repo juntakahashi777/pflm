@@ -9,7 +9,6 @@ import webapp2
 
 import listing, listingmanager
 
-
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
     extensions=['jinja2.ext.autoescape'],
@@ -29,7 +28,7 @@ class MainPage(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/passes', listing.Passes),
-    ('/latemeal', listing.Latemeal),
+    ('/latemeal', listing.LateMeal),
     ('/makelisting', listingmanager.MakeListing),
     ('/deletelisting', listingmanager.DeleteListing)
 ], debug=True)
