@@ -1,89 +1,103 @@
 <!DOCTYPE html>
-<!-- saved from url=(0040)http://getbootstrap.com/examples/cover/# -->
-<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">
+{% autoescape true %}
+<html>
 
-    <title>homepage</title>
+   <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>PFLM</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+    <!-- Bootstrap -->
+    <link href="/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  <style id="holderjs-style" type="text/css">
-
-body { 
-  background: url(bg_blur.JPG) no-repeat center center fixed; 
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-}
-
-.btn-group-xlgg > .btn {
-  padding: 20px 25px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 6px;
-}
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
 
 
+  <body>
+    <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+      <div class="container-fluid">
+        <div class="navbar-header">
+    <form action="/makelisting" method="post">
+    <input type="hidden" name="wantsPasses" value="False">
+      <h1 style="color:black">I have <select name="club" class="form-control" required>
+      <option value="" disabled selected>select club</option>
+    <option value="cannon">Cannon</option>
+      <option value="cap">Cap</option>
+      <option value="cottage">Cottage</option>
+      <option value="ivy">Ivy</option>
+      <option value="ti">TI</option>
+      <option value="tower">Tower</option></select> passes </h1>
+      <div><textarea name="details" class="form-control" rows="1" placeholder="Optional: add details"></textarea></div>
+      <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
+    </form>
+        </br>
 
+        </div>
 
-</style></head>
-
-  <body background="bg_blur.jpg">
+      </div>
+    </div>
 
 
 
-    <div class="site-wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+        <p1> Want to send an email to yourself? Use the link below!</p1>
+        <form action="/email" method="post">
+        <input type="submit" class="btn btn-success" value="Email">
+        </form> 
+        </br>
+        </br>
 
-      <div class="site-wrapper-inner">
 
-        <div class="cover-container">
+          <div class="table-responsive">
 
-          <div class="inner cover">
-            <h1 class="cover-heading">I'm looking for</h1>
-            <p class="lead">
 
-              <a href="./homepage_files/homepage.html" class="btn btn-default btn-lg">PassesDFFDFFDF</a>
-              <a href="./homepage_files/homepage.html" class="btn btn-lg btn-default">Late MealDFDSFDS</a>
-            </p>
-          </div>
+            <table class="table table-striped">
+              <tbody>
 
-          <div class="mastfoot">
-            <div class="inner">
-              <p><a href="http://google.com">About Us</a> | <a href="http://princeton.edu/~madhavan/">Contact</a></p>
-            </div>
-          </div>
+                {% for listing in listings %}
 
-        </div>
+                <tr>
+                  <td>{{ listing.club }}</td>
+                  <td>{{ listing.details }}</td>
+                  <td>{{ listing.date }}</td>
+                  <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>   
+                  <td>
+                    <form action="/deletelisting" method="post">
+                    <input type="submit" class="btn btn-danger" value="Delete">
+              <input type="hidden" name="netid" value="{{ listing.netid }}">
+              <input type="hidden" name="date" value="{{ listing.date }}">
+                    </form> 
+                  </td>              
+                </tr>
 
-      </div>
+                {% endfor %}
 
-    </div>
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="./homepage_files/jquery.min.js"></script>
-    <script src="./homepage_files/bootstrap.min.js"></script>
-    <script src="./homepage_files/docs.min.js"></script>
-  
 
-</body></html>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="./bootstrap/js/bootstrap.min.js"></script>
+    <script src="./bootstrap/assets/js/docs.min.js"></script>
+  </body>
+</html>
+
+{% endautoescape %}
