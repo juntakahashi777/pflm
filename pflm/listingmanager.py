@@ -17,11 +17,8 @@ class MakeListing(webapp2.RequestHandler):
 
 		if club:
 			newListing = listing.Listing()
-			newListing.netid = netid
-			newListing.wantsPasses = wantsPasses
-			newListing.club = club
-			newListing.details = details
-			newListing.id = 1
+			newListing.populate(netid=netid, wantsPasses=wantsPasses,
+				club=club, details=details)
 			newListing.put()
 			self.redirect("/")
 		elif wantsPasses:
@@ -35,9 +32,10 @@ class DeleteListing(webapp2.RequestHandler):
 		netid = self.request.get("netid")
 		date = datetime.datetime.strptime(self.request.get("date"),
 			"%Y-%m-%d %H:%M:%S.%f")
-
 		oldListing = listing.Listing.query(listing.Listing.netid == netid,
 			listing.Listing.date == date)
-		print type(oldListing)
-		oldListing.key.delete()
+		for l in oldListing:
+			print type(l)
+			l.canceled=True
+			l.put()
 		self.redirect("/")

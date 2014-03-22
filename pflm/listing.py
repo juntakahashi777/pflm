@@ -20,12 +20,13 @@ class Listing(ndb.Model):
 	wantsPasses = ndb.BooleanProperty(required=True)
 	club = ndb.StringProperty(choices=clubs, required=True)
 	details = ndb.StringProperty(indexed=False)
+	canceled = ndb.BooleanProperty(default=False)
 
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
 		listings_query = Listing.query(
-			Listing.wantsPasses==True).order(-Listing.date)
+			Listing.wantsPasses==True, Listing.canceled==False).order(-Listing.date)
 		listings = listings_query.fetch(10)
 		template_values = {'listings': listings}
 

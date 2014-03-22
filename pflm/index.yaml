@@ -12,6 +12,13 @@ indexes:
 
 - kind: Listing
   properties:
+  - name: canceled
+  - name: wantsPasses
+  - name: date
+    direction: desc
+
+- kind: Listing
+  properties:
   - name: wantsPasses
   - name: date
     direction: desc
