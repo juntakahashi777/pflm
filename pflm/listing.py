@@ -13,6 +13,12 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     extensions=['jinja2.ext.autoescape'],
     autoescape=True)
 
+'''Create a Datastore key for a Listing entity'''
+def listing_key(wants="passes"):
+	temp = ndb.Key('Listing', wants)
+	print temp
+	return temp
+
 ''' Stores user requests for late meal/passes'''
 class Listing(ndb.Model):
 	date = ndb.DateTimeProperty(auto_now_add=True)
@@ -25,8 +31,8 @@ class Listing(ndb.Model):
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
-		listings_query = Listing.query(
-			Listing.wantsPasses==True, Listing.canceled==False).order(-Listing.date)
+		listings_query = Listing.query(Listing.wantsPasses==True, Listing.canceled==False, 
+			ancestor=listing_key("passes")).order(-Listing.date)
 		listings = listings_query.fetch(10)
 		template_values = {'listings': listings}
 
@@ -38,7 +44,7 @@ class Latemeal(webapp2.RequestHandler):
 	def get(self):
 
 		listings_query = Listing.query(
-			Listing.wantsPasses==False, Listing.canceled==False).order(-Listing.date)
+			Listing.wantsPasses==False, Listing.canceled==False, ancestor=listing_key("latemeal")).order(-Listing.date)
 		for l in listings_query:
 			print l
 		listings = listings_query.fetch(10)

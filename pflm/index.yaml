@@ -23,6 +23,14 @@ indexes:
   - name: date
     direction: desc
 
+- kind: Listing
+  ancestor: yes
+  properties:
+  - name: canceled
+  - name: wantsPasses
+  - name: date
+    direction: desc
+
 - kind: Request
   properties:
   - name: wantsPasses
