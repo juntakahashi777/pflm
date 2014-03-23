@@ -13,9 +13,10 @@ class MakeListing(webapp2.RequestHandler):
 		else:
 			wantsPasses = False
 		club = self.request.get("club")
+		print club
 		details = self.request.get("details")
 
-		if club != "select club":
+		if club != "select":
 			newListing = listing.Listing(parent=listing.listing_key(
 				"passes" if wantsPasses else "latemeal"))
 			newListing.populate(netid=netid, wantsPasses=wantsPasses,

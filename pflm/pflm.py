@@ -30,5 +30,5 @@ application = webapp2.WSGIApplication([
     ('/passes', listing.Passes),
     ('/latemeal', listing.LateMeal),
     ('/makelisting', listingmanager.MakeListing),
-    ('/deletelisting', listingmanager.DeleteListing)
+    ('/deletelisting', listingmanager.DeleteListing),
 ], debug=True)
