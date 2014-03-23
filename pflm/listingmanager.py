@@ -15,10 +15,11 @@ class MakeListing(webapp2.RequestHandler):
 		club = self.request.get("club")
 		details = self.request.get("details")
 
-		if club:
-			newListing = listing.Listing(parent=listing.listing_key("passes" if wantsPasses else "latemeal"))
+		if club != "select club":
+			newListing = listing.Listing(parent=listing.listing_key(
+				"passes" if wantsPasses else "latemeal"))
 			newListing.populate(netid=netid, wantsPasses=wantsPasses,
-				club=club, details=details)
+				club=club.lower(), details=details)
 			newListing.put()
 		if wantsPasses:
 			self.redirect("/passes")

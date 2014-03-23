@@ -1,10 +1,14 @@
-application: your-app-id
+application: pforlm
 version: 1
 runtime: python27
 api_version: 1
 threadsafe: true
 
 handlers:
+- url: /images
+  static_dir: Images
+- url: /bootstrap
+  static_dir: bootstrap
 - url: /.*
   script: pflm.application
 

@@ -11,14 +11,10 @@ indexes:
 # your application using appcfg.py.
 
 - kind: Listing
+  ancestor: yes
   properties:
   - name: canceled
-  - name: wantsPasses
-  - name: date
-    direction: desc
-
-- kind: Listing
-  properties:
+  - name: club
   - name: wantsPasses
   - name: date
     direction: desc
@@ -27,12 +23,6 @@ indexes:
   ancestor: yes
   properties:
   - name: canceled
-  - name: wantsPasses
-  - name: date
-    direction: desc
-
-- kind: Request
-  properties:
   - name: wantsPasses
   - name: date
     direction: desc

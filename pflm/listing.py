@@ -8,6 +8,8 @@ import webapp2
 import est, datetime
 
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
+clubNames = {"": "select club", "cannon": "Cannon", "cap": "Cap", 
+"cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -46,9 +48,15 @@ class Listing(ndb.Model):
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
-		listings_query = Listing.query(Listing.wantsPasses==True, 
-			Listing.canceled==False, 
-			ancestor=listing_key("passes")).order(-Listing.date)
+		club = self.request.get('club')
+		if club != '':
+			listings_query = Listing.query(Listing.wantsPasses==True, 
+				Listing.canceled==False, Listing.club==club,
+				ancestor=listing_key("passes")).order(-Listing.date)
+		else:
+			listings_query = Listing.query(Listing.wantsPasses==True, 
+				Listing.canceled==False,
+				ancestor=listing_key("passes")).order(-Listing.date)
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
@@ -56,7 +64,7 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		template_values = {'listings': listings}
+		template_values = {'listings': listings, 'club': clubNames[club]}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
@@ -64,9 +72,15 @@ class Passes(webapp2.RequestHandler):
 class LateMeal(webapp2.RequestHandler):
 
 	def get(self):
-		listings_query = Listing.query(Listing.wantsPasses==False, 
-		Listing.canceled==False, 
-		ancestor=listing_key("latemeal")).order(-Listing.date)
+		club = self.request.get('club')
+		if club != '':
+			listings_query = Listing.query(Listing.wantsPasses==False, 
+				Listing.canceled==False, Listing.club==club,
+				ancestor=listing_key("passes")).order(-Listing.date)
+		else:
+			listings_query = Listing.query(Listing.wantsPasses==False, 
+				Listing.canceled==False,
+				ancestor=listing_key("passes")).order(-Listing.date)
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
@@ -74,7 +88,7 @@ class LateMeal(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 		
-		template_values = {'listings': listings}
+		template_values = {'listings': listings, 'club': clubNames[club]}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))
