@@ -30,10 +30,12 @@ class Contact(webapp2.RequestHandler):
 		sender_address = "PforLM Email <niharmadhavan@gmail.com>"
 		subject = "You made contact!"
 		body = """
-		We heard you want to eat at %s. Well you're in luck! 
+		Dear %s,
+
+		We heard you want to eat at %s with %s. Well you're in luck! 
 		Contact this fucker. go get late meal
 		In the meantime, here's a dick 8===>
-		""" % club
+		""" % (netid, club, listing_netid)
 
 		mail.send_mail(sender_address, user_addresses, subject, body)
 
