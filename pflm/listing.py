@@ -49,7 +49,6 @@ class Passes(webapp2.RequestHandler):
 
 	def get(self):
 		netid = CAS.CAS(self)
-		self.response.write("your netid is: " + str(netid))
 
 		club = self.request.get('club')
 		if club != '':

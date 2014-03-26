@@ -30,10 +30,61 @@
 
     <style>
 
-
-
+#header {
+    height: 100px;
+    background-color: yellow;
+    border: 1px solid:
+}
+#body {
+    background-color: white;
+    border: 1px solid black:
+}
+#content {
+    float: left;
+    border: 1px solid black;
+    width: 70%;
+    height: 1900px;
+}
+#sidebar {
+    float: right;
+    border: 1px solid black;
+    width: 25%;
+}
+#sticky {
+    background-color: yellow;
+}
     </style>
 
+<script>
+        function areyousure()
+
+    {
+      bootbox.confirm("Are you sure?", function(result);
+        return result;
+
+    }
+</script>
+
+
+
+    <script>
+    var baseTop = $("div#sticky").offset().top;
+  $(window).scroll(function () {
+
+    var top = $(window).scrollTop();
+    if (top >= baseTop) {
+        $("div#sticky").css({
+            "position": "fixed",
+                "top": "2px"
+        });
+    } else if (top < baseTop) {
+        $("div#sticky").css({
+            "position": "",
+                "top": ""
+            });
+        }
+    });
+    </script>
 
 
   </head>
@@ -52,12 +103,12 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Passes for Late Meal</a>
+            <a class="navbar-brand" href="/">PFLM</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/passes">Want Passes?</a></li>
-              <li><a href="/latemeal">Want Late Meal?</a></li>
+              <li class="active"><a href="/passes">Want yo?</a></li>
+              <li><a href="/latemeal">Want no?</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/myrequests">My Requests</a></li>
@@ -66,7 +117,15 @@
         </div><!--/.container-fluid -->
       </div>
 
-<form action="/makelisting" method="post" class="navbar-form">
+<form action="/makelisting" method="post">
+
+
+
+
+
+
+
+
   <h1 style="color:black">I want
       <input type="hidden" name="wantsPasses" value="True">
       <input type="hidden" name="club" value={{ club }}>
@@ -87,11 +146,15 @@
     <li><a href="/passes?club=tower">Tower</a></li>
   </ul>
 </div>
-passes
+fkjl
      </h1>
       <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
       <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
 </form>
+
+
+
+
           <div class="table-responsive">
             <table class="table table-striped table-hover">
               <thead>
@@ -114,7 +177,7 @@ passes
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}
-                      <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger btn-block" value="Delete">
+                      <td><form name="delete" action="/deletelisting" method="post"><input type="submit" class="btn btn-danger btn-block" value="Delete">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
                         </form></td>      
@@ -131,7 +194,12 @@ passes
 
               </tbody>
             </table>
+
+
+
           </div>
+
+
 
 
     <!-- Bootstrap core JavaScript
@@ -141,5 +209,13 @@ passes
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./bootstrap/js/docs.min.js"></script>
+
+ 
+    <!-- bootbox code -->
+    <script src="bootbox.min.js"></script>
+
+
+
+
   </body>
 </html>
