@@ -1,6 +1,6 @@
 import os
 import urllib
-
+import cgi, urlparse
 from google.appengine.api import users
 from google.appengine.ext import ndb
 
@@ -8,6 +8,8 @@ import jinja2
 import webapp2
 
 import listing, listingmanager
+
+import CAS
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -21,14 +23,17 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
+        CAS.CAS(self)
         template = JINJA_ENVIRONMENT.get_template(
             'Templates/homepage.html')
         self.response.write(template.render())
 
 application = webapp2.WSGIApplication([
+    ('/cas', CAS),
     ('/', MainPage),
     ('/passes', listing.Passes),
     ('/latemeal', listing.LateMeal),
+    ('/myrequests', listing.MyRequests),
     ('/makelisting', listingmanager.MakeListing),
     ('/deletelisting', listingmanager.DeleteListing),
 ], debug=True)

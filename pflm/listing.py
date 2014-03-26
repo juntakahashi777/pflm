@@ -1,6 +1,6 @@
 import os
 import urllib
-
+import CAS
 from google.appengine.ext import ndb
 
 import jinja2
@@ -48,6 +48,7 @@ class Listing(ndb.Model):
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
+		CAS.CAS(self)
 		club = self.request.get('club')
 		if club != '':
 			listings_query = Listing.query(Listing.wantsPasses==True, 
@@ -72,15 +73,16 @@ class Passes(webapp2.RequestHandler):
 class LateMeal(webapp2.RequestHandler):
 
 	def get(self):
+		CAS.CAS(self)
 		club = self.request.get('club')
 		if club != '':
 			listings_query = Listing.query(Listing.wantsPasses==False, 
 				Listing.canceled==False, Listing.club==club,
-				ancestor=listing_key("passes")).order(-Listing.date)
+				ancestor=listing_key("latemeal")).order(-Listing.date)
 		else:
 			listings_query = Listing.query(Listing.wantsPasses==False, 
 				Listing.canceled==False,
-				ancestor=listing_key("passes")).order(-Listing.date)
+				ancestor=listing_key("latemeal")).order(-Listing.date)
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
@@ -92,3 +94,10 @@ class LateMeal(webapp2.RequestHandler):
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))
+
+class MyRequests(webapp2.RequestHandler):
+
+	def get(self):
+		CAS.CAS(self)
+		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
+		self.response.write(template.render())

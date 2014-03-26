@@ -1,4 +1,4 @@
-import sys, os, cgi, urllib, re, wsgiref
+import sys, os, cgi, urllib, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 class CASClient:
    def __init__(self):
@@ -39,13 +39,31 @@ class CASClient:
          #return preg_replace('/?&?$|&$/', '', $url);
       return "something is badly wrong"
 
-def redirect(url):
-   print "Content-Type: text/plain"
-   print "Refresh: 0; url=%s" % url
-   print
-   print "Redirecting..."
-
+def CAS(handler):
+    cookieKey = 'pforlmNETID'
+    C = CASClient()
+    netid=""
+    if cookieKey in handler.request.cookies:
+        netid=handler.request.cookies[cookieKey]
+    else:
+        if handler.request.get('ticket') != "":
+            netid = C.Validate(
+                handler.request.get('ticket'))
+            url=handler.request.url
+            u=urlparse.urlparse(url)
+            qs = cgi.parse_qs(u.query)
+            del(qs['ticket'])
+            u = u._replace(query=urllib.urlencode(qs, True))
+            url = urlparse.urlunparse(u)
+            if netid != None:
+                handler.response.set_cookie(cookieKey,netid,max_age=10)
+                return handler.redirect(url)
+            else:
+                C.Authenticate(handler)
+        else:
+            C.Authenticate(handler)
 def main():
   print "CASClient does not run standalone"
 if __name__ == '__main__':
   main()
+

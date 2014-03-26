@@ -21,6 +21,6 @@ class Eastern_tzinfo(datetime.tzinfo):
             return datetime.timedelta(hours=0)
     def tzname(self, dt):
         if self.dst(dt) == datetime.timedelta(hours=0):
-            return "EST"
-        else:
             return "EDT"
+        else:
+            return "EST"
