@@ -62,6 +62,8 @@ def CAS(handler):
                 C.Authenticate(handler)
         else:
             C.Authenticate(handler)
+    return netid
+    
 def main():
   print "CASClient does not run standalone"
 if __name__ == '__main__':

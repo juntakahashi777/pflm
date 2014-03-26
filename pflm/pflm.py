@@ -7,7 +7,7 @@ from google.appengine.ext import ndb
 import jinja2
 import webapp2
 
-import listing, listingmanager
+import listing, listingmanager, contact
 
 import CAS
 
@@ -29,9 +29,9 @@ class MainPage(webapp2.RequestHandler):
         self.response.write(template.render())
 
 application = webapp2.WSGIApplication([
-    ('/cas', CAS),
     ('/', MainPage),
     ('/passes', listing.Passes),
+    ('/contact', contact.Contact),
     ('/latemeal', listing.LateMeal),
     ('/myrequests', listing.MyRequests),
     ('/makelisting', listingmanager.MakeListing),

@@ -6,7 +6,7 @@ import CAS
 class MakeListing(webapp2.RequestHandler):
 
 	def post(self):
-		netid = "jun"
+		netid = self.request.get("netid")
 		wantsPasses = self.request.get("wantsPasses")
 		print wantsPasses
 		if wantsPasses == "True":

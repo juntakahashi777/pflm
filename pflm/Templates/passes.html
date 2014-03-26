@@ -58,6 +58,8 @@
   <h1 style="color:black">I want
       <input type="hidden" name="wantsPasses" value="True">
       <input type="hidden" name="club" value={{ club }}>
+      <input type="hidden" name="netid" value={{ netid }}>
+
   <!-- Single button -->
 <!-- Single button -->
 <div class="btn-group">
@@ -86,6 +88,7 @@ passes
               <tbody>
 
                 <tr>
+                <th width="50">netid (for testing)</th>
                 <th width="50">Club name</th>
                 <th width="50">Details</th>
                 <th width="50">Time of Request</th>
@@ -95,37 +98,28 @@ passes
                 {% for listing, prettyDate in listings %}
 
                 <tr>
+                  <td>{{ listing.netid }}</td>
                   <td>{{ listing.club }}</td>
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
-                  <td><a href="./homepage_files/homepage.html" class="btn btn-default">Contact</a></td>   
+                 <td><form action="/contact" method="post"><input type="submit" class="btn btn-default" value="Contact">
+                  <input type="hidden" name="netid" value="{{ netid }}">
+                  <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
+                  <input type="hidden" name="listing_date" value="{{ listing.date }}">
+                    </form></td>   
+
                   <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger" value="Delete">
-              <input type="hidden" name="netid" value="{{ listing.netid }}">
-              <input type="hidden" name="date" value="{{ listing.date }}">
+              <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
+              <input type="hidden" name="listing_date" value="{{ listing.date }}">
                     </form></td>              
                 </tr>
 
                 {% endfor %}
 
-
-
               </tbody>
             </table>
           </div>
 
-
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-        <p1> Want to send an email to yourself? Use the link below!</p1>
-        <form action="/email" method="post">
-        <input type="submit" class="btn btn-success" value="Email">
-        </form> 
-        </br>
-        </br>
-        </div>
-      </div>
-    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
