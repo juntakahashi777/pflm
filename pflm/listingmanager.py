@@ -31,14 +31,13 @@ class MakeListing(webapp2.RequestHandler):
 class DeleteListing(webapp2.RequestHandler):
 
 	def post(self):
-		netid = self.request.get("netid")
-		date = datetime.datetime.strptime(self.request.get("date"),
+		listing_netid = self.request.get("listing_netid")
+		listing_date = datetime.datetime.strptime(self.request.get("listing_date"),
 			"%Y-%m-%d %H:%M:%S.%f")
-		oldListing = listing.Listing.query(listing.Listing.netid == netid,
-			listing.Listing.date == date)
+		oldListing = listing.Listing.query(listing.Listing.netid == listing_netid,
+			listing.Listing.date == listing_date)
 		wantsPasses = True
 		for l in oldListing:
-			print type(l)
 			l.canceled=True
 			l.put()
 			wantsPasses = l.wantsPasses
