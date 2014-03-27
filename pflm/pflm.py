@@ -23,7 +23,6 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
-        CAS.CAS(self)
         template = JINJA_ENVIRONMENT.get_template(
             'Templates/homepage.html')
         self.response.write(template.render())
@@ -31,9 +30,9 @@ class MainPage(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/passes', listing.Passes),
-    ('/contact', contact.Contact),
     ('/latemeal', listing.LateMeal),
     ('/myrequests', listing.MyRequests),
+    ('/contact', contact.Contact),
     ('/makelisting', listingmanager.MakeListing),
     ('/deletelisting', listingmanager.DeleteListing),
 ], debug=True)

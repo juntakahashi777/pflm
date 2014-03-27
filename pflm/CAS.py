@@ -10,9 +10,9 @@ class CASClient:
          netid = self.Validate(form['ticket'].value)
          if netid != None:
             return netid
+      query_params = {'service': self.ServiceURL()}
       # No valid ticket; redirect the browser to the login page to get one
-      login_url = self.cas_url + 'login' \
-         + '?service=' + urllib.quote(self.ServiceURL())
+      login_url = self.cas_url + 'login?' + urllib.urlencode(query_params)
       return handler.redirect(login_url, code = 307)
       #print 'Location: ' + login_url
       #print
@@ -26,8 +26,9 @@ class CASClient:
          '&ticket=' + urllib.quote(ticket)
       r = urllib.urlopen(val_url).readlines()   # returns 2 lines
       if len(r) == 2 and re.match("yes", r[0]) != None:
-         return r[1].strip()
+        return r[1].strip()
       return None
+
    def ServiceURL(self):
       if os.environ.has_key('REQUEST_URI') is not None:
          # ret = 'http://' + os.environ['HTTP_HOST'] + os.environ['REQUEST_URI']
@@ -41,10 +42,11 @@ class CASClient:
 
 def CAS(handler):
     cookieKey = 'pforlmNETID'
+    print handler.request.url
     C = CASClient()
     netid=""
     if cookieKey in handler.request.cookies:
-        netid=handler.request.cookies[cookieKey]
+      netid=handler.request.cookies[cookieKey]
     else:
         if handler.request.get('ticket') != "":
             netid = C.Validate(
@@ -56,13 +58,15 @@ def CAS(handler):
             u = u._replace(query=urllib.urlencode(qs, True))
             url = urlparse.urlunparse(u)
             if netid != None:
-                handler.response.set_cookie(cookieKey,netid,max_age=10)
-                return handler.redirect(url)
+              handler.response.set_cookie(cookieKey,netid,max_age=10)
+              return handler.redirect(url)
             else:
-                C.Authenticate(handler)
+              C.Authenticate(handler)
         else:
-            C.Authenticate(handler)
+          print "authentication time"
+          C.Authenticate(handler)
     return netid
+
     
 def main():
   print "CASClient does not run standalone"

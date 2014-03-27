@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Want Passes?</title>
+    <title>My Requests</title>
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -54,6 +54,38 @@
         </div><!--/.container-fluid -->
       </div>
 
+          <div class="table-responsive">
+
+
+            <table class="table table-striped">
+              <tbody>
+
+                <tr>
+                <th width="50">netid (for testing)</th>
+                <th width="50">Club name</th>
+                <th width="50">Details</th>
+                <th width="50">Time of Request</th>
+                <th width="50">Action</th>
+                </tr>
+                {% for listing, prettyDate in listings %}
+
+                <tr>
+                  <td>{{ listing.netid }}</td>
+                  <td>{{ listing.club }}</td>
+                  <td>{{ listing.details }}</td>
+                  <td>{{ prettyDate }}</td>
+
+                  <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger" value="Delete">
+                  <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
+                  <input type="hidden" name="listing_date" value="{{ listing.date }}">
+                        </form></td>          
+                </tr>
+
+                {% endfor %}
+
+              </tbody>
+            </table>
+          </div>
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->

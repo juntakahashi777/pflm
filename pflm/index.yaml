@@ -11,6 +11,12 @@ indexes:
 # your application using appcfg.py.
 
 - kind: Listing
+  properties:
+  - name: netid
+  - name: date
+    direction: desc
+
+- kind: Listing
   ancestor: yes
   properties:
   - name: canceled
@@ -24,5 +30,12 @@ indexes:
   properties:
   - name: canceled
   - name: wantsPasses
+  - name: date
+    direction: desc
+
+- kind: Listing
+  ancestor: yes
+  properties:
+  - name: netid
   - name: date
     direction: desc
