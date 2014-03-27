@@ -27,7 +27,7 @@ class Contact(webapp2.RequestHandler):
 			club = l.club
 
 		user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu']
-		sender_address = "PforLM Email <niharmadhavan@gmail.com>"
+		sender_address = "PFLM Match <match@passesforlatemeal.com>"
 		subject = "You made contact!"
 		body = """
 		Dear %s,

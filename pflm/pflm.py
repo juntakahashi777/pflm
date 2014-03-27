@@ -23,6 +23,7 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 class MainPage(webapp2.RequestHandler):
 
     def get(self):
+        CAS.CAS(self)
         template = JINJA_ENVIRONMENT.get_template(
             'Templates/homepage.html')
         self.response.write(template.render())
