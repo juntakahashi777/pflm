@@ -56,27 +56,6 @@
     </style>
 
 
-
-    <script>
-    var baseTop = $("div#sticky").offset().top;
-  $(window).scroll(function () {
-
-    var top = $(window).scrollTop();
-    if (top >= baseTop) {
-        $("div#sticky").css({
-            "position": "fixed",
-                "top": "2px"
-        });
-    } else if (top < baseTop) {
-        $("div#sticky").css({
-            "position": "",
-                "top": ""
-            });
-        }
-    });
-    </script>
-
-
   </head>
 
   <body>
@@ -207,12 +186,19 @@ fkjl
 <script type="text/javascript">
     $('form').submit(function(e) {
         var currentForm = this;
+        console.log(this.name);
+        if (this.name == "delete") {
         e.preventDefault();
         bootbox.confirm("Are you sure?", function(result) {
             if (result) {
                 currentForm.submit();
             }
         });
+      }
+      else {
+        currentForm.submit();
+    }
+
     });
 </script>
 
