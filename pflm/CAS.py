@@ -51,7 +51,6 @@ def makehash(str,secret=SECRET):
   return m.hexdigest()[0:8]
   
 def CAS(handler):
-    """
     cookieKey = 'pforlmNETID'
     print handler.request.url
     C = CASClient()
@@ -77,8 +76,6 @@ def CAS(handler):
           print "authentication time"
           C.Authenticate(handler)
     return netid
-    """
-    return "temp_netid"
 
     
 def main():
