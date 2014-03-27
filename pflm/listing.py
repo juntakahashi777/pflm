@@ -99,8 +99,9 @@ class LateMeal(webapp2.RequestHandler):
 		self.response.write(template.render(template_values))
 
 class MyRequests(webapp2.RequestHandler):
-
 	def get(self):
-		CAS.CAS(self)
+		netid = CAS.CAS(self)
+		myRequests = Listing.query(Listing.netid == netid).order(-Listing.date)
+		template_values = {'listings': myRequests}
 		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
-		self.response.write(template.render())
+		self.response.write(template.render(template_values))

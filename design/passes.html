@@ -55,16 +55,6 @@
 }
     </style>
 
-<script>
-        function areyousure()
-
-    {
-      bootbox.confirm("Are you sure?", function(result);
-        return result;
-
-    }
-</script>
-
 
 
     <script>
@@ -214,7 +204,17 @@ fkjl
     <!-- bootbox code -->
     <script src="bootbox.min.js"></script>
 
-
+<script type="text/javascript">
+    $('form').submit(function(e) {
+        var currentForm = this;
+        e.preventDefault();
+        bootbox.confirm("Are you sure?", function(result) {
+            if (result) {
+                currentForm.submit();
+            }
+        });
+    });
+</script>
 
 
   </body>
