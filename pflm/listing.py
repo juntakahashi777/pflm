@@ -49,7 +49,6 @@ class Passes(webapp2.RequestHandler):
 
 	def get(self):
 		netid = CAS.CAS(self)
-		self.response.write("your netid is: " + str(netid))
 
 		club = self.request.get('club')
 		if club != '':
@@ -100,9 +99,9 @@ class LateMeal(webapp2.RequestHandler):
 		self.response.write(template.render(template_values))
 
 class MyRequests(webapp2.RequestHandler):
-
 	def get(self):
 		netid = CAS.CAS(self)
+<<<<<<< HEAD
 		myRequests = []
 		if type(netid) == type(u""):
 			myRequests = Listing.query(Listing.netid == netid).order(-Listing.date)
@@ -115,3 +114,9 @@ class MyRequests(webapp2.RequestHandler):
 		template_values = {'listings': myRequests}
 		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
 		self.response.write(template.render(template_values))
+=======
+		myRequests = Listing.query(Listing.netid == netid).order(-Listing.date)
+		template_values = {'listings': myRequests}
+		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
+		self.response.write(template.render(template_values))
+>>>>>>> 4a72fdf1028ec608e2a7b3381e50815a1a0094dd

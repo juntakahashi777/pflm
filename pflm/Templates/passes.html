@@ -16,6 +16,9 @@
     <!-- Custom styles for this template -->
     <link href="bootstrap/css/navbar.css" rel="stylesheet">
 
+    <!-- Custom CSS built -->
+    <link href="bootstrap/custom.css" rel="stylesheet">
+
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -24,6 +27,15 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
+
+    <style>
+
+
+
+    </style>
+
+
+
   </head>
 
   <body>
@@ -54,8 +66,9 @@
         </div><!--/.container-fluid -->
       </div>
 
-<form action="/makelisting" method="post">
-  <h1 style="color:black">I want
+<div class="myform">
+<form action="/makelisting" method="post" class="navbar-form">
+  <h1 >I want
       <input type="hidden" name="wantsPasses" value="True">
       <input type="hidden" name="club" value={{ club }}>
       <input type="hidden" name="netid" value={{ netid }}>
@@ -78,21 +91,23 @@
 passes
      </h1>
       <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
-      <div><input type="submit" class="btn btn-primary" value="Submit Request">
-</div>
+      <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
 </form>
+<br>
+</div>
           <div class="table-responsive">
-
-
-            <table class="table table-striped">
-              <tbody>
+            <table class="table table-striped table-hover">
+              <thead>
 
                 <tr>
-                <th width="50">netid (for testing)</th>
-                <th width="50">Club name</th>
-                <th width="50">Details</th>
-                <th width="50">Time of Request</th>
-                <th width="50">Action</th>
+                <th>netid (for testing)</th>
+                <th>Club name</th>
+                <th>Details</th>
+                <th>Time of Request</th>
+                <th>Action</th>
+
+              </thead>
+              <tbody> 
                 </tr>
                 {% for listing, prettyDate in listings %}
 
@@ -101,7 +116,6 @@ passes
                   <td>{{ listing.club }}</td>
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
-
                 {% if netid == listing.netid %}
                       <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger btn-block" value="Delete">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
@@ -113,20 +127,13 @@ passes
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
                     </form></td>   
-                {% endif %}
-
-
-
-
-        
+                {% endif %}      
                 </tr>
 
                 {% endfor %}
 
               </tbody>
-            </table>
-          </div>
-
+            </table> 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
