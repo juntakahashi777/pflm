@@ -18,8 +18,7 @@ class MakeListing(webapp2.RequestHandler):
 		details = self.request.get("details")
 
 		if club != "select":
-			newListing = listing.Listing(parent=listing.listing_key(
-				"passes" if wantsPasses else "latemeal"))
+			newListing = listing.Listing(parent=listing.listing_key())
 			newListing.populate(netid=netid, wantsPasses=wantsPasses,
 				club=club.lower(), details=details)
 			newListing.put()
@@ -32,6 +31,7 @@ class DeleteListing(webapp2.RequestHandler):
 
 	def post(self):
 		listing_netid = self.request.get("listing_netid")
+		print self.request.get("listing_date")
 		listing_date = datetime.datetime.strptime(self.request.get("listing_date"),
 			"%Y-%m-%d %H:%M:%S.%f")
 		oldListing = listing.Listing.query(listing.Listing.netid == listing_netid,

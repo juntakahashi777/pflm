@@ -17,8 +17,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
     autoescape=True)
 
 '''Create a Datastore key for a Listing entity'''
-def listing_key(wants="passes"):
-	return ndb.Key('Listing', wants)
+def listing_key(key="pflm"):
+	return ndb.Key('Listing', key)
 
 ''' Given a datetime object, returns a pretty date for outputting '''
 def prettyDate(date):
@@ -51,14 +51,8 @@ class Passes(webapp2.RequestHandler):
 		netid = CAS.CAS(self)
 
 		club = self.request.get('club')
-		if club != '':
-			listings_query = Listing.query(Listing.wantsPasses==True, 
-				Listing.canceled==False, Listing.club==club,
-				ancestor=listing_key("passes")).order(-Listing.date)
-		else:
-			listings_query = Listing.query(Listing.wantsPasses==True, 
-				Listing.canceled==False,
-				ancestor=listing_key("passes")).order(-Listing.date)
+		listings_query = Listing.query(Listing.canceled==False,
+			ancestor=listing_key("pflm")).order(-Listing.date)
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
@@ -75,24 +69,17 @@ class LateMeal(webapp2.RequestHandler):
 
 	def get(self):
 		netid = CAS.CAS(self)
-		print type(netid)
-		self.response.write("your netid is: " + str(netid))
+
 		club = self.request.get('club')
-		if club != '':
-			listings_query = Listing.query(Listing.wantsPasses==False, 
-				Listing.canceled==False, Listing.club==club,
-				ancestor=listing_key("latemeal")).order(-Listing.date)
-		else:
-			listings_query = Listing.query(Listing.wantsPasses==False, 
-				Listing.canceled==False,
-				ancestor=listing_key("latemeal")).order(-Listing.date)
+		listings_query = Listing.query(Listing.canceled==False,
+			ancestor=listing_key("pflm")).order(-Listing.date)
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
-		
+
 		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
@@ -103,7 +90,8 @@ class MyRequests(webapp2.RequestHandler):
 		netid = CAS.CAS(self)
 		myRequests = []
 		if type(netid) == type(u""):
-			myRequests = Listing.query(Listing.netid == netid).order(-Listing.date)
+			myRequests = Listing.query(Listing.netid == netid, 
+				Listing.canceled==False).order(-Listing.date)
 
 		prettyDates = []
 		for utcListing in myRequests:

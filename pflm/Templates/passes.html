@@ -101,7 +101,8 @@ passes
 
                 <tr>
                 <th>netid (for testing)</th>
-                <th>Club name</th>
+                <th>Wants</th>
+                <th>Has</th>
                 <th>Details</th>
                 <th>Time of Request</th>
                 <th>Action</th>
@@ -113,7 +114,13 @@ passes
 
                 <tr>
                   <td>{{ listing.netid }}</td>
+                  {% if listing.wantsPasses %}
                   <td>{{ listing.club }}</td>
+                  <td>Late Meal</td>
+                  {% else %}
+                  <td>Late Meal</td>
+                  <td>{{ listing.club }}</td>
+                  {% endif %}
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}

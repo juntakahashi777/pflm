@@ -12,6 +12,13 @@ indexes:
 
 - kind: Listing
   properties:
+  - name: canceled
+  - name: netid
+  - name: date
+    direction: desc
+
+- kind: Listing
+  properties:
   - name: netid
   - name: date
     direction: desc
@@ -21,7 +28,22 @@ indexes:
   properties:
   - name: canceled
   - name: club
+  - name: date
+    direction: desc
+
+- kind: Listing
+  ancestor: yes
+  properties:
+  - name: canceled
+  - name: club
   - name: wantsPasses
+  - name: date
+    direction: desc
+
+- kind: Listing
+  ancestor: yes
+  properties:
+  - name: canceled
   - name: date
     direction: desc
 
