@@ -8,7 +8,7 @@ import webapp2
 import est, datetime
 
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
-clubNames = {"": "select club", "cannon": "Cannon", "cap": "Cap", 
+clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -50,7 +50,6 @@ class Passes(webapp2.RequestHandler):
 	def get(self):
 		netid = CAS.CAS(self)
 
-		club = self.request.get('club')
 		listings_query = Listing.query(Listing.canceled==False,
 			ancestor=listing_key("pflm")).order(-Listing.date)
 
@@ -60,7 +59,11 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid, 'clubs': clubNames}
+		clubName = 'select club'
+		club = self.request.get('club')
+		if club in clubNames:
+			clubName = clubNames[club]
+		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
@@ -70,7 +73,6 @@ class LateMeal(webapp2.RequestHandler):
 	def get(self):
 		netid = CAS.CAS(self)
 
-		club = self.request.get('club')
 		listings_query = Listing.query(Listing.canceled==False,
 			ancestor=listing_key("pflm")).order(-Listing.date)
 
@@ -80,7 +82,11 @@ class LateMeal(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid, 'clubs': clubNames}
+		clubName = 'select club'
+		club = self.request.get('club')
+		if club in clubNames:
+			clubName = clubNames[club]
+		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))
