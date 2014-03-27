@@ -41,7 +41,7 @@ class CASClient:
       return "something is badly wrong"
 
 def CAS(handler):
-  """
+    """
     cookieKey = 'pforlmNETID'
     print handler.request.url
     C = CASClient()
@@ -68,7 +68,7 @@ def CAS(handler):
           C.Authenticate(handler)
     return netid
     """
-    return "usikder"
+    return "temp_netid"
 
     
 def main():
