@@ -60,7 +60,7 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid}
+		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid, 'clubs': clubNames}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
@@ -80,7 +80,7 @@ class LateMeal(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid}
+		template_values = {'listings': listings, 'club': clubNames[club], 'netid': netid, 'clubs': clubNames}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))

@@ -1,5 +1,8 @@
-import sys, os, cgi, urllib, re, wsgiref, urlparse
+import sys, os, cgi, md5, urllib, re, wsgiref, urlparse
 form = cgi.FieldStorage()
+
+SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vn"
+
 class CASClient:
    def __init__(self):
       self.cas_url = 'https://fed.princeton.edu/cas/'
@@ -40,6 +43,13 @@ class CASClient:
          #return preg_replace('/?&?$|&$/', '', $url);
       return "something is badly wrong"
 
+#  Use hash and secret to encrypt string.
+def makehash(str,secret=SECRET):
+  m = md5.new()
+  m.update(str)
+  m.update(SECRET)
+  return m.hexdigest()[0:8]
+  
 def CAS(handler):
     """
     cookieKey = 'pforlmNETID'

@@ -69,7 +69,7 @@
 <div class="myform">
 <form action="/makelisting" method="post" class="navbar-form">
   <h1 >I have
-      <input type="hidden" name="wantsPasses" value="True">
+      <input type="hidden" name="wantsPasses" value="False">
       <input type="hidden" name="club" value={{ club }}>
       <input type="hidden" name="netid" value={{ netid }}>
 
@@ -80,15 +80,19 @@
     {{ club }} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
-    <li><a href="/passes?club=cap">Cap</a></li>
-    <li><a href="/passes?club=cannon">Cannon</a></li>
-    <li><a href="/passes?club=cottage">Cottage</a></li>
-    <li><a href="/passes?club=ivy">Ivy</a></li>
-    <li><a href="/passes?club=ti">TI</a></li>
-    <li><a href="/passes?club=tower">Tower</a></li>
+    <li><a href="/latemeal?club=cap">Cap</a></li>
+    <li><a href="/latemeal?club=cannon">Cannon</a></li>
+    <li><a href="/latemeal?club=cottage">Cottage</a></li>
+    <li><a href="/latemeal?club=ivy">Ivy</a></li>
+    <li><a href="/latemeal?club=ti">TI</a></li>
+    <li><a href="/latemeal?club=tower">Tower</a></li>
   </ul>
 </div>
+{% if club == "Cottage" or club == "Cannon" %}
+spots
+{% else %}
 passes
+{% endif %}
      </h1>
       <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
       <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
@@ -115,11 +119,11 @@ passes
                 <tr>
                   <td>{{ listing.netid }}</td>
                   {% if listing.wantsPasses %}
-                  <td>{{ listing.club }}</td>
+                  <td>{{  clubs[listing.club] }}</td>
                   <td>Late Meal</td>
                   {% else %}
                   <td>Late Meal</td>
-                  <td>{{ listing.club }}</td>
+                  <td>{{ clubs[listing.club] }}</td>
                   {% endif %}
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>

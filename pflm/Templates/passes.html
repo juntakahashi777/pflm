@@ -88,9 +88,13 @@
     <li><a href="/passes?club=tower">Tower</a></li>
   </ul>
 </div>
+{% if club == "Cottage" or club == "Cannon" %}
+spots
+{% else %}
 passes
+{% endif %}
      </h1>
-      <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
+      <div><textarea name="details" maxlength="150" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
       <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
 </form>
 <br>
@@ -115,21 +119,21 @@ passes
                 <tr>
                   <td>{{ listing.netid }}</td>
                   {% if listing.wantsPasses %}
-                  <td>{{ listing.club }}</td>
+                  <td>{{  clubs[listing.club] }}</td>
                   <td>Late Meal</td>
                   {% else %}
                   <td>Late Meal</td>
-                  <td>{{ listing.club }}</td>
+                  <td>{{ clubs[listing.club] }}</td>
                   {% endif %}
                   <td>{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}
-                      <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger btn-block" value="Delete">
+                      <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger" value="Delete">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
                         </form></td>      
                 {% else %}
-                 <td><form action="/contact" method="post"><input type="submit" class="btn btn-default btn-block" value="Contact">
+                 <td><form action="/contact" method="post"><input type="submit" class="btn btn-default" value="Contact">
                   <input type="hidden" name="netid" value="{{ netid }}">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">

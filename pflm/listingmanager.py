@@ -13,6 +13,7 @@ class MakeListing(webapp2.RequestHandler):
 			wantsPasses = True
 		else:
 			wantsPasses = False
+		print wantsPasses
 		club = self.request.get("club")
 		print club
 		details = self.request.get("details")
