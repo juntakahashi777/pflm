@@ -61,6 +61,7 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
               <li><a href="/myrequests">My Requests</a></li>
+              <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
@@ -93,9 +94,11 @@ spots
 {% else %}
 passes
 {% endif %}
-     </h1>
-      <div><textarea name="details" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
+</h1>
+{% if club != "select club" %}
+      <div><textarea name="details" maxlength="150" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
       <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
+{% endif %}
 </form>
 <br>
 </div>
