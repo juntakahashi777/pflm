@@ -110,13 +110,14 @@ passes
                 <th>netid (for testing)</th>
                 <th>Wants</th>
                 <th>Has</th>
-                <th>Details</th>
+                <th width = 20%>Details</th>
                 <th>Time of Request</th>
                 <th>Action</th>
 
               </thead>
               <tbody> 
                 </tr>
+                <div class="btn-group">
                 {% for listing, prettyDate in listings %}
 
                 <tr>
@@ -145,6 +146,8 @@ passes
                 </tr>
 
                 {% endfor %}
+                </div> 
+
 
               </tbody>
             </table> 
