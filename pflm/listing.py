@@ -7,9 +7,14 @@ import jinja2
 import webapp2
 import est, datetime
 
+import random
+
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
+
+pass_seeker_nicknames = ["ThirstyUnderclassman", "PumpedForProspect", "LookingForPasses", "CluelessFreshman"]
+lm_seeker_nicknames = ["HungryUpperclassman", "IWantChickenFingers"."LateNightPizzaLover","LateMealisRealMeal"]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
@@ -40,6 +45,7 @@ def prettyDate(date):
 class Listing(ndb.Model):
 	date = ndb.DateTimeProperty(auto_now_add=True)
 	netid = ndb.StringProperty(required=True)
+	nickname = ndb.StringProperty(required=True)
 	wantsPasses = ndb.BooleanProperty(required=True)
 	club = ndb.StringProperty(choices=clubs, required=True)
 	details = ndb.StringProperty(indexed=False)
@@ -59,11 +65,17 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
+		#get clubs
 		clubName = 'select club'
 		club = self.request.get('club')
 		if club in clubNames:
 			clubName = clubNames[club]
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames}
+
+		#generate nickname
+		random_number = random.randint(1,99)
+		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
+
+		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames, 'nickname': nickname}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
