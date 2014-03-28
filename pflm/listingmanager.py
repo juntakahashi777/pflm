@@ -16,8 +16,6 @@ class MakeListing(webapp2.RequestHandler):
 		details = self.request.get("details")
 
 		nickname = self.request.get("nickname")
-		print "YOOO"
-		print "nickname"
 		print nickname
 
 		if club != "select":
