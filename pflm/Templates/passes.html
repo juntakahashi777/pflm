@@ -129,7 +129,7 @@ passes
             <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('TI').style.display = 'table-row'; } else { document.getElementById('TI').style.display = 'none'; }">TI</label>
             <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Tower').style.display = 'table-row'; } else { document.getElementById('Tower').style.display = 'none'; }">Tower</label>
             <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            <table class="table table-hover">
               <thead>
 
                 <tr>
@@ -140,14 +140,20 @@ passes
                 <th width = 20%>Details</th>
                 <th>Time of Request</th>
                 <th>Action</th>
+                </tr>
 
               </thead>
               <tbody> 
-                </tr>
                 <div class="btn-group">
                 {% for listing, prettyDate in listings %}
 
-                <tr id={{ clubs[listing.club] }}>
+
+                  {% if listing.wantsPasses %}
+                <tr id={{ clubs[listing.club]}} bgcolor="#FF0000">
+                  {% else %}
+                <tr id={{ clubs[listing.club] }} bgcolor="#00FF00">
+                  {% endif %}
+
                   <td>{{ listing.netid }}</td>
                   <td>{{ listing.nickname }}</td>
                   {% if listing.wantsPasses %}
