@@ -132,7 +132,7 @@ passes
             <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Tower').style.display = 'table-row'; } else { document.getElementById('Tower').style.display = 'none'; }">Tower</label>
             <div class="table-responsive">
             <table class="table table-hover">
-              <thead>
+              <thead style="color:white">
 
                 <tr>
                 <th>netid (for testing)</th>
@@ -151,9 +151,9 @@ passes
 
 
                   {% if listing.wantsPasses %}
-                <tr id={{ clubs[listing.club]}} bgcolor="#FF0000">
+                <tr id={{ clubs[listing.club]}} bgcolor="#D050FF">
                   {% else %}
-                <tr id={{ clubs[listing.club] }} bgcolor="#00FF00">
+                <tr id={{ clubs[listing.club] }} bgcolor="#2FB27A">
                   {% endif %}
 
                   <td>{{ listing.netid }}</td>

@@ -123,7 +123,7 @@ class MyRequests(webapp2.RequestHandler):
 	def get(self):
 		netid = CAS.CAS(self)
 		myRequests = []
-		if type(netid) == type(""):
+		if type(netid) == type(u""):
 			myRequests = Listing.query(Listing.netid == netid, 
 				Listing.canceled==False).order(-Listing.date)
 
