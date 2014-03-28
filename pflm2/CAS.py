@@ -59,6 +59,8 @@ def CAS(handler):
       cookieVal=handler.request.cookies[cookieKey]
       oldhash=cookieVal[0:8]
       timestr, netid = split2(cookieVal[8:],":")
+      if netid not in admins:
+        sys.exit()
       newhash = makehash(timestr+":"+netid)
       if oldhash!=newhash:
         C.authenticate()
@@ -83,11 +85,7 @@ def CAS(handler):
         else:
           print "authentication time"
           C.Authenticate(handler)
-    if netid in admins:
-      return netid
-    else:
-      return None
-
+    return netid
     
 def main():
   print "CASClient does not run standalone"

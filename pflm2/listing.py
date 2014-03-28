@@ -16,10 +16,18 @@ clubNames = {"cannon": "Cannon", "cap": "Cap",
 pass_seeker_nicknames = [
 "ThirstyUnderclassman", 
 "PumpedForProspect", 
-"LookingForPasses", 
+"Prospect11Tonite", 
+"WhatAreMyProspects", 
+"PassHunter", 
+"LifeLibertyAndThePursuitOfPasses",
+"PassHunter", 
+"DropThePass",
 "CluelessFreshman",
+"CluelessUnderclassman",
+"ThirstyFreshman",
 "ProspectiveBickeree",
 "5.95ForLife",
+"JustTrynaHaveAGoodTime",
 ]
 
 lm_seeker_nicknames = [
@@ -28,6 +36,7 @@ lm_seeker_nicknames = [
 "QuesadillaIsAGoodIdea",
 "LateNightPizzaLover",
 "LateMealisRealMeal",
+"StressedSenior",
 "Domingo",
 "ChillUpperclassman",
 ]
