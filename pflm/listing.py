@@ -13,8 +13,24 @@ clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
 
-pass_seeker_nicknames = ["ThirstyUnderclassman", "PumpedForProspect", "LookingForPasses", "CluelessFreshman"]
-lm_seeker_nicknames = ["HungryUpperclassman", "IWantChickenFingers"."LateNightPizzaLover","LateMealisRealMeal"]
+pass_seeker_nicknames = [
+"ThirstyUnderclassman", 
+"PumpedForProspect", 
+"LookingForPasses", 
+"CluelessFreshman",
+"ProspectiveBickeree",
+"5.95ForLife",
+]
+
+lm_seeker_nicknames = [
+"HungryUpperclassman", 
+"IWantChickenFingers", 
+"QuesadillaIsAGoodIdea",
+"LateNightPizzaLover",
+"LateMealisRealMeal",
+"Domingo",
+"ChillUpperclassman",
+]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
     loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
