@@ -121,8 +121,15 @@ passes
 </form>
 <br>
 </div>
-          <div class="table-responsive">
-            <table class="table table-striped table-hover">
+            Filter by Club:
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cap').style.display = 'table-row'; } else { document.getElementById('Cap').style.display = 'none'; }">Cap</label>
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cannon').style.display = 'table-row'; } else { document.getElementById('Cannon').style.display = 'none'; }">Cannon</label>
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cottage').style.display = 'table-row'; } else { document.getElementById('Cottage').style.display = 'none'; }">Cottage</label>
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Ivy').style.display = 'table-row'; } else { document.getElementById('Ivy').style.display = 'none'; }">Ivy</label>
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('TI').style.display = 'table-row'; } else { document.getElementById('TI').style.display = 'none'; }">TI</label>
+            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Tower').style.display = 'table-row'; } else { document.getElementById('Tower').style.display = 'none'; }">Tower</label>
+            <div class="table-responsive">
+            <table class="table table-striped table-hover">
               <thead>
 
                 <tr>
@@ -140,7 +147,7 @@ passes
                 <div class="btn-group">
                 {% for listing, prettyDate in listings %}
 
-                <tr>
+                <tr id={{ clubs[listing.club] }}>
                   <td>{{ listing.netid }}</td>
                   <td>{{ listing.nickname }}</td>
                   {% if listing.wantsPasses %}
