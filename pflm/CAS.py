@@ -1,6 +1,7 @@
 import sys, os, cgi, md5, urllib, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 
+admins = [u'usikder',u'madhavan',u'jtakahas']
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vn"
 
 class CASClient:
@@ -75,7 +76,11 @@ def CAS(handler):
         else:
           print "authentication time"
           C.Authenticate(handler)
-    return netid
+    if netid in admins:
+      return netid
+    else:
+      return None
+ #   return netid
 
     
 def main():
