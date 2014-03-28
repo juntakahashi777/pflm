@@ -96,9 +96,28 @@ passes
 {% endif %}
 </h1>
 {% if club != "select club" %}
-      <div><textarea name="details" maxlength="150" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea></div>
-      <div><input type="submit" class="btn btn-primary" value="Submit Request"></div>
+
+
+      <br>
+
+      <div class="input-group" style="width:300px;">
+        <span class="input-group-addon">Nickname</span>
+        <input name="nickname" type="text" class="form-control" VALUE="{{ nickname }}">
+      </div>
+
+      <br>
+
+      <div>
+        <textarea name="details" maxlength="140" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea>
+      </div>
+
+      <div>
+        <input type="submit" class="btn btn-primary" value="Submit Request">
+      </div>
+
 {% endif %}
+
+
 </form>
 <br>
 </div>
@@ -108,6 +127,7 @@ passes
 
                 <tr>
                 <th>netid (for testing)</th>
+                <th>Nickname</th>
                 <th>Wants</th>
                 <th>Has</th>
                 <th width = 20%>Details</th>
@@ -122,6 +142,7 @@ passes
 
                 <tr>
                   <td>{{ listing.netid }}</td>
+                  <td>{{ listing.nickname }}</td>
                   {% if listing.wantsPasses %}
                   <td>{{  clubs[listing.club] }}</td>
                   <td>Late Meal</td>

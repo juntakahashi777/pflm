@@ -8,20 +8,22 @@ class MakeListing(webapp2.RequestHandler):
 	def post(self):
 		netid = self.request.get("netid")
 		wantsPasses = self.request.get("wantsPasses")
-		print wantsPasses
 		if wantsPasses == "True":
 			wantsPasses = True
 		else:
 			wantsPasses = False
-		print wantsPasses
 		club = self.request.get("club")
-		print club
 		details = self.request.get("details")
+
+		nickname = self.request.get("nickname")
+		print "YOOO"
+		print "nickname"
+		print nickname
 
 		if club != "select":
 			newListing = listing.Listing(parent=listing.listing_key())
 			newListing.populate(netid=netid, wantsPasses=wantsPasses,
-				club=club.lower(), details=details)
+				club=club.lower(), details=details, nickname=nickname)
 			newListing.put()
 		if wantsPasses:
 			self.redirect("/passes")
