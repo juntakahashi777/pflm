@@ -12,17 +12,6 @@ color:#eeeeee;
 .bootbox {
 }
 .modal-footer {
-	background-color:#E86100;
-	color:white;
 }
 .modal-body {
-	background-color:#E86100;
-	color:white;
-}
-
-.btn-group-xlgg > .btn {
-  padding: 20px 25px;
-  font-size: 24px;
-  line-height: 1.33;
-  border-radius: 6px;
 }
