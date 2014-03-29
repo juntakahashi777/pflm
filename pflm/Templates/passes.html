@@ -65,10 +65,12 @@
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
-      </div>
+        <hr>
 
-<hr>
-<hr>
+      </div>
+<br>
+<br>
+<br>
 <div class="myform">
 {% if canPost %}
 <form action="/makelisting" method="post" class="navbar-form">
@@ -144,7 +146,6 @@ passes
               <thead style="color:white">
 
                 <tr>
-                <th>Nickname</th>
                 <th>Wants</th>
                 <th>Has</th>
                 <th width = 20%>Details</th>
@@ -164,16 +165,6 @@ passes
                 <tr id={{ clubs[listing.club] }} bgcolor="#2FB27A">
                   {% endif %}
 
-                  <td>{{ listing.nickname }}</td>
-                  {% if listing.wantsPasses %}
-                  <td>{{  clubs[listing.club] }}</td>
-                  <td>Late Meal</td>
-                  {% else %}
-                  <td>Late Meal</td>
-                  <td>{{ clubs[listing.club] }}</td>
-                  {% endif %}
-                  <td style="max-width:10px">{{ listing.details }}</td>
-                  <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}
                       <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
@@ -185,7 +176,17 @@ passes
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
                     </form></td>   
-                {% endif %}      
+                {% endif %}   
+
+                  <td><b>{{ listing.nickname }}</b> <br> <i>{{ prettyDate }}</i></td>
+                  {% if listing.wantsPasses %}
+                  <td>{{  clubs[listing.club] }}</td>
+                  <td>Late Meal</td>
+                  {% else %}
+                  <td>Late Meal</td>
+                  <td>{{ clubs[listing.club] }}</td>
+                  {% endif %}
+                  <td style="width=2%">{{ listing.details }}</td>
                 </tr>
 
                 {% endfor %}
@@ -239,7 +240,6 @@ passes
           e.preventDefault();
           bootbox.alert('You have too many open requests! Delete some <a href="/myrequests">here.</a>')
         }
-
 
         else {
           currentForm.submit();

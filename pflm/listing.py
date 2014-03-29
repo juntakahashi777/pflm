@@ -34,7 +34,7 @@ pass_seeker_nicknames = [
 "Passtronomer",
 "Passtrophysics",
 "Passtroboy",
-"PassMeTheSalt",
+"PassMeTheFries",
 "MentionedinPassing",
 "PassLikeThat",
 "SpongebobPasspants",

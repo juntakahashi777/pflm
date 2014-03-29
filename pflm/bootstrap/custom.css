@@ -29,6 +29,10 @@ max-width: 10%;
 word-wrap:break-word;
 }
 
+.navbar {
+    margin-bottom: 0 !important;
+}
+
 .dropdown-menu {
     font-size: 25px;
 
