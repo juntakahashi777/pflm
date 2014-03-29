@@ -77,12 +77,13 @@
   <input type="hidden" name="wantsPasses" value="True">
   <input type="hidden" name="club" value={{ club }}>
   <input type="hidden" name="netid" value={{ netid }}>
+  <div class="vertAlign">
   <h1 >I want
 
   <!-- Single button -->
 <!-- Single button -->
 <div class="btn-group">
-  <button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown">
+  <button type="button" class="btn btn-special dropdown-toggle" data-toggle="dropdown">
     {{ club }} <span class="caret"></span>
   </button>
   <ul class="dropdown-menu" role="menu">
@@ -100,6 +101,7 @@ spots
 passes
 {% endif %}
 </h1>
+</div>
 {% if club != "select club" %}
 
 
@@ -142,7 +144,6 @@ passes
               <thead style="color:white">
 
                 <tr>
-                <th>netid (for testing)</th>
                 <th>Nickname</th>
                 <th>Wants</th>
                 <th>Has</th>
@@ -163,7 +164,6 @@ passes
                 <tr id={{ clubs[listing.club] }} bgcolor="#2FB27A">
                   {% endif %}
 
-                  <td>{{ listing.netid }}</td>
                   <td>{{ listing.nickname }}</td>
                   {% if listing.wantsPasses %}
                   <td>{{  clubs[listing.club] }}</td>
