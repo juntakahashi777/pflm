@@ -25,7 +25,7 @@ pass_seeker_nicknames = [
 "PassHunter",
 "PuffPuffPass",
 "BackThatPassUp",
-
+"PasstMyPrime",
 ]
 
 lm_seeker_nicknames = [

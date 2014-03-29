@@ -29,10 +29,39 @@ word-wrap:break-word;
 
 .dropdown-menu {
 	
-	 font-size: 40px;
+    font-family: inherit;
+    font-size: 36px;
+    font-weight: 500;
+    line-height: 1.1;
+    color: inherit;
+    text-decoration: none;
 
 	}
 
+.btn-special {
+    background:#FFF;
+    font-size: 36px;
+    text-decoration: none;
+    border: 1px #2ba7ff dotted;
+    color:#000;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: 500;
+    line-height: 1.1;
+}
 
+.btn-special:active {
+    box-shadow: none;
 
 }
+
+.vertAlign{
+    display: inline-block;
+    vertical-align:middle;
+}​
+
+
+ .btn.active {
+
+
+ }
