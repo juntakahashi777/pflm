@@ -43,7 +43,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <div class="navbar" role="navigation">
+      <div class="navbar " role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -109,7 +109,7 @@ passes
 
       <div class="input-group" style="width:300px;">
         Nickname</br>
-        <input name="nickname" type="text" class="form-control" VALUE="{{ nickname }}">
+        <input name="nickname" maxlength="22" type="text" class="form-control" VALUE="{{ nickname }}">
       </div>
 
       <br>
@@ -172,7 +172,7 @@ passes
                   <td>Late Meal</td>
                   <td>{{ clubs[listing.club] }}</td>
                   {% endif %}
-                  <td>{{ listing.details }}</td>
+                  <td style="max-width:10px">{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}
                       <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete">

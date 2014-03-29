@@ -15,6 +15,7 @@ clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
 
+# 20 character max
 pass_seeker_nicknames = [
 "ThirstyUnderclassman", 
 "PumpedForProspect", 
@@ -26,8 +27,11 @@ pass_seeker_nicknames = [
 "PuffPuffPass",
 "BackThatPassUp",
 "PasstMyPrime",
+"PassedOut",
+"PassasaurusRex",
 ]
 
+# 20 character max
 lm_seeker_nicknames = [
 "HungryUpperclassman", 
 "IWantChickenFingers", 
@@ -37,6 +41,10 @@ lm_seeker_nicknames = [
 "Domingo",
 "ChillUpperclassman",
 "PassDaddy",
+"LouisPassteur",
+"JustPassingThrough",
+"PassauSt",
+"Passtafarian",
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
