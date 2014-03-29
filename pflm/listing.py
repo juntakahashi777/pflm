@@ -53,16 +53,17 @@ def prettyDate(date):
 	weekdays = {0:"Monday",1:"Tuesday",2:"Wednesday",
 	3:"Thursday",4:"Friday",5:"Saturday",6:"Sunday"}
 	today = datetime.datetime.today()
-	estToday = date.replace(tzinfo=est.Eastern_tzinfo())
+	estToday = today.replace(tzinfo=est.Eastern_tzinfo())
 	estToday += estToday.tzinfo.utcoffset(estToday)
 	estDate = date.replace(tzinfo=est.Eastern_tzinfo())
 	estDate += estDate.tzinfo.utcoffset(estDate)
+	print estToday, estDate
 	date = ""
 	if estToday.date() == estDate.date():
-		date = "today"
-	if estToday.date() == estDate.date() + datetime.timedelta(days=1):
-		date = "yesterday"
-	if estToday.date() < estDate.date() + datetime.timedelta(days=7):
+		date = "Today"
+	elif estToday.date() == estDate.date() + datetime.timedelta(days=1):
+		date = "Yesterday"
+	elif estToday.date() < estDate.date() + datetime.timedelta(days=7):
 		date = weekdays[estDate.weekday()]
 	else:
 		date = str(estDate.month) + '/' + str(estDate.day)
@@ -75,7 +76,7 @@ def prettyDate(date):
 	minute = estDate.minute
 	if minute < 10:
 		minute = "0" + str(minute)
-	prettyDate = date + " " + hour+ ":" + str(minute) + " " + ampm
+	prettyDate = date + ", " + hour+ ":" + str(minute) + " " + ampm
 	return prettyDate
 
 ''' Stores user requests for late meal/passes'''
@@ -158,13 +159,13 @@ class MyRequests(webapp2.RequestHandler):
 		if type(netid) != type(u""):
 			return
 		myRequests = Listing.query(Listing.netid == netid, 
-			Listing.canceled==False).order(-Listing.date)
+			Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
 
 		prettyDates = []
 		for utcListing in myRequests:
 			prettyDates.append(prettyDate(utcListing.date))
 		myRequests = zip(myRequests, prettyDates)
 
-		template_values = {'listings': myRequests}
+		template_values = {'listings': myRequests, 'netid': netid}
 		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
 		self.response.write(template.render(template_values))

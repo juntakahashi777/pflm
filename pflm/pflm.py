@@ -53,5 +53,6 @@ application = webapp2.WSGIApplication([
     ('/myrequests', listing.MyRequests),
     ('/contact', contact.Contact),
     ('/makelisting', listingmanager.MakeListing),
-    ('/deletelisting', listingmanager.DeleteListing)
+    ('/deletelisting', listingmanager.DeleteListing),
+    ('/deleteall', listingmanager.DeleteAll),
 ], debug=True)

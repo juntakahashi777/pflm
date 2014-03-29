@@ -51,6 +51,14 @@ indexes:
   ancestor: yes
   properties:
   - name: canceled
+  - name: netid
+  - name: date
+    direction: desc
+
+- kind: Listing
+  ancestor: yes
+  properties:
+  - name: canceled
   - name: wantsPasses
   - name: date
     direction: desc
