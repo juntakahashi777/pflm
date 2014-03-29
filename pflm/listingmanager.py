@@ -46,3 +46,14 @@ class DeleteListing(webapp2.RequestHandler):
 			self.redirect("/passes")
 		else:
 			self.redirect('latemeal')
+
+class DeleteAll(webapp2.RequestHandler):
+
+	def post(self):
+		listing_netid = self.request.get("listing_netid")
+		listings = listing.Listing.query(listing.Listing.netid == listing_netid,
+			listing.Listing.canceled==False)
+		for l in listings:
+			l.canceled = True
+			l.put()
+		self.redirect("/myrequests")

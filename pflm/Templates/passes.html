@@ -35,7 +35,6 @@
     </style>
 
 
-
   </head>
 
   <body>
@@ -43,7 +42,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <div class="navbar" role="navigation">
+    <div class="navbar navbar-test navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -67,6 +66,8 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
+
+<hr>
 <hr>
 <div class="myform">
 {% if canPost %}
@@ -104,12 +105,11 @@ passes
 </div>
 {% if club != "select club" %}
 
-
       <br>
 
       <div class="input-group" style="width:300px;">
         Nickname</br>
-        <input name="nickname" type="text" class="form-control" VALUE="{{ nickname }}">
+        <input name="nickname" maxlength="22" type="text" class="form-control" VALUE="{{ nickname }}">
       </div>
 
       <br>
@@ -172,7 +172,7 @@ passes
                   <td>Late Meal</td>
                   <td>{{ clubs[listing.club] }}</td>
                   {% endif %}
-                  <td>{{ listing.details }}</td>
+                  <td style="max-width:10px">{{ listing.details }}</td>
                   <td>{{ prettyDate }}</td>
                 {% if netid == listing.netid %}
                       <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete">
@@ -194,11 +194,12 @@ passes
 
               </tbody>
             </table> 
-
+          </div>
           <div class="mastfoot">
             <div class="inner">
               <p><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
             </div>
+          </div>
           </div>
 
     <!-- Bootstrap core JavaScript
