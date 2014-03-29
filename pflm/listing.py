@@ -50,18 +50,32 @@ def listing_key(key="pflm"):
 
 ''' Given a datetime object, returns a pretty date for outputting '''
 def prettyDate(date):
+	weekdays = {0:"Monday",1:"Tuesday",2:"Wednesday",
+	3:"Thursday",4:"Friday",5:"Saturday",6:"Sunday"}
+	today = datetime.datetime.today()
+	estToday = date.replace(tzinfo=est.Eastern_tzinfo())
+	estToday += estToday.tzinfo.utcoffset(estToday)
 	estDate = date.replace(tzinfo=est.Eastern_tzinfo())
-	estDate = estDate + estDate.tzinfo.utcoffset(estDate)
-	ampm = "pm"
+	estDate += estDate.tzinfo.utcoffset(estDate)
+	date = ""
+	if estToday.date() == estDate.date():
+		date = "today"
+	if estToday.date() == estDate.date() + datetime.timedelta(days=1):
+		date = "yesterday"
+	if estToday.date() < estDate.date() + datetime.timedelta(days=7):
+		date = weekdays[estDate.weekday()]
+	else:
+		date = str(estDate.month) + '/' + str(estDate.day)
+	ampm = "PM"
 	if estDate.hour < 12:
-		ampm = "am"
+		ampm = "AM"
 	hour = str(estDate.hour % 12)
 	if hour == "0":
 		hour = "12"
 	minute = estDate.minute
 	if minute < 10:
 		minute = "0" + str(minute)
-	prettyDate = str(estDate.month) + '/' + str(estDate.day) + " " + hour+ ":" + str(minute) + " " + ampm
+	prettyDate = date + " " + hour+ ":" + str(minute) + " " + ampm
 	return prettyDate
 
 ''' Stores user requests for late meal/passes'''
@@ -71,7 +85,7 @@ class Listing(ndb.Model):
 	nickname = ndb.StringProperty(required=True)
 	wantsPasses = ndb.BooleanProperty(required=True)
 	club = ndb.StringProperty(choices=clubs, required=True)
-	details = ndb.StringProperty(indexed=False)
+	details = ndb.StringProperty(indexed=False, default="")
 	canceled = ndb.BooleanProperty(default=False)
 
 class Passes(webapp2.RequestHandler):
