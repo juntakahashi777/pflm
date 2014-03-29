@@ -152,8 +152,18 @@ class Passes(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
+		selectionName = 'Passes and Latemeal'
+		selection = self.request.get('selection')
+		if selection in selections:
+			selectionName = selection
+
+		filterName = 'All Clubs'
+		clubFilter = self.request.get('clubFilter')
+		if clubFilter in clubFilters:
+			filterName = clubFilter
+
 		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
-		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selection}
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selection, 'clubFilter': clubFilter}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
