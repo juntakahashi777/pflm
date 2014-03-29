@@ -4,8 +4,8 @@
 }
 
 .myform {
-background-color:#D1D1D1;
-/*color:#eeeeee;
+/*background-color:#D1D1D1;
+*//*color:#eeeeee;
 */
 }
 
@@ -14,4 +14,25 @@ background-color:#D1D1D1;
 .modal-footer {
 }
 .modal-body {
+}
+
+hr {
+color: #2ba7ff;
+background-color: #2ba7ff;
+height: 1px;
+}
+
+th, td {
+max-width: 15px; 
+word-wrap:break-word;
+}
+
+.dropdown-menu {
+	
+	 font-size: 40px;
+
+	}
+
+
+
 }

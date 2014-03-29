@@ -43,7 +43,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-      <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -52,7 +52,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Passes for Late Meal</a>
+            <a class="navbar-brand" href="/">passesforlatemeal.com</a>
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
@@ -67,7 +67,7 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
-
+<hr>
 <div class="myform">
 {% if canPost %}
 <form action="/makelisting" method="post" class="navbar-form">
@@ -106,15 +106,18 @@ passes
       <br>
 
       <div class="input-group" style="width:300px;">
-        <span class="input-group-addon">Nickname</span>
+        Nickname</br>
         <input name="nickname" type="text" class="form-control" VALUE="{{ nickname }}">
       </div>
 
       <br>
 
       <div>
-        <textarea name="details" maxlength="140" class="form-control" rows="3" cols="60" placeholder="Optional: add details"></textarea>
+        Add Details <i>(Optional)</i></br>
+        <textarea name="details" maxlength="140" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
       </div>
+
+      <br>
 
       <div>
         <input type="submit" class="btn btn-primary" value="Submit Request">
@@ -124,10 +127,9 @@ passes
 
 
 </form>
-<br>
 </div>
-<br>
-<br>
+<hr>
+
             Filter by Club:
             <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cap').style.display = 'table-row'; } else { document.getElementById('Cap').style.display = 'none'; }">Cap</label>
             <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cannon').style.display = 'table-row'; } else { document.getElementById('Cannon').style.display = 'none'; }">Cannon</label>
