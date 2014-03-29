@@ -29,6 +29,9 @@ pass_seeker_nicknames = [
 "PasstMyPrime",
 "PassedOut",
 "PassasaurusRex",
+"Passtronomer",
+"Passtrophysics",
+"Passtroboy",
 ]
 
 # 20 character max
@@ -45,6 +48,9 @@ lm_seeker_nicknames = [
 "JustPassingThrough",
 "PassauSt",
 "Passtafarian",
+"Passafist",
+"Passtor",
+"PassStation",
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
