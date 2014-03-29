@@ -144,7 +144,7 @@ passes
               <tbody> 
                 </tr>
                 {% for listing, prettyDate in listings %}
-            {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal") %}
+            {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal" or (selection == "Passes" and listing.wantsPasses) or (selection == "Latemeal" and not listing.wantsPasses)) %}
                 <tr id={{ clubs[listing.club] }}>
                   <td>{{ listing.netid }}</td>
                   {% if listing.wantsPasses %}
