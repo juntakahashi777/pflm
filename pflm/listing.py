@@ -9,6 +9,8 @@ import est, datetime
 
 import random
 
+MAX_LISTINGS = 5
+
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
@@ -20,6 +22,10 @@ pass_seeker_nicknames = [
 "CluelessFreshman",
 "ProspectiveBickeree",
 "5.95ForLife",
+"PassHunter",
+"PuffPuffPass",
+"BackThatPassUp",
+
 ]
 
 lm_seeker_nicknames = [
@@ -30,6 +36,7 @@ lm_seeker_nicknames = [
 "LateMealisRealMeal",
 "Domingo",
 "ChillUpperclassman",
+"PassDaddy",
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -71,9 +78,20 @@ class Passes(webapp2.RequestHandler):
 
 	def get(self):
 		netid = CAS.CAS(self)
-
+		if type(netid) != type(u""):
+			return
+		canPost = False
 		listings_query = Listing.query(Listing.canceled==False,
 			ancestor=listing_key("pflm")).order(-Listing.date)
+
+		MAX_LISTINGS = 5
+		userListings = Listing.query(Listing.netid == netid, 
+			Listing.canceled==False)
+		numListings = 0
+		for userListing in userListings:
+			numListings+=1
+		if numListings < MAX_LISTINGS:
+			canPost = True
 
 		prettyDates = []
 		listings = listings_query.fetch(10)
@@ -91,7 +109,8 @@ class Passes(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames, 'nickname': nickname}
+		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
@@ -122,10 +141,10 @@ class LateMeal(webapp2.RequestHandler):
 class MyRequests(webapp2.RequestHandler):
 	def get(self):
 		netid = CAS.CAS(self)
-		myRequests = []
-		if type(netid) == type(u""):
-			myRequests = Listing.query(Listing.netid == netid, 
-				Listing.canceled==False).order(-Listing.date)
+		if type(netid) != type(u""):
+			return
+		myRequests = Listing.query(Listing.netid == netid, 
+			Listing.canceled==False).order(-Listing.date)
 
 		prettyDates = []
 		for utcListing in myRequests:

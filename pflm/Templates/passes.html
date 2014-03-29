@@ -60,6 +60,7 @@
               <li><a href="/latemeal">Want Late Meal?</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><a>Hey {{netid}}!</a></li>
               <li><a href="/myrequests">My Requests</a></li>
               <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
             </ul>
@@ -68,11 +69,15 @@
       </div>
 
 <div class="myform">
+{% if canPost %}
 <form action="/makelisting" method="post" class="navbar-form">
+{% else %}
+<form action="/myrequests" name = "stopPost" method="get" class="navbar-form">
+{% endif %}
+  <input type="hidden" name="wantsPasses" value="True">
+  <input type="hidden" name="club" value={{ club }}>
+  <input type="hidden" name="netid" value={{ netid }}>
   <h1 >I want
-      <input type="hidden" name="wantsPasses" value="True">
-      <input type="hidden" name="club" value={{ club }}>
-      <input type="hidden" name="netid" value={{ netid }}>
 
   <!-- Single button -->
 <!-- Single button -->
@@ -188,6 +193,12 @@ passes
               </tbody>
             </table> 
 
+          <div class="mastfoot">
+            <div class="inner">
+              <p><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
+            </div>
+          </div>
+
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
@@ -219,6 +230,11 @@ passes
                   currentForm.submit();
               }
           });
+        }
+
+        else if (this.name == "stopPost") {
+          e.preventDefault();
+          bootbox.alert('You have too many open requests! Delete some <a href="/myrequests">here.</a>')
         }
 
 
