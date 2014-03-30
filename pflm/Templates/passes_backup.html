@@ -22,7 +22,10 @@
     <link href="bootstrap/custom.css" rel="stylesheet">
 
     <!-- Font -->
-    <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Signika:600,400' rel='stylesheet' type='text/css'>
+
+
+
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -34,12 +37,17 @@
     <![endif]-->
 
     <style>
+
+
+
     </style>
 
 
   </head>
 
   <body>
+
+    <div class="container">
 
       <!-- Static navbar -->
     <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -66,8 +74,6 @@
 <br>
 <br>
 <br>
-    <div class="container">
-
 <div class="myform">
 {% if canPost %}
 <form action="/makelisting" method="post" class="navbar-form">
@@ -117,7 +123,7 @@ passes
 
       <div>
         Add Details <i>(Optional)</i></br>
-        <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
+        <textarea name="details" maxlength="140" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
       </div>
 
       <br>
@@ -132,7 +138,8 @@ passes
 </form>
 </div>
 <hr>
-        Filter:
+        <div class="table-responsive">
+          Filter:
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               {{ selection }} <span class="caret"></span>
@@ -158,9 +165,6 @@ passes
               <li><a href="/passes?clubFilter=Tower">Tower</a></li>
             </ul>
           </div>
-          <br>
-
-        <div class="table-responsive">
             <div class="table-responsive">
             <table class="table table-hover">
               <tbody> 
@@ -185,28 +189,16 @@ passes
                     </form></td>   
                 {% endif %}   
 
+                  <td><b>{{ listing.nickname }}</b> <br> <i>{{ prettyDate }}</i></td>
                   {% if listing.wantsPasses %}
-                  <td>
-                    <b>{{ listing.nickname }}</b> 
-                    <br> <i>{{ prettyDate }}</i>
-                  </td>
-                  <td>
-                    wants <b>{{  clubs[listing.club] }}</b> for <b>Late Meal</b>
-                    <br> {{ listing.details }}
-                  </td>
+                  <td>wants <b>{{  clubs[listing.club] }}</b> for <b>Late Meal</b></td>
                   {% else %}
-                  <td>
-                    <b>{{ listing.nickname }}</b>
-                    <br> <i>{{ prettyDate }}</i>
-                 </td>
-                 <td>
-                    wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b>
-                    <br> {{ listing.details }}
-                 </td>
+                  <td>wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b></td>
 
                   {% endif %}
-                </tr>
+                  <td style="width=2%">{{ listing.details }}</td>
           {% endif %}
+                </tr>
 
                 {% endfor %}
                 </div> 
