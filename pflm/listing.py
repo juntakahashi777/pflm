@@ -54,13 +54,11 @@ lm_seeker_nicknames = [
 "Domingo",
 "ChillUpperclassman",
 "PassDaddy",
-<<<<<<< HEAD
 "SurrenderTheTenders",
 "EyesOnTheFries",
 "PassDaddy",
 "StressedOutSenior",
 
-=======
 "LouisPassteur",
 "JustPassingThrough",
 "PassauSt",
@@ -77,7 +75,6 @@ lm_seeker_nicknames = [
 "Sepasstion",
 "PassionOfTheChrist",
 "Passcal",
->>>>>>> FETCH_HEAD
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -155,12 +152,6 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
-		#get clubs
-		clubName = 'select club'
-		club = self.request.get('club')
-		if club in clubNames:
-			clubName = clubNames[club]
-
 		#generate nickname
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
@@ -175,7 +166,7 @@ class Passes(webapp2.RequestHandler):
 		if clubFilter in clubFilters:
 			filterName = clubFilter
 
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
+		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selectionName, 'clubFilter': filterName}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
