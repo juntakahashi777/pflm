@@ -1,12 +1,24 @@
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
   background-color: #550055;
   color:#eeeeee;
 }
 
-/*.myform {
-background-color:#D1D1D1;
-color:#eeeeee;
-}*/
+.myform {
+}
 
 .bootbox {
 }
@@ -160,23 +172,15 @@ a:after {
     width: 280px;
 }
 
-i {
-    margin: 8px;
+.nickname {
+    font-size: 20px;
+}
+.request {
     color: rgb(252,102,34); 
 }
 
-
-body {
-    -webkit-animation-delay: 0.1s;
-    -webkit-animation-name: fontfix;
-    -webkit-animation-duration: 0.1s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: linear;
-}
-
-@-webkit-keyframes fontfix {
-    from { opacity: 1; }
-    to   { opacity: 1; }
+i {
+    color: #888; 
 }
 
 /* HeaderWrap */
