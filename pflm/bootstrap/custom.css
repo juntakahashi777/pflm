@@ -13,10 +13,14 @@ body {
 
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
-  background-color: #550055;
-  color:#eeeeee;
+    background-color: #550055;
+    color: #2ba7ff !important;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
 }
-
 .myform {
 }
 
