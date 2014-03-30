@@ -39,7 +39,7 @@
 
     </head>
 
-    <body>
+<body>
 
       <!-- Static navbar -->
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -106,8 +106,6 @@
 
               <br>
 
-              <i class="icon-large icon-fast-food"></i>
-
               <div class="input-group" style="width:300px;">
                 Nickname</br>
                 <input name="nickname" maxlength="22" type="text" class="form-control" VALUE="{{ nickname }}">
@@ -164,7 +162,6 @@
             <div class="table-responsive">
               <table class="table table-hover">
                 <tbody> 
-                  <div>
                     {% for listing, prettyDate in listings %}
 
                     <!-- Filters out rows not meeting filter criteria -->
@@ -185,7 +182,9 @@
                       </form></td>   
                       {% endif %}   
 
+
                       {% if listing.wantsPasses %}
+                      <td><img src="/images/passicon.png"></td>
                       <td>
                         <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
                         <br><span class="request">wants <b>{{  clubs[listing.club] }}</b> for <b>Late Meal</b></span>
@@ -193,13 +192,14 @@
                         <br><i>{{ listing.details }}</i>
                       </td>
                       {% else %}
+                      <td><img src="/images/foodicon.png"></td>
+
+
                       <td>
-                        <b>{{ listing.nickname }}</b>
-                        <br> <i>{{ prettyDate }}</i>
-                      </td>
-                      <td>
-                        wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b>
-                        <br> {{ listing.details }}
+                        <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
+                        <br><span class="request">wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b></span>
+                        <br> 
+                        <br><i>{{ listing.details }}</i>
                       </td>
 
                       {% endif %}
@@ -207,7 +207,6 @@
                     {% endif %}
 
                     {% endfor %}
-                  </div> 
 
 
                 </tbody>
@@ -267,10 +266,8 @@
 
 
     <script>
-    function contact() {
-      document.getElementById("contactButton").disabled = true;
-      document.getElementById("contactButton").innerHTML = "Email sent!";
-    }
+    $(document).ready(function() {
+    $("body").fadeIn(); }
     </script>
 
   </body>
