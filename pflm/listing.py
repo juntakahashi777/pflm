@@ -38,6 +38,9 @@ pass_seeker_nicknames = [
 "MentionedinPassing",
 "PassLikeThat",
 "SpongebobPasspants",
+"CampusClubMember",
+"PasstramiSandwich",
+"PassTense",
 ]
 
 # 20 character max

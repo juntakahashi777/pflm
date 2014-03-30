@@ -9,6 +9,8 @@
     <link rel="shortcut icon" href="images/favicon.ico">
 
     <title>Want Passes?</title>
+        <link href="bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet">
+
 
     <!-- Bootstrap core CSS -->
     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -18,6 +20,13 @@
 
     <!-- Custom CSS built -->
     <link href="bootstrap/custom.css" rel="stylesheet">
+
+
+<!-- Font -->
+<link href='http://fonts.googleapis.com/css?family=Signika:600,400' rel='stylesheet' type='text/css'>
+
+
+
 
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
@@ -42,7 +51,7 @@
     <div class="container">
 
       <!-- Static navbar -->
-    <div class="navbar navbar-test navbar-fixed-top" role="navigation">
+    <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -89,7 +98,7 @@
   <button type="button" class="btn btn-special dropdown-toggle" data-toggle="dropdown">
     {{ club }} <span class="caret"></span>
   </button>
-  <ul class="dropdown-menu" role="menu">
+  <ul class="dropdown-menu dropdown-lrg" role="menu">
     <li><a href="/passes?club=cap">Cap</a></li>
     <li><a href="/passes?club=cannon">Cannon</a></li>
     <li><a href="/passes?club=cottage">Cottage</a></li>
@@ -108,6 +117,8 @@ passes
 {% if club != "select club" %}
 
       <br>
+
+<i class="icon-large icon-fast-food"></i>
 
       <div class="input-group" style="width:300px;">
         Nickname</br>
@@ -133,9 +144,8 @@ passes
 </form>
 </div>
 <hr>
-
         <div class="table-responsive">
-          Filter by: want
+          Filter:
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               {{ selection }} <span class="caret"></span>
@@ -181,19 +191,15 @@ passes
           <!-- Filters out rows not meeting filter criteria -->
           {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal" or (selection == "Passes" and listing.wantsPasses) or (selection == "Latemeal" and not listing.wantsPasses)) %}
 
-                  {% if listing.wantsPasses %}
-                <tr id={{ clubs[listing.club]}} bgcolor="#D050FF">
-                  {% else %}
-                <tr id={{ clubs[listing.club] }} bgcolor="#2FB27A">
-                  {% endif %}
+                <tr id={{ clubs[listing.club] }}>
 
                 {% if netid == listing.netid %}
-                      <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete">
+                      <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete" onsubmit="contact();">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
                         </form></td>      
                 {% else %}
-                 <td><form action="/contact" method="post" name="submit"><input type="submit" class="btn btn-default" value="Contact">
+                 <td><form action="/contact" method="post" name="submit"><input type="submit" class="btn btn-default" value="Contact" onsubmit="contact();">
                   <input type="hidden" name="netid" value="{{ netid }}">
                   <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                   <input type="hidden" name="listing_date" value="{{ listing.date }}">
@@ -270,6 +276,14 @@ passes
 
       });
   </script>
+
+
+  <script>
+    function contact() {
+        document.getElementById("contactButton").disabled = true;
+        document.getElementById("contactButton").innerHTML = "Email sent!";
+    }
+</script>
 
   </body>
 </html>
