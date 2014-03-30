@@ -134,13 +134,33 @@ passes
 </div>
 <hr>
 
-            Filter by Club:
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cap').style.display = 'table-row'; } else { document.getElementById('Cap').style.display = 'none'; }">Cap</label>
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cannon').style.display = 'table-row'; } else { document.getElementById('Cannon').style.display = 'none'; }">Cannon</label>
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Cottage').style.display = 'table-row'; } else { document.getElementById('Cottage').style.display = 'none'; }">Cottage</label>
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Ivy').style.display = 'table-row'; } else { document.getElementById('Ivy').style.display = 'none'; }">Ivy</label>
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('TI').style.display = 'table-row'; } else { document.getElementById('TI').style.display = 'none'; }">TI</label>
-            <label><input type="checkbox" checked onclick="if (this.checked) { document.getElementById('Tower').style.display = 'table-row'; } else { document.getElementById('Tower').style.display = 'none'; }">Tower</label>
+        <div class="table-responsive">
+          Filter by: want
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ selection }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/passes?selection=Passes and Latemeal">Passes and Latemeal</a></li>
+              <li><a href="/passes?selection=Passes">Passes</a></li>
+              <li><a href="/passes?selection=Latemeal">Latemeal</a></li>
+            </ul>
+          </div>
+          for
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ clubFilter }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/passes?clubFilter=All Clubs">All Clubs</a></li>
+              <li><a href="/passes?clubFilter=Cap">Cap</a></li>
+              <li><a href="/passes?clubFilter=Cannon">Cannon</a></li>
+              <li><a href="/passes?clubFilter=Cottage">Cottage</a></li>
+              <li><a href="/passes?clubFilter=Ivy">Ivy</a></li>
+              <li><a href="/passes?clubFilter=TI">TI</a></li>
+              <li><a href="/passes?clubFilter=Tower">Tower</a></li>
+            </ul>
+          </div>
             <div class="table-responsive">
             <table class="table table-hover">
               <thead style="color:white">
@@ -158,6 +178,8 @@ passes
                 <div>
                 {% for listing, prettyDate in listings %}
 
+          <!-- Filters out rows not meeting filter criteria -->
+          {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal" or (selection == "Passes" and listing.wantsPasses) or (selection == "Latemeal" and not listing.wantsPasses)) %}
 
                   {% if listing.wantsPasses %}
                 <tr id={{ clubs[listing.club]}} bgcolor="#D050FF">
@@ -187,6 +209,7 @@ passes
                   <td>{{ clubs[listing.club] }}</td>
                   {% endif %}
                   <td style="width=2%">{{ listing.details }}</td>
+          {% endif %}
                 </tr>
 
                 {% endfor %}

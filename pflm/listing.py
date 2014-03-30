@@ -163,7 +163,7 @@ class Passes(webapp2.RequestHandler):
 			filterName = clubFilter
 
 		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
-		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selection, 'clubFilter': clubFilter}
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selectionName, 'clubFilter': filterName}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
