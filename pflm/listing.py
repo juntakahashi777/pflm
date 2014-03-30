@@ -68,6 +68,7 @@ lm_seeker_nicknames = [
 "Passover",
 "Sepasstion",
 "PassionOfTheChrist",
+"Passcal",
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(

@@ -29,118 +29,27 @@ max-width: 10%;
 word-wrap:break-word;
 }
 
-.navbar {
-    margin-bottom: 0 !important;
-}
 
 .dropdown-lrg {
-    font-size: 25px;
-	}
+    font-family: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+        }
 
 .btn-special {
-    background:#FFF;
-    font-size: 36px;
-    text-decoration: none;
+    background:transparent;
+    font-size: inherit;
+    text-decoration: inherit;
     border: 1px #2ba7ff dotted;
-    color:#000;
-    cursor: pointer;
+    color:inherit;
     font-family: inherit;
-    font-weight: 500;
-    line-height: 1.1;
+    font-weight: inherit;
+    line-height: inherit;
 }
 
-.btn-special:hover {
-    background:#EEE;
+body {
+        font-family: 'Lato', sans-serif;
 }
-
-.btn-special:active {
-    box-shadow: none;
-
-}
-
-.vertAlign{
-    display: inline-block;
-    vertical-align:middle;
-}​
-
-.navbar-custom {
-    background-color: #ffffff;
-    border-color: #ffffff;
-}
-.navbar-custom .navbar-brand {
-    color: #f35922;
-}
-.navbar-custom .navbar-brand:hover, .navbar-custom .navbar-brand:focus {
-    color: #ffbbbc;
-}
-.navbar-custom .navbar-text {
-    color: #f35922;
-}
-.navbar-custom .navbar-nav > li > a {
-    color: #f35922;
-}
-.navbar-custom .navbar-nav > li > a:hover, .navbar-custom .navbar-nav > li > a:focus {
-    color: #ffbbbc;
-}
-.navbar-custom .navbar-nav > .active > a, .navbar-custom .navbar-nav > .active > a:hover, .navbar-custom .navbar-nav > .active > a:focus {
-    color: #ffbbbc;
-    background-color: #ffffff;
-}
-.navbar-custom .navbar-nav > .open > a, .navbar-custom .navbar-nav > .open > a:hover, .navbar-custom .navbar-nav > .open > a:focus {
-    color: #ffbbbc;
-    background-color: #ffffff;
-}
-.navbar-custom .navbar-toggle {
-    border-color: #ffffff;
-}
-.navbar-custom .navbar-toggle:hover, .navbar-custom .navbar-toggle:focus {
-    background-color: #ffffff;
-}
-.navbar-custom .navbar-toggle .icon-bar {
-    background-color: #f35922;
-}
-.navbar-custom .navbar-collapse,
-.navbar-custom .navbar-form {
-    border-color: #f35922;
-}
-.navbar-custom .navbar-link {
-    color: #f35922;
-}
-.navbar-custom .navbar-link:hover {
-    color: #ffbbbc;
-}
-
-@media (max-width: 767px) {
-    .navbar-custom .navbar-nav .open .dropdown-menu > li > a {
-        color: #f35922;
-    }
-    .navbar-custom .navbar-nav .open .dropdown-menu > li > a:hover, .navbar-custom .navbar-nav .open .dropdown-menu > li > a:focus {
-        color: #ffbbbc;
-    }
-    .navbar-custom .navbar-nav .open .dropdown-menu > .active > a, .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:hover, .navbar-custom .navbar-nav .open .dropdown-menu > .active > a:focus {
-        color: #ffbbbc;
-        background-color: #ffffff;
-    }
-}
-
-
-.navbar-test {
-    background-color:#fff;
-    color:#2ba7ff;
-    border-radius:0;
-}
-
-.navbar-test .navbar-nav > li > a {
-    color:#2ba7ff;
-}
-.navbar-test .navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
-    color: #2ba7ff;
-    background-color:transparent;
-}
-.navbar-test .navbar-brand {
-    color:#2ba7ff;
-}
-
 
 /*
  * Author: Carlos Alvarez
@@ -153,7 +62,7 @@ word-wrap:break-word;
 
 body {
   background-color: #f2f2f2;
-    font-family: 'Signika', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 300;
     font-size: 16px;
     color: #555;
@@ -164,7 +73,7 @@ body {
 
 /* Titles */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Signika', sans-serif;
+    font-family: 'Lato', sans-serif;
     font-weight: 300;
     color: #333;
 }

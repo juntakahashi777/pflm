@@ -39,7 +39,4 @@ class Contact(webapp2.RequestHandler):
 
 		mail.send_mail(sender_address, user_addresses, subject, body)
 
-		template = JINJA_ENVIRONMENT.get_template('Templates/contacted.html')
-		self.response.write(template.render())
-
 
