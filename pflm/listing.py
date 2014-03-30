@@ -37,6 +37,11 @@ lm_seeker_nicknames = [
 "Domingo",
 "ChillUpperclassman",
 "PassDaddy",
+"SurrenderTheTenders",
+"EyesOnTheFries",
+"PassDaddy",
+"StressedOutSenior",
+
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -99,7 +104,7 @@ class Passes(webapp2.RequestHandler):
 		listings_query = Listing.query(Listing.canceled==False,
 			ancestor=listing_key("pflm")).order(-Listing.date)
 
-		MAX_LISTINGS = 5
+		MAX_LISTINGS = 6
 		userListings = Listing.query(Listing.netid == netid, 
 			Listing.canceled==False)
 		numListings = 0
