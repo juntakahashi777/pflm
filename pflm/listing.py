@@ -14,7 +14,10 @@ MAX_LISTINGS = 5
 clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
+selections = ["Passes and Latemeal", "Passes", "Latemeal"]
+clubFilters = ["All Clubs", "Cap", "Cannon", "Cottage", "Ivy", "TI", "Tower"]
 
+# 20 character max
 pass_seeker_nicknames = [
 "ThirstyUnderclassman", 
 "PumpedForProspect", 
@@ -26,8 +29,22 @@ pass_seeker_nicknames = [
 "PuffPuffPass",
 "BackThatPassUp",
 "PasstMyPrime",
+"PassedOut",
+"PassasaurusRex",
+"Passtronomer",
+"Passtrophysics",
+"Passtroboy",
+"PassMeTheFries",
+"MentionedinPassing",
+"PassLikeThat",
+"SpongebobPasspants",
+"CampusClubMember",
+"PasstramiSandwich",
+"PassTense",
+"pASSpASSpASS",
 ]
 
+# 20 character max
 lm_seeker_nicknames = [
 "HungryUpperclassman", 
 "IWantChickenFingers", 
@@ -37,11 +54,30 @@ lm_seeker_nicknames = [
 "Domingo",
 "ChillUpperclassman",
 "PassDaddy",
+<<<<<<< HEAD
 "SurrenderTheTenders",
 "EyesOnTheFries",
 "PassDaddy",
 "StressedOutSenior",
 
+=======
+"LouisPassteur",
+"JustPassingThrough",
+"PassauSt",
+"Passtafarian",
+"Passafist",
+"Passtor",
+"PassStation",
+"BarackPassbama",
+"PassahamLincoln",
+"GeorgePassington",
+"NorthwestPassage",
+"Passagawea",
+"Passover",
+"Sepasstion",
+"PassionOfTheChrist",
+"Passcal",
+>>>>>>> FETCH_HEAD
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -129,8 +165,18 @@ class Passes(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
+		selectionName = 'Passes and Latemeal'
+		selection = self.request.get('selection')
+		if selection in selections:
+			selectionName = selection
+
+		filterName = 'All Clubs'
+		clubFilter = self.request.get('clubFilter')
+		if clubFilter in clubFilters:
+			filterName = clubFilter
+
 		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
-		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost}
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selectionName, 'clubFilter': filterName}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
@@ -153,7 +199,18 @@ class LateMeal(webapp2.RequestHandler):
 		club = self.request.get('club')
 		if club in clubNames:
 			clubName = clubNames[club]
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames}
+
+		selectionName = 'Passes and Latemeal'
+		selection = self.request.get('selection')
+		if selection in selections:
+			selectionName = selection
+
+		filterName = 'All Clubs'
+		clubFilter = self.request.get('clubFilter')
+		if clubFilter in clubFilters:
+			filterName = clubFilter
+
+		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames, 'selection': selectionName, 'clubFilter':filterName}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))

@@ -9,6 +9,7 @@
   <link rel="shortcut icon" href="images/favicon.ico">
 
   <title>Want Passes?</title>
+<<<<<<< HEAD
 
   <!-- Bootstrap core CSS -->
   <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -22,23 +23,49 @@
   <!-- Just for debugging purposes. Don't actually copy this line! -->
   <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
+=======
+  <link href="bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet">
+
+
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap/css/navbar.css" rel="stylesheet">
+
+  <!-- Custom CSS built -->
+  <link href="bootstrap/custom.css" rel="stylesheet">
+
+  <!-- Font -->
+  <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+>>>>>>> FETCH_HEAD
   <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+<<<<<<< HEAD
 
       <style>
 
 
 
       </style>
+=======
+>>>>>>> FETCH_HEAD
 
+      <style>
+      </style>
 
 
     </head>
 
     <body>
+<<<<<<< HEAD
 
       <div class="container">
 
@@ -168,17 +195,182 @@
                       <td>{{ prettyDate }}</td>
                       {% if netid == listing.netid %}
                       <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete">
+=======
+
+      <!-- Static navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">passesforlatemeal.com</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+              <li class="active"><a href="/passes">Want Passes?</a></li>
+              <li><a href="/latemeal">Want Late Meal?</a></li>
+              <li><a href="/myrequests">My Requests</a></li>
+              <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="container">
+
+        <div class="myform">
+          {% if canPost %}
+          <form action="/makelisting" method="post" class="navbar-form">
+            {% else %}
+            <form action="/myrequests" name = "stopPost" method="get" class="navbar-form">
+              {% endif %}
+              <input type="hidden" name="wantsPasses" value="True">
+              <input type="hidden" name="club" value={{ club }}>
+              <input type="hidden" name="netid" value={{ netid }}>
+              <div class="vertAlign">
+                <h1>I want
+
+                  <!-- Single button -->
+                  <!-- Single button -->
+                  <div class="btn-group">
+                    <button type="button" class="btn btn-special dropdown-toggle" data-toggle="dropdown">
+                      {{ club }} <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-lrg" role="menu">
+                      <li><a href="/passes?club=cap">Cap</a></li>
+                      <li><a href="/passes?club=cannon">Cannon</a></li>
+                      <li><a href="/passes?club=cottage">Cottage</a></li>
+                      <li><a href="/passes?club=ivy">Ivy</a></li>
+                      <li><a href="/passes?club=ti">TI</a></li>
+                      <li><a href="/passes?club=tower">Tower</a></li>
+                    </ul>
+                  </div>
+                  {% if club == "Cottage" or club == "Cannon" %}
+                  spots
+                  {% else %}
+                  passes
+                  {% endif %}
+                </h1>
+              </div>
+              {% if club != "select club" %}
+
+              <br>
+
+              <i class="icon-large icon-fast-food"></i>
+
+              <div class="input-group" style="width:300px;">
+                Nickname</br>
+                <input name="nickname" maxlength="22" type="text" class="form-control" VALUE="{{ nickname }}">
+              </div>
+
+              <br>
+
+              <div>
+                Add Details <i>(Optional)</i></br>
+                <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
+              </div>
+
+              <br>
+
+              <div>
+                <input type="submit" class="btn btn-primary" value="Submit Request">
+              </div>
+
+              {% endif %}
+
+
+            </form>
+          </div>
+          <hr>
+          Filter:
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ selection }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/passes?selection=Passes and Latemeal">Passes and Latemeal</a></li>
+              <li><a href="/passes?selection=Passes">Passes</a></li>
+              <li><a href="/passes?selection=Latemeal">Latemeal</a></li>
+            </ul>
+          </div>
+          for
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ clubFilter }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/passes?clubFilter=All Clubs">All Clubs</a></li>
+              <li><a href="/passes?clubFilter=Cap">Cap</a></li>
+              <li><a href="/passes?clubFilter=Cannon">Cannon</a></li>
+              <li><a href="/passes?clubFilter=Cottage">Cottage</a></li>
+              <li><a href="/passes?clubFilter=Ivy">Ivy</a></li>
+              <li><a href="/passes?clubFilter=TI">TI</a></li>
+              <li><a href="/passes?clubFilter=Tower">Tower</a></li>
+            </ul>
+          </div>
+          <br>
+
+                  <div class="table-responsive">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody> 
+                  <div>
+                    {% for listing, prettyDate in listings %}
+
+                    <!-- Filters out rows not meeting filter criteria -->
+                    {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal" or (selection == "Passes" and listing.wantsPasses) or (selection == "Latemeal" and not listing.wantsPasses)) %}
+
+                    <tr id={{ clubs[listing.club] }}>
+
+                      {% if netid == listing.netid %}
+                      <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete" onsubmit="contact();">
+>>>>>>> FETCH_HEAD
                         <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                         <input type="hidden" name="listing_date" value="{{ listing.date }}">
                       </form></td>      
                       {% else %}
+<<<<<<< HEAD
                       <td><form action="/contact" method="post" name="submit"><input type="submit" class="btn btn-default" value="Contact">
+=======
+                      <td><form action="/contact" method="post" name="submit"><input type="submit" class="btn btn-default" value="Contact" onsubmit="contact();">
+>>>>>>> FETCH_HEAD
                         <input type="hidden" name="netid" value="{{ netid }}">
                         <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
                         <input type="hidden" name="listing_date" value="{{ listing.date }}">
                       </form></td>   
+<<<<<<< HEAD
                       {% endif %}      
                     </tr>
+=======
+                      {% endif %}   
+
+                      {% if listing.wantsPasses %}
+                      <td>
+                        <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
+                        <br><span class="request">wants <b>{{  clubs[listing.club] }}</b> for <b>Late Meal</b></span>
+                        <br> 
+                        <br><i>{{ listing.details }}</i>
+                      </td>
+                      {% else %}
+                      <td>
+                        <b>{{ listing.nickname }}</b>
+                        <br> <i>{{ prettyDate }}</i>
+                      </td>
+                      <td>
+                        wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b>
+                        <br> {{ listing.details }}
+                      </td>
+
+                      {% endif %}
+                    </tr>
+                    {% endif %}
+>>>>>>> FETCH_HEAD
 
                     {% endfor %}
                   </div> 
@@ -186,12 +378,22 @@
 
                 </tbody>
               </table> 
+<<<<<<< HEAD
 
               <div class="mastfoot">
                 <div class="inner">
                   <p><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
                 </div>
               </div>
+=======
+            </div>
+            <div class="mastfoot">
+              <div class="inner">
+                <p><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
+              </div>
+            </div>
+          </div>
+>>>>>>> FETCH_HEAD
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
@@ -229,6 +431,7 @@
       else if (this.name == "stopPost") {
         e.preventDefault();
         bootbox.alert('You have too many open requests! Delete some <a href="/myrequests">here.</a>')
+<<<<<<< HEAD
       }
 
 
@@ -261,6 +464,23 @@
 
     }
 
+=======
+      }
+
+      else {
+        currentForm.submit();
+      }
+
+    });
+    </script>
+
+
+    <script>
+    function contact() {
+      document.getElementById("contactButton").disabled = true;
+      document.getElementById("contactButton").innerHTML = "Email sent!";
+    }
+>>>>>>> FETCH_HEAD
     </script>
 
   </body>

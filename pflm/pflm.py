@@ -47,7 +47,7 @@ class About2(webapp2.RequestHandler):
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/about', AboutUs),
-    ('/about2', About2),
+#    ('/about2', About2),
     ('/passes', listing.Passes),
     ('/latemeal', listing.LateMeal),
     ('/myrequests', listing.MyRequests),
