@@ -1,37 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="images/favicon.ico">
 
-    <title>My Requests</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.ico">
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Want Passes?</title>
+  <link href="bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="bootstrap/css/navbar.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+<!-- Custom select styles-->    
+<link rel="stylesheet" type="text/css" media="screen" href="./bootstrap/select/bootstrap-select.css">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap/css/navbar.css" rel="stylesheet">
+
+  <!-- Custom CSS built -->
+  <link href="bootstrap/custom.css" rel="stylesheet">
+
+  <!-- Font -->
+  <link href='http://fonts.googleapis.com/css?family=Signika:400,700' rel='stylesheet' type='text/css'>
+
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+  <!--   HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->    
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+      <![endif]-->
 
-  <body>
 
-    <div class="container">
+      <style>
+
+      .formDetails { display: none; }
+
+      </style>
+
+
+    </head>
+    <body>
 
       <!-- Static navbar -->
-      <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -40,56 +58,95 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Passes for Late Meal</a>
+            <a class="navbar-brand" href="/">passesforlatemeal.com</a>
           </div>
           <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+            <ul class="nav navbar-nav navbar-right">
               <li><a href="/passes">Want Passes?</a></li>
               <li><a href="/latemeal">Want Late Meal?</a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
               <li class="active"><a href="/myrequests">My Requests</a></li>
-              <li><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
+              <li id="logout" onclick="logout()"><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
-          <div class="table-responsive">
-            <table class="table table-striped">
-              <tbody>
 
-                <tr>
-                <th width="50">netid (for testing)</th>
-                <th width="50">Club name</th>
-                <th width="50">Details</th>
-                <th width="50">Time of Request</th>
-                <th width="50">Action</th>
-                </tr>
-                {% for listing, prettyDate in listings %}
+      <br>
+      <br>
+      <div class="container">
 
-                <tr>
-                  <td>{{ listing.netid }}</td>
-                  <td>{{ listing.club }}</td>
-                  <td>{{ listing.details }}</td>
-                  <td>{{ prettyDate }}</td>
+          <div id="listings">
+           <h1 class="header" style="text-align: center">MY REQUESTS</h1>
+           <br>
+           <div class="span7 text-center"><form action="/deleteall" method="post" name="deleteall"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All"></div>
 
-                  <td><form action="/deletelisting" method="post"><input type="submit" class="btn btn-danger" value="Delete">
-                  <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
-                  <input type="hidden" name="listing_date" value="{{ listing.date }}">
-                  <input type="hidden" name="redirect_url" value="/myrequests">
-                  </form></td>          
-                </tr>
 
-                {% endfor %}
 
-              </tbody>
-            </table>
-          </div>
-<div class="span7 text-center"><form action="/deleteall" method="post" name="deleteall"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All">
-                  <input type="hidden" name="listing_netid" value="{{ netid }}">
-                  </form></div>
+                  <div class="table-responsive">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <tbody> 
+                  {% for listing, prettyDate in listings %}
 
-    <!-- Bootstrap core JavaScript
+                  <tr id={{ clubs[listing.club] }}>
+
+                    {% if netid == listing.netid %}
+                    <td><form action="/deletelisting" method="post" name="delete"><input type="submit" class="btn btn-danger" value="Delete" onsubmit="contact();">
+                      <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
+                      <input type="hidden" name="listing_date" value="{{ listing.date }}">
+                      <input type="hidden" name="redirect_url" value="/passes">
+                    </form></td>      
+                    {% else %}
+                    <td><form action="/contact" method="post" name="match"><input type="submit" class="btn btn-success" value="Email" onsubmit="contact();">
+                      <input type="hidden" name="netid" value="{{ netid }}">
+                      <input type="hidden" name="listing_netid" value="{{ listing.netid }}">
+                      <input type="hidden" name="listing_date" value="{{ listing.date }}">
+                    </form></td>   
+                    {% endif %}   
+
+
+                    {% if listing.wantsPasses %}
+                    <td><img src="/images/passicon.png"></td>
+                    <td>
+                      <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
+                      <br><span class="request">wants <b>{{  clubs[listing.club] }} {% if clubs[listing.club]=="Cannon" or clubs[listing.club]=="Cottage" %}Spots{% else %}Passes{% endif %}</b> for <b>Late Meal</b></span>
+                      <br> 
+                      <br><i>{{ listing.details }}</i>
+                    </td>
+                    {% else %}
+                    <td><img src="/images/foodicon.png"></td>
+
+
+                    <td>
+                      <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
+                      <br><span class="request">wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b></span>
+                      <br> 
+                      <br><i>{{ listing.details }}</i>
+                    </td>
+
+                    {% endif %}
+                  </tr>
+
+                  {% endfor %}
+
+                  {% if resultsFound == false %}
+                  No results found
+                  {% endif %}
+
+
+                </tbody>
+              </table> 
+            </div>
+<hr>
+            <div class="mastfoot">
+              <div class="inner">
+                <p style="text-align: center"><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
 
@@ -118,5 +175,21 @@
 
       });
   </script>
-  </body>
-</html>
+
+
+    <script>
+
+    $(document).ready(function(){
+
+      $('#listings').css("display", "none");
+      $('#listings').fadeIn(1000);
+
+    })
+
+    </script>
+
+
+
+
+  </body>
+  </html>

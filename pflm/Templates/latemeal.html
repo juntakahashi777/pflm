@@ -87,7 +87,7 @@
               <input type="hidden" name="netid" value={{ netid }}>
               <input type="hidden" name="nickname" value={{ nickname }}>
               <div class="vertAlign">
-                <h1>I want
+                <h1>I have
                   <select id="selectClub" name="club" onchange="ShowHideForm();" class='span2 myselect selectpicker form-control btn-special' data-style="btn-special btn-default" >
                     <option class="drophidden" disabled selected>select club</option>
                     <option class="dropoptions" value="cap">Cap</option>
@@ -102,18 +102,15 @@
               <div id = "formDetails" style="display:none">
 
                 <h3>
-                  Netid: {{ netid }} (won't be posted)
+                  Netid: <span class="coloredorange">{{ netid }}</span> (won't be posted)
                 </h3>
                 <h3>
-                  Nickname: {{ nickname }}
+                  Nickname: <span class="coloredorange">{{ nickname }}</span>
                 </h3>
-
-                <br>
-
-                <div>
+                <h3>
                   Add Details <i>(Optional)</i></br>
                   <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
-                </div>
+                </h3>
 
                 <br>
 
