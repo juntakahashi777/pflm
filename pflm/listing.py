@@ -277,6 +277,6 @@ class MyRequests(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		myRequests = zip(myRequests, prettyDates)
 
-		template_values = {'listings': myRequests, 'netid': netid}
+		template_values = {'listings': myRequests, 'netid': netid, 'clubs': clubNames, }
 		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
 		self.response.write(template.render(template_values))

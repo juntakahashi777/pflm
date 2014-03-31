@@ -36,14 +36,6 @@ class AboutUs(webapp2.RequestHandler):
             'Templates/about.html')
         self.response.write(template.render())
 
-class About2(webapp2.RequestHandler):
-
-    def get(self):
-        CAS.CAS(self)
-        template = JINJA_ENVIRONMENT.get_template(
-            'Templates/about2.html')
-        self.response.write(template.render())
-
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/about', AboutUs),
