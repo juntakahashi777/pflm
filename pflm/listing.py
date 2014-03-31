@@ -181,16 +181,20 @@ class Passes(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
+		resultsFound = True
+		if len(prettyDates) == 0:
+			resultsFound = False
 		#generate nickname
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText}
+		'wantsText': wantsText, 'hasText': hasText, 'resultsFound': resultsFound}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
+
 
 class LateMeal(webapp2.RequestHandler):
 
