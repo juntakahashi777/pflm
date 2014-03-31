@@ -22,20 +22,44 @@ class Contact(webapp2.RequestHandler):
 			listing.Listing.date == listing_date)
 
 		club = "" #to be filled in
+		wantsPasses = ""
 		print oldListing
 		for l in oldListing:
 			club = l.club
+			wantsPasses = l.wantsPasses
 
 		user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu']
 		sender_address = "PFLM Match <match@passesforlatemeal.com>"
 		subject = "You made contact!"
-		body = """
-		Dear %s,
+		body = ""
+		if wantsPasses:
+			body = """
+			Hi!
 
-		We heard you want to eat at %s with %s. Well you're in luck! 
-		Contact this fucker. go get late meal
-		In the meantime, here's a dick 8===>
-		""" % (netid, club, listing_netid)
+			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
+			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+
+			%s, if you want to delete your request, you can do so at 
+			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,
+			enjoy your passes and late meal!
+			
+			Love,
+			<a href=http://www.passesforlatemeal.com>passesforlatemeal.com</a>
+			""" % (listing_netid, club, netid, club, listing_netid)
+		else:
+			body = """
+			Hi!
+
+			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
+			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+
+			%s, if you want to delete your request, you can do so at 
+			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,
+			enjoy your passes and late meal!
+			
+			Love,
+			<a href=http://www.passesforlatemeal.com>passesforlatemeal.com</a>
+			""" % (netid, club, listing_netid, club, listing_netid)
 
 		mail.send_mail(sender_address, user_addresses, subject, body)
 
