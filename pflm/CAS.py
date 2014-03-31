@@ -78,7 +78,7 @@ def CAS(handler):
               timestr = str(int(time.time()))
               cookieHash = makehash(timestr+ ":" + netid)
               cookieVal = cookieHash + timestr + ":" + netid
-              handler.response.set_cookie(cookieKey,cookieVal,max_age=10)
+              handler.response.set_cookie(cookieKey,cookieVal,max_age=3600*8)
               return handler.redirect(url)
             else:
               C.Authenticate(handler)
