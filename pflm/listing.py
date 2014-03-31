@@ -126,6 +126,18 @@ class Listing(ndb.Model):
 	details = ndb.StringProperty(indexed=False, default="")
 	canceled = ndb.BooleanProperty(default=False)
 
+''' Returns three most recent results and 7 random other ones '''
+def curtailListings(listings):
+	RECENT_COUNT = 3
+	RANDOM_COUNT = 7
+	results = []
+	i = 0
+	for listing in listings:
+		results.append(listing)
+	results = results[:RECENT_COUNT]+random.sample(results[RECENT_COUNT:], 
+		min(len(results[RECENT_COUNT:]), RANDOM_COUNT))
+	return results
+
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
@@ -160,22 +172,22 @@ class Passes(webapp2.RequestHandler):
 		if wantsFilter in clubNames and hasFilter not in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter not in clubNames and hasFilter in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False, Listing.club==hasFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter == "latemeal" and hasFilter != "latemeal":
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter != "latemeal" and hasFilter == "latemeal":
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter == "" and hasFilter == "":
 			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		prettyDates = []
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
@@ -230,22 +242,22 @@ class LateMeal(webapp2.RequestHandler):
 		if wantsFilter in clubNames and hasFilter not in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter not in clubNames and hasFilter in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False, Listing.club==hasFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter == "latemeal" and hasFilter != "latemeal":
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter != "latemeal" and hasFilter == "latemeal":
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True,
 				ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		elif wantsFilter == "" and hasFilter == "":
 			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
-			listings = listings_query.fetch(10)
+			listings = curtailListings(listings_query)
 		prettyDates = []
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
