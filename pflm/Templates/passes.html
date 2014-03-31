@@ -41,7 +41,7 @@
     </head>
 <body>
       <!-- Static navbar -->
-      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+      <div class="navbar navbar-default" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -62,9 +62,7 @@
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
-      <br>
-      <br>
-      <br>
+
       <div class="container">
 
         <div class="myform">
@@ -120,9 +118,9 @@
               {{ selection }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/passes?selection=Passes and Latemeal">Passes and Latemeal</a></li>
-              <li><a href="/passes?selection=Passes">Passes</a></li>
-              <li><a href="/passes?selection=Latemeal">Latemeal</a></li>
+              <li><a href="/passes?selection=Passes and Latemeal&clubFilter={{ clubFilter }}">Passes and Latemeal</a></li>
+              <li><a href="/passes?selection=Passes&clubFilter={{ clubFilter }}">Passes</a></li>
+              <li><a href="/passes?selection=Latemeal&clubFilter={{ clubFilter }}">Latemeal</a></li>
             </ul>
           </div>
           for
@@ -131,13 +129,13 @@
               {{ clubFilter }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/passes?clubFilter=All Clubs">All Clubs</a></li>
-              <li><a href="/passes?clubFilter=Cap">Cap</a></li>
-              <li><a href="/passes?clubFilter=Cannon">Cannon</a></li>
-              <li><a href="/passes?clubFilter=Cottage">Cottage</a></li>
-              <li><a href="/passes?clubFilter=Ivy">Ivy</a></li>
-              <li><a href="/passes?clubFilter=TI">TI</a></li>
-              <li><a href="/passes?clubFilter=Tower">Tower</a></li>
+              <li><a href="/passes?clubFilter=All Clubs&selection={{ selection }}">All Clubs</a></li>
+              <li><a href="/passes?clubFilter=Cap&selection={{ selection }}">Cap</a></li>
+              <li><a href="/passes?clubFilter=Cannon&selection={{ selection }}">Cannon</a></li>
+              <li><a href="/passes?clubFilter=Cottage&selection={{ selection }}">Cottage</a></li>
+              <li><a href="/passes?clubFilter=Ivy&selection={{ selection }}">Ivy</a></li>
+              <li><a href="/passes?clubFilter=TI&selection={{ selection }}">TI</a></li>
+              <li><a href="/passes?clubFilter=Tower&selection={{ selection }}">Tower</a></li>
             </ul>
           </div>
           <br>
