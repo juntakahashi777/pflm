@@ -1,7 +1,7 @@
 import sys, os, cgi, md5, urllib, time, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 
-admins = [u'usikder',u'madhavan',u'jtakahas',u'pmisra',u'saha']
+admins = [u'usikder',u'madhavan',u'jtakahas',u'pmisra',u'saha',u'cmoretti']
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
 
 class CASClient:
