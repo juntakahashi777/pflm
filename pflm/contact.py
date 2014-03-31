@@ -22,45 +22,37 @@ class Contact(webapp2.RequestHandler):
 			listing.Listing.date == listing_date)
 
 		club = "" #to be filled in
-		wantsPasses = ""
-		print oldListing
+		wantsPasses = True
 		for l in oldListing:
 			club = l.club
 			wantsPasses = l.wantsPasses
 
-		user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu']
+		user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu', 'utsarga.sikder@gmail.com']
 		sender_address = "PFLM Match <match@passesforlatemeal.com>"
 		subject = "You made contact!"
 		body = ""
 		if wantsPasses:
 			body = """
-			Hi!
+Hi!
 
-			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
-			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+We heard that %s wants to party at %s and %s wants to eat some late meal. Well, you guys are in luck! Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
 
-			%s, if you want to delete your request, you can do so at 
-			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,
-			enjoy your passes and late meal!
-			
-			Love,
-			<a href=http://www.passesforlatemeal.com>passesforlatemeal.com</a>
-			""" % (listing_netid, club, netid, club, listing_netid)
+%s, if you want to delete your request, you can do so at passesforlatemeal.com/myrequests. In the meantime, enjoy your passes and late meal!
+
+Love,
+passesforlatemeal
+""" % (listing_netid, club, netid, club, listing_netid)
 		else:
-			body = """
-			Hi!
+			body = body = """
+Hi!
 
-			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
-			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+We heard that %s wants to party at %s and %s wants to eat some late meal. Well, you guys are in luck! Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
 
-			%s, if you want to delete your request, you can do so at 
-			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,
-			enjoy your passes and late meal!
-			
-			Love,
-			<a href=http://www.passesforlatemeal.com>passesforlatemeal.com</a>
-			""" % (netid, club, listing_netid, club, listing_netid)
+%s, if you want to delete your request, you can do so at passesforlatemeal.com/myrequests. In the meantime, enjoy your passes and late meal!
 
+Love,
+passesforlatemeal
+""" % (netid, club, listing_netid, club, listing_netid)
 		mail.send_mail(sender_address, user_addresses, subject, body)
 
 		template = JINJA_ENVIRONMENT.get_template('Templates/contacted.html')
