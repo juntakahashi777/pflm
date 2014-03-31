@@ -41,6 +41,7 @@ pass_seeker_nicknames = [
 "CampusClubMember",
 "PasstramiSandwich",
 "PassTense",
+"pASSpASSpASS",
 ]
 
 # 20 character max
@@ -53,6 +54,11 @@ lm_seeker_nicknames = [
 "Domingo",
 "ChillUpperclassman",
 "PassDaddy",
+"SurrenderTheTenders",
+"EyesOnTheFries",
+"PassDaddy",
+"StressedOutSenior",
+
 "LouisPassteur",
 "JustPassingThrough",
 "PassauSt",
@@ -131,7 +137,7 @@ class Passes(webapp2.RequestHandler):
 		listings_query = Listing.query(Listing.canceled==False,
 			ancestor=listing_key("pflm")).order(-Listing.date)
 
-		MAX_LISTINGS = 5
+		MAX_LISTINGS = 6
 		userListings = Listing.query(Listing.netid == netid, 
 			Listing.canceled==False)
 		numListings = 0
@@ -145,12 +151,6 @@ class Passes(webapp2.RequestHandler):
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
-
-		#get clubs
-		clubName = 'select club'
-		club = self.request.get('club')
-		if club in clubNames:
-			clubName = clubNames[club]
 
 		#generate nickname
 		random_number = random.randint(1,99)
@@ -166,7 +166,7 @@ class Passes(webapp2.RequestHandler):
 		if clubFilter in clubFilters:
 			filterName = clubFilter
 
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 
+		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selectionName, 'clubFilter': filterName}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")

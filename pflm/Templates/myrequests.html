@@ -84,7 +84,7 @@
               </tbody>
             </table>
           </div>
-<div class="span7 text-center"><form action="/deleteall" method="post"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All">
+<div class="span7 text-center"><form action="/deleteall" method="post" name="deleteall"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All">
                   <input type="hidden" name="listing_netid" value="{{ netid }}">
                   </form></div>
 
@@ -95,5 +95,27 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./bootstrap/js/docs.min.js"></script>
+
+      <!-- bootbox code -->
+    <script src="./bootstrap/bootbox.min.js"></script>
+
+  <script type="text/javascript">
+      $('form').submit(function(e) {
+          var currentForm = this;
+          console.log(this.name);
+          if (this.name == "deleteall") {
+          e.preventDefault();
+          bootbox.confirm("This will delete all your requests. Are you okay with that?", function(result) {
+              if (result) {
+                  currentForm.submit();
+              }
+          });
+        }
+        else {
+          currentForm.submit();
+      }
+
+      });
+  </script>
   </body>
 </html>

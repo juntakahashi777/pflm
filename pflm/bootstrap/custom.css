@@ -1,12 +1,28 @@
-.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
-  background-color: #550055;
-  color:#eeeeee;
+body {
+    -webkit-animation-delay: 0.1s;
+    -webkit-animation-name: fontfix;
+    -webkit-animation-duration: 0.1s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: linear;
 }
 
-/*.myform {
-background-color:#D1D1D1;
-color:#eeeeee;
-}*/
+@-webkit-keyframes fontfix {
+    from { opacity: 1; }
+    to   { opacity: 1; }
+}
+
+
+.table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
+    background-color: #555;
+    color: #2ba7ff !important;
+  -o-transition: all 0.2s ease-in-out;
+  -webkit-transition: all 0.2s ease-in-out;
+  -moz-transition: all 0.2s ease-in-out;
+  -ms-transition: all 0.2s ease-in-out;
+  transition: all 0.2s ease-in-out;
+}
+.myform {
+}
 
 .bootbox {
 }
@@ -28,6 +44,11 @@ max-width: 10%;
 word-wrap:break-word;
 }
 
+td img {
+   width: 40px;
+   height: auto;
+   vertical-align: middle;
+}
 
 .dropdown-lrg {
     font-size: 25px;
@@ -160,23 +181,15 @@ a:after {
     width: 280px;
 }
 
-i {
-    margin: 8px;
+.nickname {
+    font-size: 20px;
+}
+.request {
     color: rgb(252,102,34); 
 }
 
-
-body {
-    -webkit-animation-delay: 0.1s;
-    -webkit-animation-name: fontfix;
-    -webkit-animation-duration: 0.1s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: linear;
-}
-
-@-webkit-keyframes fontfix {
-    from { opacity: 1; }
-    to   { opacity: 1; }
+i {
+    color: #888; 
 }
 
 /* HeaderWrap */
