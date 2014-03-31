@@ -198,7 +198,7 @@
 
                     <td>
                       <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
-                      <br><span class="request">wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }}</b></span>
+                      <br><span class="request">wants <b>Late Meal</b> for <b>{{  clubs[listing.club] }} {% if clubs[listing.club]=="Cannon" or clubs[listing.club]=="Cottage" %}Spots{% else %}Passes{% endif %}</b> for <b>Late Meal</b></span>
                       <br> 
                       <br><i>{{ listing.details }}</i>
                     </td>
