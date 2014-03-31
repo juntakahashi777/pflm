@@ -22,6 +22,7 @@ body {
   transition: all 0.2s ease-in-out;
 }
 .myform {
+    background-color: #BBB;
 }
 
 .bootbox {
@@ -138,7 +139,7 @@ p {
 
 .coloredorange {
 
-    color: rgb(252,102,34);
+    color: #2ba7ff;
 }
 
 /* Links */
