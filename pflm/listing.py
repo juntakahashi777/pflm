@@ -136,6 +136,7 @@ def curtailListings(listings):
 		results.append(listing)
 	results = results[:RECENT_COUNT]+random.sample(results[RECENT_COUNT:], 
 		min(len(results[RECENT_COUNT:]), RANDOM_COUNT))
+	results.sort(key=lambda l: l.date)
 	return results
 
 class Passes(webapp2.RequestHandler):
