@@ -37,7 +37,7 @@ class Contact(webapp2.RequestHandler):
 			Hi!
 
 			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
-			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
 
 			%s, if you want to delete your request, you can do so at 
 			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,
@@ -51,7 +51,7 @@ class Contact(webapp2.RequestHandler):
 			Hi!
 
 			We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
-			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email here about how it all went. Send us a story, a picture--whatever you want!
+			Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
 
 			%s, if you want to delete your request, you can do so at 
 			<a href=http://www.passesforlatemeal.com/myrequests>http://www.passesforlatemeal.com/myrequests</a>. In the meantime,

@@ -42,6 +42,7 @@ pass_seeker_nicknames = [
 "PasstramiSandwich",
 "PassTense",
 "pASSpASSpASS",
+"Passablanca",
 ]
 
 # 20 character max
@@ -58,7 +59,6 @@ lm_seeker_nicknames = [
 "EyesOnTheFries",
 "PassDaddy",
 "StressedOutSenior",
-
 "LouisPassteur",
 "JustPassingThrough",
 "PassauSt",

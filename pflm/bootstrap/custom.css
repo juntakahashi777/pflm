@@ -1,7 +1,7 @@
 body {
-    -webkit-animation-delay: 0.1s;
+    -webkit-animation-delay: 0.2s;
     -webkit-animation-name: fontfix;
-    -webkit-animation-duration: 0.1s;
+    -webkit-animation-duration: 0.2s;
     -webkit-animation-iteration-count: 1;
     -webkit-animation-timing-function: linear;
 }
@@ -14,7 +14,7 @@ body {
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
     background-color: #555;
-    color: #2ba7ff !important;
+    color: rgb(252,102,34) !important;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
@@ -32,11 +32,15 @@ body {
 }
 
 hr {
-color: #2ba7ff;
-background-color: #2ba7ff;
+color: rgb(252,102,34);
+background-color: rgb(252,102,34);
 height: 1px;
  margin-left: -50%;
  margin-right: -50%;
+}
+
+.header {
+font-weight:700;
 }
 
 th, td {
@@ -97,7 +101,7 @@ h1 {
 }
 
 h3 {
-    color: #95a5a6;
+    color: #777;
     font-weight: 400;
 }
 
