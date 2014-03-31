@@ -103,6 +103,10 @@ passes
 <br>
 </div>
           <div class="table-responsive">
+    <div class="table-responsive">
+    <form action="/latemeal" method="post" class="navbar-form">
+      <input type="hidden" name="selection" value={{ selection }}>
+      <input type="hidden" name="clubFilter" value={{ clubFilter }}>
           Filter by: want
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
@@ -110,6 +114,7 @@ passes
             </button>
             <ul class="dropdown-menu" role="menu">
               <li><a href="/latemeal?selection=Passes and Latemeal">Passes and Latemeal</a></li>
+              <li><a href="/latemeal?selection=Passes and Latemeal&clubFilter="+clubFilter>Passes and Latemeal</a></li>
               <li><a href="/latemeal?selection=Passes">Passes</a></li>
               <li><a href="/latemeal?selection=Latemeal">Latemeal</a></li>
             </ul>
@@ -129,6 +134,7 @@ passes
               <li><a href="/latemeal?clubFilter=Tower">Tower</a></li>
             </ul>
           </div>
+        </form>
             <table class="table table-striped table-hover">
               <thead>
 
