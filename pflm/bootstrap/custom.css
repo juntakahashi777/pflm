@@ -32,8 +32,8 @@ body {
 }
 
 hr {
-color: rgb(252,102,34);
-background-color: rgb(252,102,34);
+color: #2ba7ff ;
+background-color: #2ba7ff ;
 height: 1px;
  margin-left: -50%;
  margin-right: -50%;
@@ -54,15 +54,25 @@ td img {
    vertical-align: middle;
 }
 
-.dropdown-lrg {
-    font-size: 25px;
-    }
+.vertAlign {
+
+       vertical-align: middle;
+
+}
+
+.drophidden {
+    display: none;
+    font-size: 0px;
+}
+
+.dropoptions {
+    font-size: 30px;
+}
 
 .btn-special {
-    background:transparent;
-    font-size: inherit;
+    background:white;
+    font-size: 30px;
     text-decoration: inherit;
-    border: 1px #2ba7ff dotted;
     color:inherit;
     font-family: inherit;
     font-weight: inherit;
