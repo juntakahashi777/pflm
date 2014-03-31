@@ -129,30 +129,38 @@
           <div id="listings">
            <h1 class="header" style="text-align: center">CURRENT OFFERS</h1>
            <br>
-           Filter:
+           Filter: wants
            <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              {{ selection }} <span class="caret"></span>
+              {{ wantsText }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/passes?selection=Passes and Latemeal&clubFilter={{ clubFilter }}">Passes and Latemeal</a></li>
-              <li><a href="/passes?selection=Passes&clubFilter={{ clubFilter }}">Passes</a></li>
-              <li><a href="/passes?selection=Latemeal&clubFilter={{ clubFilter }}">Latemeal</a></li>
+              <li><a href="/passes?has={{ has }}">anything</a></li>
+              <li class="divider"></li>
+              <li><a href="/passes?wants=cap&has={{ has }}">Cap</a></li>
+              <li><a href="/passes?wants=cannon&has={{ has }}">Cannon</a></li>
+              <li><a href="/passes?wants=cottage&has={{ has }}">Cottage</a></li>
+              <li><a href="/passes?wants=ivy&has={{ has }}">Ivy</a></li>
+              <li><a href="/passes?wants=ti&has={{ has }}">TI</a></li>
+              <li><a href="/passes?wants=tower&has={{ has }}">Tower</a></li>
+              <li><a href="/passes?wants=latemeal&has={{ has }}">Late Meal</a></li>
             </ul>
           </div>
           for
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              {{ clubFilter }} <span class="caret"></span>
+              {{ hasText }} <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu">
-              <li><a href="/passes?clubFilter=All Clubs&selection={{ selection }}">All Clubs</a></li>
-              <li><a href="/passes?clubFilter=Cap&selection={{ selection }}">Cap</a></li>
-              <li><a href="/passes?clubFilter=Cannon&selection={{ selection }}">Cannon</a></li>
-              <li><a href="/passes?clubFilter=Cottage&selection={{ selection }}">Cottage</a></li>
-              <li><a href="/passes?clubFilter=Ivy&selection={{ selection }}">Ivy</a></li>
-              <li><a href="/passes?clubFilter=TI&selection={{ selection }}">TI</a></li>
-              <li><a href="/passes?clubFilter=Tower&selection={{ selection }}">Tower</a></li>
+              <li><a href="/passes?wants={{ wants }}">anything else</a></li>
+              <li class="divider"></li>
+              <li><a href="/passes?wants={{ wants}}&has=cap">Cap</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=cannon">Cannon</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=cottage">Cottage</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=ivy">Ivy</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=ti">TI</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=tower">Tower</a></li>
+              <li><a href="/passes?wants={{ wants}}&has=latemeal">Late Meal</a></li>
             </ul>
           </div>
           <br>
@@ -162,9 +170,6 @@
               <table class="table table-hover">
                 <tbody> 
                   {% for listing, prettyDate in listings %}
-
-                  <!-- Filters out rows not meeting filter criteria -->
-                  {% if (clubFilter == "All Clubs" or clubFilter == clubs[listing.club]) and (selection == "Passes and Latemeal" or (selection == "Passes" and listing.wantsPasses) or (selection == "Latemeal" and not listing.wantsPasses)) %}
 
                   <tr id={{ clubs[listing.club] }}>
 
@@ -206,9 +211,13 @@
 
                     {% endif %}
                   </tr>
-                  {% endif %}
 
                   {% endfor %}
+
+                  {% if resultsFound %}
+                  {% else %}
+                  No results found :(
+                  {% endif %}
 
 
                 </tbody>
