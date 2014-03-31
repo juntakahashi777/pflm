@@ -27,8 +27,12 @@ body {
 .bootbox {
 }
 .modal-footer {
+        text-align: center;
+
 }
 .modal-body {
+        text-align: center;
+
 }
 
 hr {
