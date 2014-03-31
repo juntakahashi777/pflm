@@ -13,7 +13,7 @@ body {
 
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
-    background-color: #550055;
+    background-color: #555;
     color: #2ba7ff !important;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
@@ -44,6 +44,11 @@ max-width: 10%;
 word-wrap:break-word;
 }
 
+td img {
+   width: 40px;
+   height: auto;
+   vertical-align: middle;
+}
 
 .dropdown-lrg {
     font-size: 25px;
