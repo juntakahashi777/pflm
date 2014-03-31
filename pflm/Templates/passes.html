@@ -235,9 +235,40 @@
       console.log(this.name);
       if (this.name == "delete") {
         e.preventDefault();
-        bootbox.confirm("Are you sure you want to delete?", function(result) {
-          if (result) {
-            currentForm.submit();
+        bootbox.dialog({
+          message:"Are you sure you want to delete?",
+          buttons: {
+            success: {
+              label: "Let's do it!",
+              className: "btn-danger",
+              callback: function() {
+                currentForm.submit();
+              }
+            },
+            cancel: {
+              label: "No thanks",
+              className: "btn-default"
+            }
+          }
+        });
+      }
+
+      else if (this.name == "match") {
+        e.preventDefault();
+        bootbox.dialog({
+          message:"Are you sure you want to match up?",
+          buttons: {
+            success: {
+              label: "Let's do it!",
+              className: "btn-success",
+              callback: function() {
+                currentForm.submit();
+              }
+            },
+            cancel: {
+              label: "No thanks",
+              className: "btn-default"
+            }
           }
         });
       }
