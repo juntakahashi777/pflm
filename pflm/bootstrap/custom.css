@@ -14,7 +14,7 @@ body {
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
     background-color: #555;
-    color: rgb(252,102,34) !important;
+    color: white !important;
   -o-transition: all 0.2s ease-in-out;
   -webkit-transition: all 0.2s ease-in-out;
   -moz-transition: all 0.2s ease-in-out;
