@@ -63,6 +63,7 @@ def CAS(handler):
         sys.exit()
       newhash = makehash(timestr+":"+netid)
       if oldhash!=newhash:
+        handler.response.set_cookie(cookieKey, "", max_age=0)
         C.authenticate()
     else:
         if handler.request.get('ticket') != "":
