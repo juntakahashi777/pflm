@@ -8,8 +8,8 @@ def getName(netid):
 	soup = BeautifulSoup(html)
 	soup = soup.find("div", {"id": "search-people-results"})
 	for person in soup.find_all("li"):
-		if person.find("a", {"href": re.compile(netid+"@princeton.edu")}) is not None:
-			name = person.find("a", {"class": "collapsed"}).get_text()
-			return name.split(',')[1].split()[0]
+		attributes = person.find_all("a")
+		if attributes[1].get_text().split()[0].lower() == netid.lower()+u"@princeton.edu":
+			return attributes[0].get_text().split(',')[1].split()[0]
 
 print getName(sys.argv[1])
