@@ -1,45 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="images/favicon.ico">
 
-    <title>Want Passes?</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="images/favicon.ico">
 
-    <!-- Bootstrap core CSS -->
-    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <title>Want Passes?</title>
+  <link href="bootstrap/css/bootstrap.icon-large.min.css" rel="stylesheet">
 
-    <!-- Custom styles for this template -->
-    <link href="bootstrap/css/navbar.css" rel="stylesheet">
 
+  <!-- Bootstrap core CSS -->
+  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom select styles-->    
+  <link rel="stylesheet" type="text/css" media="screen" href="./bootstrap/select/bootstrap-select.css">
+
+  <!-- Custom styles for this template -->
+  <link href="bootstrap/css/navbar.css" rel="stylesheet">
 
   <!-- Custom CSS built -->
   <link href="bootstrap/custom.css" rel="stylesheet">
 
   <!-- Font -->
-  <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
+  <link href='http://fonts.googleapis.com/css?family=Signika:400,700' rel='stylesheet' type='text/css'>
 
+  <!-- Just for debugging purposes. Don't actually copy this line! -->
+  <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+  <!--   HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries-->    
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-  </head>
+      <![endif]-->
 
-  <body>
 
-    <div class="container">
+      <style>
+
+      .formDetails { display: none; }
+
+      </style>
+
+
+    </head>
+    <body>
 
       <!-- Static navbar -->
-      <div class="navbar navbar-inverse" role="navigation">
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container-fluid">
           <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -48,30 +58,46 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">Passes for Late Meal</a>
+            <a class="navbar-brand" href="/">passesforlatemeal.com</a>
           </div>
           <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li class="active"><a href="/passes">Want Passes?</a></li>
-              <li><a href="/latemeal">Want Late Meal?</a></li>
-            </ul>
             <ul class="nav navbar-nav navbar-right">
+              <li><a href="/passes">Want Passes?</a></li>
+              <li><a href="/latemeal">Want Late Meal?</a></li>
               <li><a href="/myrequests">My Requests</a></li>
+              <li id="logout" onclick="logout()"><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div><!--/.container-fluid -->
       </div>
 
-<h1> Contact made! </h1>
-<h2> Check your email yo. </h2>
+      <br>
+      <br>
+      <div class="container">
+
+         <h1 class="header" style="text-align: center">Thanks for emailing! Check your inbox.</h1>
+
+          <div class="mastfoot">
+            <div class="inner">
+              <p style="text-align: center"><a href="/about">About</a> | <a onclick=
+                "bootbox.alert({message:'Send us an email at: p4lm@passesforlatemeal.com'});">Contact</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+     <!-- Bootstrap core JavaScript
+     ================================================== -->
+     <!-- Placed at the end of the document so the pages load faster -->
+
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+     <script src="./bootstrap/js/bootstrap.min.js"></script>
+     <script src="./bootstrap/js/docs.min.js"></script>
+
+ <!-- bootbox code -->
+ <script src="./bootstrap/bootbox.min.js"></script>
 
 
-    <!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="./bootstrap/js/bootstrap.min.js"></script>
-    <script src="./bootstrap/js/docs.min.js"></script>
-  </body>
+</body>
 </html>
