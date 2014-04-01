@@ -5225,6 +5225,3 @@ lookup = {"abbas": "Haider",
 "jez": "Jacob",
 "rjz": "Renee"}
 
-
-def getName(netid):
-	return lookup[netid]

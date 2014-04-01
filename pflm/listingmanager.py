@@ -31,9 +31,7 @@ class MakeListing(webapp2.RequestHandler):
 class DeleteListing(webapp2.RequestHandler):
 
 	def post(self):
-		print "hi"
 		listing_netid = self.request.get("listing_netid")
-		print "hello"
 		redirect_url = self.request.get("redirect_url")
 		print redirect_url
 		listing_date = datetime.datetime.strptime(self.request.get("listing_date"),
