@@ -279,7 +279,7 @@ class LateMeal(webapp2.RequestHandler):
 			resultsFound = False
 		#generate nickname
 		random_number = random.randint(1,99)
-		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
+		nickname = random.choice(lm_seeker_nicknames) + str(random_number)
 
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,

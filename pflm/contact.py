@@ -56,9 +56,7 @@ class Contact(webapp2.RequestHandler):
 
 			sender_address = "PFLM Match <match@passesforlatemeal.com>"
 			subject = "You made contact!"
-			body = ""
-			if wantsPasses:
-				body = """<p>Hi!</p>
+			body = """<p>Hi!</p>
 				<p>We heard that %s wants to party at %s and %s wants to eat some late meal. You guys are in luck!</p>
 				<p>Get in touch, go get some late meal (or get it delivered) and go wild at %s!</p>
 <p>Love,<br>PassesForLateMeal</p><br><p>---</p><p>%s, if you want to delete your request, you can do so at www.passesforlatemeal.com/myrequests.</p>""" % (passWanter, clubNames[club], passHaver, clubNames[club], passHaver)
