@@ -147,6 +147,10 @@ def getResultsMessage(wantsFilter, hasFilter):
 		return "Yo dawg I heard you like Late Meal"
 	if wantsFilter=="tower" and hasFilter=="tower":
 		return "This might not be the right tool for that"
+	if wantsFilter=="ivy" and hasFilter=="ivy":
+		return "Don't forget your pencil"
+	if wantsFilter=="cannon" and hasFilter=="cannon":
+		return "SportsCenter's on at 8 bro"
 	return ""
 
 class Passes(webapp2.RequestHandler):

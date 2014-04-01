@@ -4,6 +4,7 @@ import listing
 import CAS
 import urllib, json
 from google.appengine.api import urlfetch
+import nameLookup
 
 MANDRILL_URL = "https://mandrillapp.com/api/1.0/messages/send.json"
 
@@ -16,15 +17,10 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 	autoescape=True)
 
 def getName(netid):
-	url = 'http://www.princeton.edu/main/tools/search/index.xml?q='+netid
-	f = urllib.urlopen(url)
-	html = f.read()
-	soup = BeautifulSoup(html)
-	soup = soup.find("div", {"id": "search-people-results"})
-	for person in soup.find_all("li"):
-		attributes = person.find_all("a")
-		if attributes[1].get_text().split()[0].lower() == netid.lower()+u"@princeton.edu":
-			return attributes[0].get_text().split(',')[1].split()[0]
+	netid.encode("ascii","ignore")
+	if netid in nameLookup.lookup:
+		return nameLookup.lookup[netid]
+	return netid
 
 class Contact(webapp2.RequestHandler):
 
@@ -48,11 +44,11 @@ class Contact(webapp2.RequestHandler):
 			passWanter = ""
 			passHaver = ""
 			if wantsPasses:
-				passWanter = netid
-				passHaver = listing_netid
+				passWanter = getName(netid)
+				passHaver = getName(listing_netid)
 			else:
-				passWanter = listing_netid
-				passHaver = netid
+				passWanter = getName(listing_netid)
+				passHaver = getName(netid)
 
 			sender_address = "PFLM Match <match@passesforlatemeal.com>"
 			subject = "You made contact!"
