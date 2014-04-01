@@ -91,7 +91,8 @@
             <br>
             <br>
 
-            <h2>Made with love by hungry upperclassmen: <a href="mailto:hello@passesforlatemeal.com">say hello</a>.</h2>
+            <h2>Made with love by hungry upperclassmen: <a onclick=
+                "bootbox.alert({message:'Send us an email at: p4lm@passesforlatemeal.com'});">say hello</a>.</h2>
           </br>
 
           <br>
@@ -110,6 +111,9 @@
     <script src="./bootstrap/js/bootstrap.min.js"></script>
     <script src="./bootstrap/js/docs.min.js"></script>
 
+    <script src="bootstrap/bootbox.min.js"></script>
+
+
 <script>
 
 $(document).ready(function(){
@@ -121,16 +125,5 @@ $(document).ready(function(){
 
 </script>
 
-<script>
-/*! Fades out the whole page when clicking links */
-$('a').click(function(e) {
- e.preventDefault();
- newLocation = this.href;
- $('body').fadeOut('slow', newpage);
-});
-function newpage() {
- window.location = newLocation;
-}
-</script>
   </body>
 </html>
