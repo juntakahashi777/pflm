@@ -101,10 +101,10 @@
               <div id = "formDetails" style="display:none">
 
                 <h3>
-                  Netid: <span class="coloredorange">{{ netid }}</span> (only for email)
+                  Netid: <span class="coloredblue">{{ netid }}</span> (only for email)
                 </h3>
                 <h3>
-                  Nickname: <span class="coloredorange">{{ nickname }}</span>
+                  Nickname: <span class="coloredblue">{{ nickname }}</span>
                 </h3>
 
                 <h3>
@@ -126,25 +126,7 @@
           <div id="listings">
            <h1 class="header" style="text-align: center">CURRENT OFFERS</h1>
            <br>
-           Show me requests that want
-           <div class="btn-group">
-            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-              {{ wantsText }} <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu" role="menu">
-              <li><a href="/passes?has={{ has }}">anything</a></li>
-              <li class="divider"></li>
-              <li><a href="/passes?wants=latemeal&has={{ has }}">Late Meal</a></li>
-              <li class="divider"></li>
-              <li><a href="/passes?wants=cap&has={{ has }}">Cap</a></li>
-              <li><a href="/passes?wants=cannon&has={{ has }}">Cannon</a></li>
-              <li><a href="/passes?wants=cottage&has={{ has }}">Cottage</a></li>
-              <li><a href="/passes?wants=ivy&has={{ has }}">Ivy</a></li>
-              <li><a href="/passes?wants=ti&has={{ has }}">TI</a></li>
-              <li><a href="/passes?wants=tower&has={{ has }}">Tower</a></li>
-            </ul>
-          </div>
-          and have
+           Show me requests that have
           <div class="btn-group">
             <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
               {{ hasText }} <span class="caret"></span>
@@ -162,6 +144,25 @@
               <li><a href="/passes?wants={{ wants}}&has=tower">Tower</a></li>
             </ul>
           </div>
+          and want
+          <div class="btn-group">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+              {{ wantsText }} <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><a href="/passes?has={{ has }}">anything</a></li>
+              <li class="divider"></li>
+              <li><a href="/passes?wants=latemeal&has={{ has }}">Late Meal</a></li>
+              <li class="divider"></li>
+              <li><a href="/passes?wants=cap&has={{ has }}">Cap</a></li>
+              <li><a href="/passes?wants=cannon&has={{ has }}">Cannon</a></li>
+              <li><a href="/passes?wants=cottage&has={{ has }}">Cottage</a></li>
+              <li><a href="/passes?wants=ivy&has={{ has }}">Ivy</a></li>
+              <li><a href="/passes?wants=ti&has={{ has }}">TI</a></li>
+              <li><a href="/passes?wants=tower&has={{ has }}">Tower</a></li>
+            </ul>
+          </div>
+
           <br>
 
                   <div class="table-responsive">
@@ -189,31 +190,28 @@
 
                                         {% if listing.wantsPasses %}
                     <td><img src="/images/foodicon.png"></td>
-
-
                     <td>
+                      <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
+                      <span class="request"><br> has <b>Late Meal</b>; wants <b>{{  clubs[listing.club] }} {% if clubs[listing.club]=="Cannon" or clubs[listing.club]=="Cottage" %}Spots{% else %}Passes{% endif %}</b></span>
+                      <br> 
+                      <br><i>{{ listing.details }}</i>
+                    </td>
+
+                                        {% else %}
+
+                    <td><img src="/images/passicon.png"></td>
+                     <td>
                       <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
                       <br><span class="request">has <b>{{  clubs[listing.club] }} {% if clubs[listing.club]=="Cannon" or clubs[listing.club]=="Cottage" %}Spots{% else %}Passes{% endif %}</b>; wants <b>Late Meal</b> </span>
                       <br> 
                       <br><i>{{ listing.details }}</i>
                     </td>
-                                        {% else %}
-
-                    <td><img src="/images/passicon.png"></td>
-                    <td>
-                      <span class="nickname"><b>{{ listing.nickname }}</b></span> <i>- {{ prettyDate }}</i>
-                      <br> has <b>Late Meal</b>; <span class="request">wants <b>{{  clubs[listing.club] }} {% if clubs[listing.club]=="Cannon" or clubs[listing.club]=="Cottage" %}Spots{% else %}Passes{% endif %}</b></span>
-                      <br> 
-                      <br><i>{{ listing.details }}</i>
-                    </td>
-
-
                     {% endif %}
                   </tr>
 
                   {% endfor %}
 
-                  <span class="coloredorange">{% print resultsMessage %}</span>
+                  <span class="coloredblue">{% print resultsMessage %}</span>
 
 
                 </tbody>
@@ -223,7 +221,7 @@
             <div class="mastfoot">
               <div class="inner">
                 <p style="text-align: center"><a href="/about">About</a> | <a onclick=
-                "bootbox.alert({message:'Send us an email at: p4lm@passesforlatemeal.com'});">Contact</a></p>
+                "bootbox.alert({message:'Send us an email at: hello@passesforlatemeal.com'});">Contact</a></p>
               </div>
             </div>
           </div>

@@ -139,6 +139,11 @@ p {
 
 .coloredorange {
 
+    color: rgb(252,102,34);
+}
+
+.coloredblue {
+
     color: #2ba7ff;
 }
 
