@@ -82,7 +82,8 @@
         {% if listings|length == 0 %}
           You have no current requests! Make one for passes <a href="/passes">here</a> or for late meal <a href="/latemeal">here</a>.
         {% else %}
-         <div class="span7 text-center"><form action="/deleteall" method="post" name="deleteall"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All"></div></form>
+         <div class="span7 text-center"><form action="/deleteall" method="post" name="deleteall"><input type="submit" class="btn btn-danger pull-ctr btn-lg" value="Delete All">
+          <input type="hidden" name="listing_netid" value="{{ netid }}"></form></div>
 
                  <div class="table-responsive">
           <div class="table-responsive">
