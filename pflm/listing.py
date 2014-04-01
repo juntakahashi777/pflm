@@ -215,12 +215,13 @@ class Passes(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
+		#special results message
 		resultsMessage = getResultsMessage(wantsFilter, hasFilter)
-		template_values = {'listings': listings, 'netid': netid, 
-		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'resultsMessage': resultsMessage}
 
-		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
+		template_values = {'listings': listings, 'netid': netid, 'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
+		'wantsText': wantsText, 'hasText': hasText, 'isPassesPage': True, 'resultsMessage': resultsMessage}
+
+		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
 
 
@@ -285,11 +286,14 @@ class LateMeal(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(lm_seeker_nicknames) + str(random_number)
 
+		#special results message
+		resultsMessage = getResultsMessage(wantsFilter, hasFilter)
+
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'resultsFound': resultsFound}
+		'wantsText': wantsText, 'hasText': hasText, 'isPassesPage': False, 'resultsMessage': resultsMessage}
 
-		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
+		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
 
 class MyRequests(webapp2.RequestHandler):
