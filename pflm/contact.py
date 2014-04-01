@@ -2,17 +2,32 @@ import webapp2, jinja2
 import datetime, os
 import listing
 import CAS
-from google.appengine.api import mail
-import json
+import urllib, json
+from google.appengine.api import urlfetch
 
 MANDRILL_URL = "https://mandrillapp.com/api/1.0/messages/send.json"
 
+clubNames = {"cannon": "Cannon", "cap": "Cap", 
+"cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
+
 JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True)
+	loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
+	extensions=['jinja2.ext.autoescape'],
+	autoescape=True)
+
+def getName(netid):
+	url = 'http://www.princeton.edu/main/tools/search/index.xml?q='+netid
+	f = urllib.urlopen(url)
+	html = f.read()
+	soup = BeautifulSoup(html)
+	soup = soup.find("div", {"id": "search-people-results"})
+	for person in soup.find_all("li"):
+		attributes = person.find_all("a")
+		if attributes[1].get_text().split()[0].lower() == netid.lower()+u"@princeton.edu":
+			return attributes[0].get_text().split(',')[1].split()[0]
 
 class Contact(webapp2.RequestHandler):
+
 	def post(self):
 		netid = self.request.get("netid")
 		listing_netid = self.request.get("listing_netid")
@@ -29,83 +44,53 @@ class Contact(webapp2.RequestHandler):
 			club = l.club
 			wantsPasses = l.wantsPasses
 
-		user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu', 'utsarga.sikder@gmail.com']
-		sender_address = "PFLM Match <match@passesforlatemeal.com>"
-		subject = "You made contact!"
-		body = ""
-		if wantsPasses:
-			body = """
-Hi!
+			user_addresses =  [netid + '@princeton.edu', listing_netid + '@princeton.edu', 'utsarga.sikder@gmail.com']
+			passWanter = ""
+			passHaver = ""
+			if wantsPasses:
+				passWanter = netid
+				passHaver = listing_netid
+			else:
+				passWanter = listing_netid
+				passHaver = netid
 
-We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
+			sender_address = "PFLM Match <match@passesforlatemeal.com>"
+			subject = "You made contact!"
+			body = ""
+			if wantsPasses:
+				body = """<p>Hi!</p>
+				<p>We heard that %s wants to party at %s and %s wants to eat some late meal. You guys are in luck!</p>
+				<p>Get in touch, go get some late meal (or get it delivered) and go wild at %s!</p>
+<p>Love,<br>PassesForLateMeal</p><br><p>---</p><p>%s, if you want to delete your request, you can do so at www.passesforlatemeal.com/myrequests.</p>""" % (passWanter, clubNames[club], passHaver, clubNames[club], passHaver)
 
-Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
+			params = {
+			"async": False,
+			"message": {
+			"from_name": "PassesForLateMeal Match",
+			"track_opens": True,
+			"html": body,
+			"inline_css": False,
+			"bcc_address": "message.bcc_address@example.com",
+			"from_email": "match@passesforlatemeal.com",
+			"to": [
+			   {
+			       "type": "to",
+			       "email": listing_netid+"@princeton.edu"
+			   },
+			   {
+			       "type": "to",
+			       "email": netid+"@princeton.edu",
+			   },
+			],
+			"track_clicks": True,
+			"subject": "Match on passesforlatemeal!"
+			},
+			"key": "CP0ZcMEThOjYt4UwbVkE1w",
+			}
 
-%s, if you want to delete your request, you can do so at 
-http://www.passesforlatemeal.com/myrequests. In the meantime,
-enjoy your passes and late meal!
-
-Love,
-passesforlatemeal
-""" % (listing_netid, club, netid, club, listing_netid)
-
-		else:
-			body = body = """
-Hi!
-
-We heard that %s wants to party at %s and %s wants to eat some late meal. Well???, you guys are in luck! 
-
-Get in touch, go get some late meal and go wild at %s! If you're feeling up for it, drop us an email about how it all went. Send us a story, a picture--whatever you want!
-
-%s, if you want to delete your request, you can do so at passesforlatemeal.com/myrequests. In the meantime, enjoy your passes and late meal!
-
-Love,
-passesforlatemeal
-""" % (netid, club, listing_netid, club, listing_netid)
-
-		params = {
-		    "key": "CP0ZcMEThOjYt4UwbVkE1w",
-		    "message": {
-		        "text": body,
-		        "subject": "here's a match--testing out mandrill",
-		        "from_email": "match@passesforlatemeal.com",
-		        "from_name": "PFLM Match",
-		        "to": [
-		            {
-		                "email": netid + '@princeton.edu',
-		                "type": "to"
-		            },
-		            {
-		                "email": listing_netid + '@princeton.edu',
-		                "type": "to"
-		            },
-		        ],
-
-		        "important": False,
-		        "track_opens": True,
-		        "track_clicks": True,
-		        "auto_text": False,
-		        "auto_html": False,
-		        "inline_css": False,
-		        "url_strip_qs": False,
-		        "preserve_recipients": True,
-		        "view_content_link": False,
-		        "bcc_address": "message.bcc_address@example.com",
-		        "tracking_domain": False,
-		        "signing_domain": False,
-		        "return_path_domain": False,
-		        "merge": True,
-		    },
-		    "async": False,
-		    "ip_pool": "Main Pool",
-		}
-
-		data = json.dumps(params)
-		r = requests.post(MANDRILL_URL, data)
-
-
-
-		template = JINJA_ENVIRONMENT.get_template('Templates/contacted.html')
-		self.response.write(template.render())
+			urlfetch.fetch(url=MANDRILL_URL, payload=json.dumps(params), 
+				method=urlfetch.POST, headers={"Content-Type": "application/x-www-form-urlencoded"})
+			template = JINJA_ENVIRONMENT.get_template('Templates/contacted.html')
+			self.response.write(template.render())
 
 

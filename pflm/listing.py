@@ -140,6 +140,15 @@ def curtailListings(listings):
 	results.reverse()
 	return results
 
+def getResultsMessage(wantsFilter, hasFilter):
+	if wantsFilter=="cap" and hasFilter=="cap":
+		return "Cap passes for Cap passes? No one's that chill"
+	if wantsFilter=="latemeal" and hasFilter=="latemeal":
+		return "Yo dawg I heard you like Late Meal"
+	if wantsFilter=="tower" and hasFilter=="tower":
+		return "This might not be the right tool for that"
+	return ""
+
 class Passes(webapp2.RequestHandler):
 
 	def get(self):
@@ -165,7 +174,7 @@ class Passes(webapp2.RequestHandler):
 			wantsFilter = wants
 			wantsText = filterNames[wants]
 		hasFilter = ''
-		hasText = 'anything else'
+		hasText = 'anything'
 		has = self.request.get('has')
 		if has in clubNames or has == "latemeal":
 			hasFilter = has
@@ -202,9 +211,10 @@ class Passes(webapp2.RequestHandler):
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
+		resultsMessage = getResultsMessage(wantsFilter, hasFilter)
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'resultsFound': resultsFound}
+		'wantsText': wantsText, 'hasText': hasText, 'resultsMessage': resultsMessage}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
