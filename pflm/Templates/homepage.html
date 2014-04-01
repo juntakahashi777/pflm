@@ -17,6 +17,11 @@
     <!-- Custom styles for this template -->
     <link href="http://getbootstrap.com/examples/cover/cover.css" rel="stylesheet">
 
+<!-- Custom homepage css
+ -->
+    <link href="./bootstrap/homepage.css" rel="stylesheet">
+
+
     <!-- Just for debugging purposes. Don't actually copy this line! -->
     <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
 
@@ -25,20 +30,10 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-  <style id="holderjs-style" type="text/css">
-
-  body { 
-    background: url('/images/bg_blur.JPG') no-repeat center center fixed; 
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-  }
-
-</style></head>
+  <!-- Font -->
+  <link href='http://fonts.googleapis.com/css?family=Signika' rel='stylesheet' type='text/css'>
 
   <body>
-
 
 
     <div class="site-wrapper">
@@ -51,14 +46,15 @@
             <h1 class="cover-heading">I'm looking for</h1>
             <p class="lead">
 
-              <a href="/passes" class="btn btn-default btn-lg">Passes</a>
-              <a href="/latemeal" class="btn btn-lg btn-default">Late Meal</a>
+              <a href="/passes" class="btn btn-special btn-default btn-lg">Passes</a>
+              <a href="/latemeal" class="btn btn-special btn-lg btn-default">Late Meal</a>
             </p>
           </div>
 
           <div class="mastfoot">
             <div class="inner">
-              <p><a href="/about">About</a> | <a href="mailto:hello@passesforlatemeal.com">Contact</a></p>
+              <p><a href="/about">About</a> | <a onclick=
+                "bootbox.alert({message:'Send us an email at: p4lm@passesforlatemeal.com'});">Contact</a></p>
             </div>
           </div>
 
@@ -78,7 +74,17 @@
     <script src="bootstrap/bootbox.min.js"></script>
 
 
+<script>
 
+$(document).ready(function() {
+
+$('body').css('display', 'none');
+
+$('body').fadeIn(1000);
+
+});
+
+</script>
 
 </body>
 

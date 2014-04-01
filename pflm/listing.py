@@ -11,11 +11,10 @@ import random
 
 MAX_LISTINGS = 5
 
-clubs = ["cannon", "cap", "cottage","ivy", "ti", "tower"]
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
-selections = ["Passes and Latemeal", "Passes", "Latemeal"]
-clubFilters = ["All Clubs", "Cap", "Cannon", "Cottage", "Ivy", "TI", "Tower"]
+filterNames = {"cannon": "Cannon", "cap": "Cap", 
+"cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower","latemeal": "Late Meal"}
 
 # 20 character max
 pass_seeker_nicknames = [
@@ -42,6 +41,7 @@ pass_seeker_nicknames = [
 "PasstramiSandwich",
 "PassTense",
 "pASSpASSpASS",
+"Passablanca",
 ]
 
 # 20 character max
@@ -58,7 +58,6 @@ lm_seeker_nicknames = [
 "EyesOnTheFries",
 "PassDaddy",
 "StressedOutSenior",
-
 "LouisPassteur",
 "JustPassingThrough",
 "PassauSt",
@@ -123,9 +122,23 @@ class Listing(ndb.Model):
 	netid = ndb.StringProperty(required=True)
 	nickname = ndb.StringProperty(required=True)
 	wantsPasses = ndb.BooleanProperty(required=True)
-	club = ndb.StringProperty(choices=clubs, required=True)
+	club = ndb.StringProperty(choices=clubNames.keys(), required=True)
 	details = ndb.StringProperty(indexed=False, default="")
 	canceled = ndb.BooleanProperty(default=False)
+
+''' Returns three most recent results and 7 random other ones '''
+def curtailListings(listings):
+	RECENT_COUNT = 3
+	RANDOM_COUNT = 7
+	results = []
+	i = 0
+	for listing in listings:
+		results.append(listing)
+	results = results[:RECENT_COUNT]+random.sample(results[RECENT_COUNT:], 
+		min(len(results[RECENT_COUNT:]), RANDOM_COUNT))
+	results.sort(key=lambda l: l.date)
+	results.reverse()
+	return results
 
 class Passes(webapp2.RequestHandler):
 
@@ -134,8 +147,6 @@ class Passes(webapp2.RequestHandler):
 		if type(netid) != type(u""):
 			return
 		canPost = False
-		listings_query = Listing.query(Listing.canceled==False,
-			ancestor=listing_key("pflm")).order(-Listing.date)
 
 		MAX_LISTINGS = 6
 		userListings = Listing.query(Listing.netid == netid, 
@@ -146,62 +157,123 @@ class Passes(webapp2.RequestHandler):
 		if numListings < MAX_LISTINGS:
 			canPost = True
 
+		listings = []
+		wantsFilter = ''
+		wantsText = 'anything'
+		wants = self.request.get('wants')
+		if wants in clubNames or wants == "latemeal":
+			wantsFilter = wants
+			wantsText = filterNames[wants]
+		hasFilter = ''
+		hasText = 'anything else'
+		has = self.request.get('has')
+		if has in clubNames or has == "latemeal":
+			hasFilter = has
+			hasText = filterNames[has]
+
+		if wantsFilter in clubNames and hasFilter not in clubNames:
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter not in clubNames and hasFilter in clubNames:
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False, Listing.club==hasFilter,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter == "latemeal" and hasFilter != "latemeal":
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter != "latemeal" and hasFilter == "latemeal":
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter == "" and hasFilter == "":
+			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
 		prettyDates = []
-		listings = listings_query.fetch(10)
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
 
+		resultsFound = True
+		if len(prettyDates) == 0:
+			resultsFound = False
 		#generate nickname
 		random_number = random.randint(1,99)
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
-		selectionName = 'Passes and Latemeal'
-		selection = self.request.get('selection')
-		if selection in selections:
-			selectionName = selection
-
-		filterName = 'All Clubs'
-		clubFilter = self.request.get('clubFilter')
-		if clubFilter in clubFilters:
-			filterName = clubFilter
-
 		template_values = {'listings': listings, 'netid': netid, 
-		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'selection': selectionName, 'clubFilter': filterName}
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
+		'wantsText': wantsText, 'hasText': hasText, 'resultsFound': resultsFound}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passes.html")
 		self.response.write(template.render(template_values))
+
 
 class LateMeal(webapp2.RequestHandler):
 
 	def get(self):
 		netid = CAS.CAS(self)
+		if type(netid) != type(u""):
+			return
+		canPost = False
 
-		listings_query = Listing.query(Listing.canceled==False,
-			ancestor=listing_key("pflm")).order(-Listing.date)
+		MAX_LISTINGS = 6
+		userListings = Listing.query(Listing.netid == netid, 
+			Listing.canceled==False)
+		numListings = 0
+		for userListing in userListings:
+			numListings+=1
+		if numListings < MAX_LISTINGS:
+			canPost = True
 
+		listings = []
+		wantsFilter = ''
+		wantsText = 'anything'
+		wants = self.request.get('wants')
+		if wants in clubNames or wants == "latemeal":
+			wantsFilter = wants
+			wantsText = filterNames[wants]
+		hasFilter = ''
+		hasText = 'anything else'
+		has = self.request.get('has')
+		if has in clubNames or has == "latemeal":
+			hasFilter = has
+			hasText = filterNames[has]
+
+		if wantsFilter in clubNames and hasFilter not in clubNames:
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter not in clubNames and hasFilter in clubNames:
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False, Listing.club==hasFilter,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter == "latemeal" and hasFilter != "latemeal":
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==False,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter != "latemeal" and hasFilter == "latemeal":
+			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True,
+				ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
+		elif wantsFilter == "" and hasFilter == "":
+			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
+			listings = curtailListings(listings_query)
 		prettyDates = []
-		listings = listings_query.fetch(10)
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
 		listings = zip(listings, prettyDates)
+		resultsFound = True
+		if len(prettyDates) == 0:
+			resultsFound = False
+		#generate nickname
+		random_number = random.randint(1,99)
+		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
-		clubName = 'select club'
-		club = self.request.get('club')
-		if club in clubNames:
-			clubName = clubNames[club]
-
-		selectionName = 'Passes and Latemeal'
-		selection = self.request.get('selection')
-		if selection in selections:
-			selectionName = selection
-
-		filterName = 'All Clubs'
-		clubFilter = self.request.get('clubFilter')
-		if clubFilter in clubFilters:
-			filterName = clubFilter
-
-		template_values = {'listings': listings, 'club': clubName, 'netid': netid, 'clubs': clubNames, 'selection': selectionName, 'clubFilter':filterName}
+		template_values = {'listings': listings, 'netid': netid, 
+		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
+		'wantsText': wantsText, 'hasText': hasText, 'resultsFound': resultsFound}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/latemeal.html")
 		self.response.write(template.render(template_values))
@@ -219,6 +291,6 @@ class MyRequests(webapp2.RequestHandler):
 			prettyDates.append(prettyDate(utcListing.date))
 		myRequests = zip(myRequests, prettyDates)
 
-		template_values = {'listings': myRequests, 'netid': netid}
+		template_values = {'listings': myRequests, 'netid': netid, 'clubs': clubNames, }
 		template = JINJA_ENVIRONMENT.get_template("Templates/myrequests.html")
 		self.response.write(template.render(template_values))

@@ -1,7 +1,7 @@
 import sys, os, cgi, md5, urllib, time, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 
-admins = [u'usikder',u'madhavan',u'jtakahas']
+admins = [u'usikder',u'madhavan',u'jtakahas',u'pmisra',u'saha',u'cmoretti',u'aw10',u'cdubov']
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
 
 class CASClient:
@@ -63,6 +63,7 @@ def CAS(handler):
         sys.exit()
       newhash = makehash(timestr+":"+netid)
       if oldhash!=newhash:
+        handler.response.set_cookie(cookieKey, "", max_age=0)
         C.authenticate()
     else:
         if handler.request.get('ticket') != "":
@@ -78,7 +79,7 @@ def CAS(handler):
               timestr = str(int(time.time()))
               cookieHash = makehash(timestr+ ":" + netid)
               cookieVal = cookieHash + timestr + ":" + netid
-              handler.response.set_cookie(cookieKey,cookieVal,max_age=10)
+              handler.response.set_cookie(cookieKey,cookieVal,max_age=3600*8)
               return handler.redirect(url)
             else:
               C.Authenticate(handler)
