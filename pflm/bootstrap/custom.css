@@ -18,7 +18,7 @@ body {
 
 
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
-    background-color: #555;
+    background-color: #777;
     color: white !important;
     -o-transition: all 0.2s ease-in-out;
     -webkit-transition: all 0.2s ease-in-out;
@@ -28,7 +28,7 @@ body {
 }
 .makerequest {
     background-color: #FFD69B;
-    border-bottom:1px #CCC solid;
+    border-bottom:1px #888 solid;
 
 }
 
@@ -44,9 +44,8 @@ body {
 }
 
 hr {
-    color: #2ba7ff ;
-    background-color: #2ba7ff ;
-    height: 1px;
+    color: #AAA ;
+    background-color: #AAA ;
 }
 
 .header {
