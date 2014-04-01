@@ -15,53 +15,53 @@ body {
 .table-hover>tbody>tr:hover>td, .table-hover>tbody>tr:hover>th {
     background-color: #555;
     color: white !important;
-  -o-transition: all 0.2s ease-in-out;
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out;
-  transition: all 0.2s ease-in-out;
+    -o-transition: all 0.2s ease-in-out;
+    -webkit-transition: all 0.2s ease-in-out;
+    -moz-transition: all 0.2s ease-in-out;
+    -ms-transition: all 0.2s ease-in-out;
+    transition: all 0.2s ease-in-out;
 }
-.myform {
-    background-color: #BBB;
+.makerequest {
+    background-color: #DDD;
 }
 
 .bootbox {
 }
 .modal-footer {
-        text-align: center;
+    text-align: center;
 
 }
 .modal-body {
-        text-align: center;
+    text-align: center;
 
 }
 
 hr {
-color: #2ba7ff ;
-background-color: #2ba7ff ;
-height: 1px;
- margin-left: -50%;
- margin-right: -50%;
+    color: #2ba7ff ;
+    background-color: #2ba7ff ;
+    height: 1px;
+    margin-left: -50%;
+    margin-right: -50%;
 }
 
 .header {
-font-weight:700;
+    font-weight:700;
 }
 
 th, td {
-max-width: 10%; 
-word-wrap:break-word;
+    max-width: 10%; 
+    word-wrap:break-word;
 }
 
 td img {
-   width: 40px;
-   height: auto;
-   vertical-align: middle;
+ width: 40px;
+ height: auto;
+ vertical-align: middle;
 }
 
 .vertAlign {
 
-       vertical-align: middle;
+ vertical-align: middle;
 
 }
 
@@ -93,15 +93,15 @@ td img {
  * URL: http://blacktie.co
  */
 
-body {
+ body {
   background-color: #f2f2f2;
-    font-family: 'Signika', sans-serif;
-    font-weight: 300;
-    font-size: 16px;
-    color: #555;
+  font-family: 'Signika', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  color: #555;
 
-    -webkit-font-smoothing: antialiased;
-    -webkit-overflow-scrolling: touch;
+  -webkit-font-smoothing: antialiased;
+  -webkit-overflow-scrolling: touch;
 }
 
 /* Titles */
@@ -144,7 +144,7 @@ p {
 
 .coloredblue {
 
-    color: #2ba7ff;
+    color: #4789cf;
 }
 
 /* Links */
@@ -175,7 +175,7 @@ a:after {
     transition: color 0.1s ease-in, background 0.1s ease-in;
 }
 
- hr {
+hr {
     display: block;
     height: 1px;
     border: 0;

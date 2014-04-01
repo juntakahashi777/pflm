@@ -52,6 +52,8 @@
 
     </head>
     <body>
+      <div class="makerequest">
+               <div class="container">
 
       <!-- Static navbar -->
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -83,9 +85,8 @@
 
      <br>
      <br>
-     <div class="container">
 
-      <div class="myform">
+      <div>
         <h1 class="header" style="text-align: center">MAKE A REQUEST</h1>
         {% if canPost %}
         <form action="/makelisting" method="post" class="navbar-form">
@@ -136,7 +137,10 @@
 
             </form>
           </div>
-          <hr>
+
+          </div>
+</div>
+               <div class="container">
           <div id="listings">
            <h1 class="header" style="text-align: center">CURRENT OFFERS</h1>
            <br>
