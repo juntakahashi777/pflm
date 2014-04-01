@@ -1,3 +1,8 @@
+/*gray-blue: EDF6FF
+tan: FFF8ED;
+gray: f2f2f2;
+blue: 2ba7ff;
+*/
 body {
     -webkit-animation-delay: 0.2s;
     -webkit-animation-name: fontfix;
@@ -22,7 +27,7 @@ body {
     transition: all 0.2s ease-in-out;
 }
 .makerequest {
-    background-color: #DDD;
+    background-color: #f2f2f2;
 }
 
 .bootbox {
@@ -40,8 +45,6 @@ hr {
     color: #2ba7ff ;
     background-color: #2ba7ff ;
     height: 1px;
-    margin-left: -50%;
-    margin-right: -50%;
 }
 
 .header {
@@ -94,7 +97,7 @@ td img {
  */
 
  body {
-  background-color: #f2f2f2;
+  background-color: #FFF8ED;
   font-family: 'Signika', sans-serif;
   font-weight: 300;
   font-size: 16px;
