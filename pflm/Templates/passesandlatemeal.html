@@ -88,7 +88,7 @@
                <li class="active"><a href="/latemeal">Want Late Meal?</a></li>
                {% endif %}
                <li><a href="/myrequests">My Requests</a></li>
-               <li id="logout" onclick="logout()"><a href="https://fed.princeton.edu/cas/logout">Logout</a></li>
+               <li id="logout"><a href="\logout">Logout</a></li>
              </ul>
            </div><!--/.nav-collapse -->
          </div><!--/.container-fluid -->
@@ -138,11 +138,11 @@
 
 
 
-                    {% if isPassesPage %}
+                  {% if isPassesPage %}
                   <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
-  {% else %}
+                  {% else %}
                   <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I've got passes whenever you need it! I'd love late meal if you could deliver it to me in Cuyler :)"></textarea>
-  {% endif %}
+                  {% endif %}
                 </h3>
 
                 <br>
@@ -246,11 +246,11 @@
 
                 {% endfor %}
 
-         {% if resultsMessage == "tiYoutube" %}
-                  <iframe width="420" height="315" src="//www.youtube.com/embed/nQJACVmankY" frameborder="0" allowfullscreen></iframe>
-                  {% else %}
-                  <span class="coloredblue">{% print resultsMessage %}</span>
-                  {% endif %}
+                {% if resultsMessage == "tiYoutube" %}
+                <iframe width="420" height="315" src="//www.youtube.com/embed/nQJACVmankY" frameborder="0" allowfullscreen></iframe>
+                {% else %}
+                <span class="coloredblue">{% print resultsMessage %}</span>
+                {% endif %}
 
               </tbody>
             </table> 

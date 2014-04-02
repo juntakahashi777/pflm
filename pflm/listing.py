@@ -143,14 +143,16 @@ def curtailListings(listings):
 def getResultsMessage(wantsFilter, hasFilter):
 	if wantsFilter=="cap" and hasFilter=="cap":
 		return "Cap passes for Cap passes? No one's that chill"
-	if wantsFilter=="latemeal" and hasFilter=="latemeal":
+	elif wantsFilter=="latemeal" and hasFilter=="latemeal":
 		return "Yo dawg I heard you like Late Meal"
-	if wantsFilter=="tower" and hasFilter=="tower":
+	elif wantsFilter=="tower" and hasFilter=="tower":
 		return "This might not be the right tool for that"
-	if wantsFilter=="cannon" and hasFilter=="cannon":
+	elif wantsFilter=="cannon" and hasFilter=="cannon":
 		return "SportsCenter's on at 8 bro"
-	if wantsFilter=="ti" and hasFilter=="ti":
+	elif wantsFilter=="ti" and hasFilter=="ti":
 		return "tiYoutube"
+	elif wantsFilter in clubNames and hasFilter in clubNames:
+		return "Sorry, you can't currently trade passes for passes. Try a different search!"
 	return "No results found. Try a different search!"
 
 class Passes(webapp2.RequestHandler):

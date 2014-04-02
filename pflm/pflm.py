@@ -36,6 +36,12 @@ class AboutUs(webapp2.RequestHandler):
             'Templates/about.html')
         self.response.write(template.render())
 
+class LogOut(webapp2.RequestHandler):
+
+    def get(self):
+        self.response.set_cookie(CAS.cookieKey, "", max_age=1)
+        self.redirect("https://fed.princeton.edu/cas/logout")
+
 application = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/about', AboutUs),
@@ -47,4 +53,5 @@ application = webapp2.WSGIApplication([
     ('/makelisting', listingmanager.MakeListing),
     ('/deletelisting', listingmanager.DeleteListing),
     ('/deleteall', listingmanager.DeleteAll),
+    ('/logout', LogOut)
 ], debug=True)
