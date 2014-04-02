@@ -48,18 +48,18 @@ class Contact(webapp2.RequestHandler):
 			netid_name = getName(netid)
 			listing_name = getName(listing_netid)
 			if wantsPasses:
-				passWanter = netid_name
-				passHaver = listing_name
-			else:
 				passWanter = listing_name
 				passHaver = netid_name
+			else:
+				passWanter = netid_name
+				passHaver = listing_name
 
 			sender_address = "PFLM Match <match@passesforlatemeal.com>"
 			subject = "You made contact!"
 			body = """<p>Hi %s and %s!</p>
 				<p>We heard that %s wants to party at %s and %s wants to eat some late meal. You guys are in luck!</p>
 				<p>Get in touch, grab some late meal (or get it delivered) and have a blast at %s!</p>
-<p>Love,<br>The PassesForLateMeal Team</p><p><a href=www.passesforlatemeal.com><img align="left" src="http://www.passesforlatemeal.com/images/logo.png" height="30" width="auto"></a></p><br><br><p>---</p><p>%s, if you want to delete your request, you can do so at www.passesforlatemeal.com/myrequests.</p>""" % (listing_name, netid_name, passWanter, clubNames[club], passHaver, clubNames[club], passHaver)
+<p>Love,<br>The PassesForLateMeal Team</p><p><a href=www.passesforlatemeal.com><img align="left" src="http://www.passesforlatemeal.com/images/logo.png" height="30" width="auto"></a></p><br><br><p>---</p><p>%s, if you want to delete your request, you can do so at www.passesforlatemeal.com/myrequests.</p>""" % (listing_name, netid_name, passWanter, clubNames[club], passHaver, clubNames[club], listing_name)
 
 			params = {
 			"async": False,
