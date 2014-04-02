@@ -9,7 +9,7 @@
   <meta name="author" content="">
   <link rel="shortcut icon" href="images/favicon.ico">
 
-  {% if isPassesPage %}
+  {% if whichPage == 'passes' %}
   <title>Want Passes? - passesforlatemeal.com</title>
   {% else %}
   <title>Want Late Meal? - passesforlatemeal.com</title>
@@ -80,7 +80,7 @@
             </div>
             <div class="navbar-collapse collapse">
               <ul class="nav navbar-nav navbar-right">
-               {% if isPassesPage %}
+               {% if whichPage == 'passes' %}
                <li class="active"><a href="/passes">Want Passes?</a></li>
                <li><a href="/latemeal">Want Late Meal?</a></li>
                {% else %}
@@ -104,11 +104,11 @@
           {% else %}
           <form action="/myrequests" name = "stopPost" method="get" class="navbar-form">
             {% endif %}
-            <input type="hidden" name="wantsPasses" value="{{ isPassesPage }}">
+            <input type="hidden" name="wantsPasses" value="{{ whichPage == 'passes' }}">
             <input type="hidden" name="netid" value={{ netid }}>
             <input type="hidden" name="nickname" value={{ nickname }}>
             <div class="vertAlign">
-              {% if isPassesPage %}
+              {% if whichPage == 'passes' %}
               <h1>I want
                 {% else %}
                 <h1>I have
@@ -138,11 +138,11 @@
 
 
 
-                    {% if isPassesPage %}
+                  {% if whichPage == 'passes' %}
                   <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I want passes for Saturday April 5th! I can give you late meal any weekday night :)'"></textarea>
-  {% else %}
+                  {% else %}
                   <textarea name="details" maxlength="118" class="form-control" rows="3" cols="60" placeholder="e.g, 'I've got passes whenever you need it! I'd love late meal if you could deliver it to me in Cuyler :)"></textarea>
-  {% endif %}
+                  {% endif %}
                 </h3>
 
                 <br>
@@ -168,16 +168,16 @@
             {{ hasText }} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/passes?wants={{ wants }}">anything</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants }}">anything</a></li>
             <li class="divider"></li>
-            <li><a href="/passes?wants={{wants}}&has=latemeal">Late Meal</a></li>
+            <li><a href="/{{ whichPage }}?wants={{wants}}&has=latemeal">Late Meal</a></li>
             <li class="divider"></li>
-            <li><a href="/passes?wants={{ wants}}&has=cap">Cap</a></li>
-            <li><a href="/passes?wants={{ wants}}&has=cannon">Cannon</a></li>
-            <li><a href="/passes?wants={{ wants}}&has=cottage">Cottage</a></li>
-            <li><a href="/passes?wants={{ wants}}&has=ivy">Ivy</a></li>
-            <li><a href="/passes?wants={{ wants}}&has=ti">TI</a></li>
-            <li><a href="/passes?wants={{ wants}}&has=tower">Tower</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=cap">Cap</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=cannon">Cannon</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=cottage">Cottage</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=ivy">Ivy</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=ti">TI</a></li>
+            <li><a href="/{{ whichPage }}?wants={{ wants}}&has=tower">Tower</a></li>
           </ul>
         </div>
         and want
@@ -186,16 +186,16 @@
             {{ wantsText }} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="/passes?has={{ has }}">anything</a></li>
+            <li><a href="/{{ whichPage }}?has={{ has }}">anything</a></li>
             <li class="divider"></li>
-            <li><a href="/passes?wants=latemeal&has={{ has }}">Late Meal</a></li>
+            <li><a href="/{{ whichPage }}?wants=latemeal&has={{ has }}">Late Meal</a></li>
             <li class="divider"></li>
-            <li><a href="/passes?wants=cap&has={{ has }}">Cap</a></li>
-            <li><a href="/passes?wants=cannon&has={{ has }}">Cannon</a></li>
-            <li><a href="/passes?wants=cottage&has={{ has }}">Cottage</a></li>
-            <li><a href="/passes?wants=ivy&has={{ has }}">Ivy</a></li>
-            <li><a href="/passes?wants=ti&has={{ has }}">TI</a></li>
-            <li><a href="/passes?wants=tower&has={{ has }}">Tower</a></li>
+            <li><a href="/{{ whichPage }}?wants=cap&has={{ has }}">Cap</a></li>
+            <li><a href="/{{ whichPage }}?wants=cannon&has={{ has }}">Cannon</a></li>
+            <li><a href="/{{ whichPage }}?wants=cottage&has={{ has }}">Cottage</a></li>
+            <li><a href="/{{ whichPage }}?wants=ivy&has={{ has }}">Ivy</a></li>
+            <li><a href="/{{ whichPage }}?wants=ti&has={{ has }}">TI</a></li>
+            <li><a href="/{{ whichPage }}?wants=tower&has={{ has }}">Tower</a></li>
           </ul>
         </div>
 
@@ -246,11 +246,11 @@
 
                 {% endfor %}
 
-         {% if resultsMessage == "tiYoutube" %}
-                  <iframe width="420" height="315" src="//www.youtube.com/embed/nQJACVmankY" frameborder="0" allowfullscreen></iframe>
-                  {% else %}
-                  <span class="coloredblue">{% print resultsMessage %}</span>
-                  {% endif %}
+                         {% if resultsMessage == "tiYoutube" %}
+                                  <iframe width="420" height="315" src="//www.youtube.com/embed/nQJACVmankY" frameborder="0" allowfullscreen></iframe>
+                                  {% else %}
+                                  <span class="coloredblue">{% print resultsMessage %}</span>
+                                  {% endif %}
 
               </tbody>
             </table> 
