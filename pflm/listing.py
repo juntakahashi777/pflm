@@ -151,7 +151,7 @@ def getResultsMessage(wantsFilter, hasFilter):
 		return "Don't forget your pencil"
 	if wantsFilter=="cannon" and hasFilter=="cannon":
 		return "SportsCenter's on at 8 bro"
-	return ""
+	return "No results found. Try a different search!"
 
 class Passes(webapp2.RequestHandler):
 
