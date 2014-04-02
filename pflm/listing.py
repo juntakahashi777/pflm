@@ -76,7 +76,6 @@ lm_seeker_nicknames = [
 "PassionOfTheChrist",
 "Passcal",
 "CheesyDelight",
-""
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
