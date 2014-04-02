@@ -223,7 +223,7 @@ class Passes(webapp2.RequestHandler):
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
 		template_values = {'listings': listings, 'netid': netid, 'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'isPassesPage': True, 'resultsMessage': resultsMessage}
+		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'passes', 'resultsMessage': resultsMessage}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
@@ -297,7 +297,7 @@ class LateMeal(webapp2.RequestHandler):
 
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'isPassesPage': False, 'resultsMessage': resultsMessage}
+		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'latemeal', 'resultsMessage': resultsMessage}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
