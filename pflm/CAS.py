@@ -1,7 +1,6 @@
 import sys, os, cgi, md5, urllib, time, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 
-admins = [u'usikder',u'madhavan',u'jtakahas',u'pmisra',u'saha',u'cmoretti',u'aw10',u'cdubov',u'asaxena',u'kdhore']
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
 cookieKey = 'netid'
 
@@ -59,8 +58,6 @@ def CAS(handler):
       cookieVal=handler.request.cookies[cookieKey]
       oldhash=cookieVal[0:8]
       timestr, netid = split2(cookieVal[8:],":")
-      if netid not in admins:
-        sys.exit()
       newhash = makehash(timestr+":"+netid)
       if oldhash!=newhash:
         handler.response.set_cookie(cookieKey, "", max_age=0)
