@@ -3,6 +3,7 @@ form = cgi.FieldStorage()
 
 admins = [u'usikder',u'madhavan',u'jtakahas',u'pmisra',u'saha',u'cmoretti',u'aw10',u'cdubov',u'asaxena']
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
+cookieKey = 'netid'
 
 class CASClient:
    def __init__(self):
@@ -51,7 +52,6 @@ def makehash(str,secret=SECRET):
   return m.hexdigest()[0:8]
   
 def CAS(handler):
-    cookieKey = 'netid'
     print handler.request.url
     C = CASClient()
     netid=""
@@ -64,7 +64,7 @@ def CAS(handler):
       newhash = makehash(timestr+":"+netid)
       if oldhash!=newhash:
         handler.response.set_cookie(cookieKey, "", max_age=0)
-        C.authenticate()
+        C.Authenticate(handler)
     else:
         if handler.request.get('ticket') != "":
             netid = C.Validate(

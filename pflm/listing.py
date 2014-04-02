@@ -147,10 +147,10 @@ def getResultsMessage(wantsFilter, hasFilter):
 		return "Yo dawg I heard you like Late Meal"
 	if wantsFilter=="tower" and hasFilter=="tower":
 		return "This might not be the right tool for that"
-	if wantsFilter=="ivy" and hasFilter=="ivy":
-		return "Don't forget your pencil"
 	if wantsFilter=="cannon" and hasFilter=="cannon":
 		return "SportsCenter's on at 8 bro"
+	if wantsFilter=="ti" and hasFilter=="ti":
+		return "tiYoutube"
 	return "No results found. Try a different search!"
 
 class Passes(webapp2.RequestHandler):
@@ -184,6 +184,8 @@ class Passes(webapp2.RequestHandler):
 			hasFilter = has
 			hasText = filterNames[has]
 
+		#special results message
+		resultsMessage = ""
 		if wantsFilter in clubNames and hasFilter not in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
@@ -203,6 +205,9 @@ class Passes(webapp2.RequestHandler):
 		elif wantsFilter == "" and hasFilter == "":
 			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
 			listings = curtailListings(listings_query)
+		if len(listings) == 0:
+			resultsMessage = getResultsMessage(wantsFilter, hasFilter)
+
 		prettyDates = []
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
@@ -256,6 +261,8 @@ class LateMeal(webapp2.RequestHandler):
 			hasFilter = has
 			hasText = filterNames[has]
 
+		#special results message
+		resultsMessage = ""
 		if wantsFilter in clubNames and hasFilter not in clubNames:
 			listings_query = Listing.query(Listing.canceled==False, Listing.wantsPasses==True, Listing.club==wantsFilter,
 				ancestor=listing_key("pflm")).order(-Listing.date)
@@ -275,6 +282,9 @@ class LateMeal(webapp2.RequestHandler):
 		elif wantsFilter == "" and hasFilter == "":
 			listings_query = Listing.query(Listing.canceled==False, ancestor=listing_key("pflm")).order(-Listing.date)
 			listings = curtailListings(listings_query)
+		if len(listings) == 0:
+			resultsMessage = getResultsMessage(wantsFilter, hasFilter)
+
 		prettyDates = []
 		for utcListing in listings:
 			prettyDates.append(prettyDate(utcListing.date))
@@ -285,9 +295,6 @@ class LateMeal(webapp2.RequestHandler):
 		#generate nickname
 		random_number = random.randint(1,99)
 		nickname = random.choice(lm_seeker_nicknames) + str(random_number)
-
-		#special results message
-		resultsMessage = getResultsMessage(wantsFilter, hasFilter)
 
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
