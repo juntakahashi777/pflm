@@ -9,7 +9,7 @@ import est, datetime
 
 import random
 
-MAX_LISTINGS = 5
+MAX_LISTINGS = 6
 
 clubNames = {"cannon": "Cannon", "cap": "Cap", 
 "cottage": "Cottage","ivy": "Ivy", "ti": "TI", "tower": "Tower"}
@@ -42,6 +42,7 @@ pass_seeker_nicknames = [
 "PassTense",
 "pASSpASSpASS",
 "Passablanca",
+"PotentialRushee",
 ]
 
 # 20 character max
@@ -74,6 +75,8 @@ lm_seeker_nicknames = [
 "Sepasstion",
 "PassionOfTheChrist",
 "Passcal",
+"CheesyDelight",
+""
 ]
 
 JINJA_ENVIRONMENT = jinja2.Environment(
@@ -163,9 +166,8 @@ class Passes(webapp2.RequestHandler):
 			return
 		canPost = False
 
-		MAX_LISTINGS = 6
-		userListings = Listing.query(Listing.netid == netid, 
-			Listing.canceled==False)
+		userListings = Listing.query(Listing.netid == netid,
+			Listing.canceled==False, ancestor = listing_key("pflm"))
 		numListings = 0
 		for userListing in userListings:
 			numListings+=1
@@ -237,9 +239,8 @@ class LateMeal(webapp2.RequestHandler):
 			return
 		canPost = False
 
-		MAX_LISTINGS = 6
-		userListings = Listing.query(Listing.netid == netid, 
-			Listing.canceled==False)
+		userListings = Listing.query(Listing.netid == netid,
+			Listing.canceled==False, ancestor = listing_key("pflm"))
 		numListings = 0
 		for userListing in userListings:
 			numListings+=1
@@ -254,7 +255,7 @@ class LateMeal(webapp2.RequestHandler):
 			wantsFilter = wants
 			wantsText = filterNames[wants]
 		hasFilter = ''
-		hasText = 'anything else'
+		hasText = 'anything'
 		has = self.request.get('has')
 		if has in clubNames or has == "latemeal":
 			hasFilter = has
