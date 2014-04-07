@@ -18,6 +18,8 @@ JINJA_ENVIRONMENT = jinja2.Environment(
 
 def getName(netid):
 	netid.encode("ascii","ignore")
+	if netid == 'usikder':
+		return None
 	if netid in nameLookup.lookup:
 		return nameLookup.lookup[netid]
 	return None
