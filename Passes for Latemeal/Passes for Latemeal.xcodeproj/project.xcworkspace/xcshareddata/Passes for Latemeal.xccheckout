@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>09281D47-25C2-4C10-BDBC-8075CC6B5485</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Passes for Latemeal</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>09E936A8-94A2-4505-8490-593106A2CCBF</key>
+		<string>https://github.com/juntakahashi777/pflm</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Passes for Latemeal/Passes for Latemeal.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>09E936A8-94A2-4505-8490-593106A2CCBF</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/juntakahashi777/pflm</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>09E936A8-94A2-4505-8490-593106A2CCBF</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>09E936A8-94A2-4505-8490-593106A2CCBF</string>
+			<key>IDESourceControlWCCName</key>
+			<string>pflm</string>
+		</dict>
+	</array>
+</dict>
+</plist>
