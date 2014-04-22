@@ -1,9 +1,9 @@
 //
 //  AppDelegate.m
-//  Passes for Latemeal
+//  PassesForLatemeal
 //
-//  Created by jun on 4/12/14.
-//  Copyright (c) 2014 Passes For Latemeal. All rights reserved.
+//  Created by jun on 4/22/14.
+//  Copyright (c) 2014 PassesForLatemeal. All rights reserved.
 //
 
 #import "AppDelegate.h"

@@ -1,18 +1,18 @@
 //
-//  Passes_for_LatemealTests.m
-//  Passes for LatemealTests
+//  PassesForLatemealTests.m
+//  PassesForLatemealTests
 //
-//  Created by jun on 4/12/14.
-//  Copyright (c) 2014 Passes For Latemeal. All rights reserved.
+//  Created by jun on 4/22/14.
+//  Copyright (c) 2014 PassesForLatemeal. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
 
-@interface Passes_for_LatemealTests : XCTestCase
+@interface PassesForLatemealTests : XCTestCase
 
 @end
 
-@implementation Passes_for_LatemealTests
+@implementation PassesForLatemealTests
 
 - (void)setUp
 {

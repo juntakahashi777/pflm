@@ -4,7 +4,7 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>Passes for Latemeal.xcscheme</key>
+		<key>PassesForLatemeal.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
@@ -12,12 +12,12 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>BF0F40A318F9E5A900F4E7AF</key>
+		<key>BFEE0698190632F00024E7B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>BF0F40BE18F9E5A900F4E7AF</key>
+		<key>BFEE06B3190632F10024E7B5</key>
 		<dict>
 			<key>primary</key>
 			<true/>

@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BF0F40A318F9E5A900F4E7AF"
-               BuildableName = "Passes for Latemeal.app"
-               BlueprintName = "Passes for Latemeal"
-               ReferencedContainer = "container:Passes for Latemeal.xcodeproj">
+               BlueprintIdentifier = "BFEE0698190632F00024E7B5"
+               BuildableName = "PassesForLatemeal.app"
+               BlueprintName = "PassesForLatemeal"
+               ReferencedContainer = "container:PassesForLatemeal.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -32,20 +32,20 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BF0F40BE18F9E5A900F4E7AF"
-               BuildableName = "Passes for LatemealTests.xctest"
-               BlueprintName = "Passes for LatemealTests"
-               ReferencedContainer = "container:Passes for Latemeal.xcodeproj">
+               BlueprintIdentifier = "BFEE06B3190632F10024E7B5"
+               BuildableName = "PassesForLatemealTests.xctest"
+               BlueprintName = "PassesForLatemealTests"
+               ReferencedContainer = "container:PassesForLatemeal.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BF0F40A318F9E5A900F4E7AF"
-            BuildableName = "Passes for Latemeal.app"
-            BlueprintName = "Passes for Latemeal"
-            ReferencedContainer = "container:Passes for Latemeal.xcodeproj">
+            BlueprintIdentifier = "BFEE0698190632F00024E7B5"
+            BuildableName = "PassesForLatemeal.app"
+            BlueprintName = "PassesForLatemeal"
+            ReferencedContainer = "container:PassesForLatemeal.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </TestAction>
@@ -61,10 +61,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BF0F40A318F9E5A900F4E7AF"
-            BuildableName = "Passes for Latemeal.app"
-            BlueprintName = "Passes for Latemeal"
-            ReferencedContainer = "container:Passes for Latemeal.xcodeproj">
+            BlueprintIdentifier = "BFEE0698190632F00024E7B5"
+            BuildableName = "PassesForLatemeal.app"
+            BlueprintName = "PassesForLatemeal"
+            ReferencedContainer = "container:PassesForLatemeal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,10 +79,10 @@
       <BuildableProductRunnable>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BF0F40A318F9E5A900F4E7AF"
-            BuildableName = "Passes for Latemeal.app"
-            BlueprintName = "Passes for Latemeal"
-            ReferencedContainer = "container:Passes for Latemeal.xcodeproj">
+            BlueprintIdentifier = "BFEE0698190632F00024E7B5"
+            BuildableName = "PassesForLatemeal.app"
+            BlueprintName = "PassesForLatemeal"
+            ReferencedContainer = "container:PassesForLatemeal.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
