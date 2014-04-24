@@ -1,4 +1,5 @@
 import sys, os, cgi, md5, urllib, time, re, wsgiref, urlparse
+from google.appengine.api import urlfetch
 form = cgi.FieldStorage()
 
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
@@ -19,10 +20,8 @@ class CASClient:
       sys.exit(0)
 
    def Validate(self, ticket):
-      val_url = self.cas_url + "validate" + \
-         '?service=' + urllib.quote(self.ServiceURL()) + \
-         '&ticket=' + urllib.quote(ticket)
-      r = urllib.urlopen(val_url).readlines()   # returns 2 lines
+      val_url = "https://fed.princeton.edu/"
+      r = urlfetch.fetch(val_url).content.split()   # returns 2 lines
       if len(r) == 2 and re.match("yes", r[0]) != None:
         return r[1].strip().encode('ascii','replace')
       return None
@@ -90,4 +89,3 @@ def main():
   print "CASClient does not run standalone"
 if __name__ == '__main__':
   main()
-
