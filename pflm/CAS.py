@@ -2,6 +2,7 @@ import sys, os, cgi, md5, urllib, time, re, wsgiref, urlparse
 form = cgi.FieldStorage()
 
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
+static_url = 'http://ec2-env-zuyidwxuyw.elasticbeanstalk.com'
 cookieKey = 'netid'
 
 class CASClient:
@@ -22,10 +23,21 @@ class CASClient:
       val_url = self.cas_url + "validate" + \
          '?service=' + urllib.quote(self.ServiceURL()) + \
          '&ticket=' + urllib.quote(ticket)
-      r = urllib.urlopen(val_url).readlines()   # returns 2 lines
-      if len(r) == 2 and re.match("yes", r[0]) != None:
-        return r[1].strip().encode('ascii','replace')
-      return None
+      print val_url
+      params = {'ticket': urllib.quote(ticket), 'service': urllib.quote(self.ServiceURL())}
+      amazon_url = static_url + '?' + urllib.urlencode(params)
+      print amazon_url
+      page = urllib.urlopen(amazon_url)
+      try:
+        verified = page.readline().strip()
+        if verified == 'yes':
+          netid = page.readline().strip()[0]
+          print netid
+          return netid
+        else:
+          return None
+      finally:
+        page.close()
 
    def ServiceURL(self):
       if os.environ.has_key('REQUEST_URI') is not None:
