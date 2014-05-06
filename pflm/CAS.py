@@ -3,6 +3,7 @@ form = cgi.FieldStorage()
 
 SECRET = "5g34gan3z3hvj3ixnvij3nvlsioc82009bs3sjl3jvo49hw3vnutsniharjun"
 static_url = 'http://ec2-env-zuyidwxuyw.elasticbeanstalk.com'
+local = 'http://localhost:5000'
 cookieKey = 'netid'
 
 class CASClient:
@@ -23,15 +24,16 @@ class CASClient:
       val_url = self.cas_url + "validate" + \
          '?service=' + urllib.quote(self.ServiceURL()) + \
          '&ticket=' + urllib.quote(ticket)
-      print val_url
+      print 'val_url is: ' + val_url
       params = {'ticket': urllib.quote(ticket), 'service': urllib.quote(self.ServiceURL())}
       amazon_url = static_url + '?' + urllib.urlencode(params)
-      print amazon_url
+      #amazon_url = local + '?' + urllib.urlencode(params)
+      print 'amazon url: ' + amazon_url
       page = urllib.urlopen(amazon_url)
       try:
         verified = page.readline().strip()
         if verified == 'yes':
-          netid = page.readline().strip()[0]
+          netid = page.readline().strip()
           print netid
           return netid
         else:
