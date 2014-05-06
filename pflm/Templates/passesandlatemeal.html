@@ -162,6 +162,12 @@
       <div class="container">
         <div id="listings">
          <h1 class="header" style="text-align: center">CURRENT OFFERS</h1>
+
+          {% if justRequested == 'latemeal' or justRequested == 'cap' or justRequested == 'cottage' or  justRequested == 'ti' %}
+          <h1>yoyotest {{justRequested}}</h1>
+          {% endif %}
+
+
          <br>
          Show me requests that have
          <div class="btn-group">

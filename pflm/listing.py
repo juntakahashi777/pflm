@@ -173,6 +173,14 @@ class Passes(webapp2.RequestHandler):
 		if numListings < MAX_LISTINGS:
 			canPost = True
 
+		# requested = self.request.get('requested')
+		# if requested in clubNames or requested == "latemeal":
+		# 	print "here"
+		# 	justRequested = True
+		# else:
+		# 	print "herehere"
+		# 	justRequested = False
+
 		listings = []
 		wantsFilter = ''
 		wantsText = 'anything'
@@ -224,7 +232,7 @@ class Passes(webapp2.RequestHandler):
 		nickname = random.choice(pass_seeker_nicknames) + str(random_number)
 
 		template_values = {'listings': listings, 'netid': netid, 'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'passes', 'resultsMessage': resultsMessage}
+		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'passes', 'resultsMessage': resultsMessage, 'justRequested':self.request.get('requested')}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
