@@ -163,8 +163,11 @@
         <div id="listings">
          <h1 class="header" style="text-align: center">CURRENT OFFERS</h1>
 
-          {% if justRequested == 'latemeal' or justRequested == 'cap' or justRequested == 'cottage' or  justRequested == 'ti' %}
-          <h1>yoyotest {{justRequested}}</h1>
+          {% if justRequested == 'cap' or justRequested == 'cottage' or  justRequested == 'ti' %}
+          <h3 class="coloredblue">Thanks for requesting {{clubs[justRequested]}} passes! Try filtering below to find other people who have {{clubs[justRequested]}} passes!</h3>
+          {% endif %}
+          {% if justRequested == 'latemeal'%}
+          <h3 class="coloredblue">Thanks for requesting late meal! Try filtering the results below below to find other people who have late meal!</h3>
           {% endif %}
 
 

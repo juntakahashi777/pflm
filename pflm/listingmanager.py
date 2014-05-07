@@ -27,7 +27,7 @@ class MakeListing(webapp2.RequestHandler):
 				club=club.lower(), details=details, nickname=nickname)
 			newListing.put()
 		if wantsPasses:
-			self.redirect("/passes?wants=&has=%s&requested=%s" % (club, club))
+			self.redirect("/passes?requested=%s" % club)
 		else:
 			self.redirect("/latemeal?requested=latemeal")
 

@@ -305,7 +305,8 @@ class LateMeal(webapp2.RequestHandler):
 
 		template_values = {'listings': listings, 'netid': netid, 
 		'clubs': clubNames, 'nickname': nickname, 'canPost': canPost, 'wants': wantsFilter, 'has': hasFilter,
-		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'latemeal', 'resultsMessage': resultsMessage}
+		'wantsText': wantsText, 'hasText': hasText, 'whichPage': 'latemeal', 'resultsMessage': resultsMessage,
+		'justRequested':self.request.get('requested')}
 
 		template = JINJA_ENVIRONMENT.get_template("Templates/passesandlatemeal.html")
 		self.response.write(template.render(template_values))
