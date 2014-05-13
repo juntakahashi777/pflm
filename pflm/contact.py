@@ -20,7 +20,7 @@ def getName(netid):
 	netid.encode("ascii","ignore")
 	if netid in nameLookup.lookup:
 		return nameLookup.lookup[netid]
-	return None
+	return netid
 
 class Contact(webapp2.RequestHandler):
 
@@ -47,8 +47,7 @@ class Contact(webapp2.RequestHandler):
 			#names
 			netid_name = getName(netid)
 			listing_name = getName(listing_netid)
-			if netid_name is None or listing_name is None:
-				return
+
 			if wantsPasses:
 				passWanter = listing_name
 				passHaver = netid_name
