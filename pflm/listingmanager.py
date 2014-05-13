@@ -8,8 +8,7 @@ class MakeListing(webapp2.RequestHandler):
 
 	def post(self):
 		netid = self.request.get("netid")
-		if contact.getName(netid) is None:
-			return
+
 		wantsPasses = self.request.get("wantsPasses")
 		if wantsPasses == "True":
 			wantsPasses = True
