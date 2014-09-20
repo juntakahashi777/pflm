@@ -69,36 +69,36 @@ def makehash(str,secret=SECRET):
 def CAS(handler):
     print handler.request.url
     C = CASClient()
-    netid=""
-    if cookieKey in handler.request.cookies:
-      cookieVal=handler.request.cookies[cookieKey]
-      oldhash=cookieVal[0:8]
-      timestr, netid = split2(cookieVal[8:],":")
-      newhash = makehash(timestr+":"+netid)
-      if oldhash!=newhash:
-        handler.response.set_cookie(cookieKey, "", max_age=0)
-        C.Authenticate(handler)
-    else:
-        if handler.request.get('ticket') != "":
-            netid = C.Validate(
-                handler.request.get('ticket'))
-            url=handler.request.url
-            u=urlparse.urlparse(url)
-            qs = cgi.parse_qs(u.query)
-            del(qs['ticket'])
-            u = u._replace(query=urllib.urlencode(qs, True))
-            url = urlparse.urlunparse(u)
-            if netid != None:
-              timestr = str(int(time.time()))
-              cookieHash = makehash(timestr+ ":" + netid)
-              cookieVal = cookieHash + timestr + ":" + netid
-              handler.response.set_cookie(cookieKey,cookieVal,max_age=3600*24*14)
-              return handler.redirect(url)
-            else:
-              C.Authenticate(handler)
-        else:
-          print "authentication time"
-          C.Authenticate(handler)
+    netid=u"Guest"
+    # if cookieKey in handler.request.cookies:
+    #   cookieVal=handler.request.cookies[cookieKey]
+    #   oldhash=cookieVal[0:8]
+    #   timestr, netid = split2(cookieVal[8:],":")
+    #   newhash = makehash(timestr+":"+netid)
+    #   if oldhash!=newhash:
+    #     handler.response.set_cookie(cookieKey, "", max_age=0)
+    #     C.Authenticate(handler)
+    # else:
+    #     if handler.request.get('ticket') != "":
+    #         netid = C.Validate(
+    #             handler.request.get('ticket'))
+    #         url=handler.request.url
+    #         u=urlparse.urlparse(url)
+    #         qs = cgi.parse_qs(u.query)
+    #         del(qs['ticket'])
+    #         u = u._replace(query=urllib.urlencode(qs, True))
+    #         url = urlparse.urlunparse(u)
+    #         if netid != None:
+    #           timestr = str(int(time.time()))
+    #           cookieHash = makehash(timestr+ ":" + netid)
+    #           cookieVal = cookieHash + timestr + ":" + netid
+    #           handler.response.set_cookie(cookieKey,cookieVal,max_age=3600*24*14)
+    #           return handler.redirect(url)
+    #         else:
+    #           C.Authenticate(handler)
+    #     else:
+    #       print "authentication time"
+    #       C.Authenticate(handler)
     return netid
 
     
