@@ -1,10 +1,10 @@
 PFLM
 ====
 
-cos333 project
+passesforlatemeal.com
 
-hi
+Originally created for Advanced Programming Techniques (COS 333 at Princeton University).
 
 Jun Takahashi
-Niaar Madhavan
+Nihar Madhavan
 Utsarga Sikder
