@@ -4,7 +4,7 @@ This is a site we made for the Princeton University community that let students 
 
 Our live URL, [passesforlatemeal.com](http://passesforlatemeal.com), no longer links to the actual site. For demonstration purposes, the original site can be found at [relic.passesforlatemeal.appspot.com](http://relic.passesforlatemeal.appspot.com). 
 
-More details about the story of our site can be find here - http://dailyprincetonian.com/news/2014/04/passes-for-late-meal-website-questioned-by-princeton-administration/.
+More details about the story of our site can be found here - http://dailyprincetonian.com/news/2014/04/passes-for-late-meal-website-questioned-by-princeton-administration/.
 
 
 Originally created for Advanced Programming Techniques (COS 333 at Princeton University).
