@@ -1,5 +1,5 @@
 application: passesforlatemeal
-version: cos333
+version: relic
 runtime: python27
 api_version: 1
 threadsafe: true
