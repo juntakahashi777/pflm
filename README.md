@@ -7,6 +7,6 @@ Our live URL, http://passesforlatemeal.com, no longer links to the actual site. 
 
 Originally created for Advanced Programming Techniques (COS 333 at Princeton University).
 
-Jun Takahashi
-Nihar Madhavan
+Jun Takahashi,
+Nihar Madhavan,
 Utsarga Sikder
